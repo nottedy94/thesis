@@ -1,0 +1,431 @@
+---
+title: 'GAE10: The Final One'
+author: "J. Hillert"
+date: "4/20/2022"
+output:
+  bookdown::html_document2:
+    toc: TRUE
+    self_contained: yes
+    number_sections: no
+    code_download: TRUE
+    
+bibliography:
+- GAE10.bib
+- R-GAE10.bib
+- GAE6.bib
+
+csl: ecology.csl
+---
+
+
+```{r setup, include=FALSE}
+#| echo = FALSE,
+#| message = FALSE
+
+knitr::opts_chunk$set(echo = FALSE)
+
+library(broom)
+library(car)
+library(DescTools)
+library(emmeans)
+library(factoextra)
+library(FactoMineR)
+library(ggfortify)
+library(ggplot2)
+library(ggrepel)
+library(gtsummary)
+library(kableExtra)
+library(MASS)
+library(tidyverse)
+library(vegan)
+
+papaja::r_refs(file = "lastone.bib")
+
+options(knitr.kable.NA = "")
+
+set.seed(42)
+
+```
+
+
+# Scenario 1: Turkey, Traffic, and Toxoplasmosis
+
+
+In Turkey, traffic accidents are major causes of mortality and morbidity. According to the statistics reported by Turkish Security Headquarters for the year 2000, 7500 people were killed in traffic accidents. Drivers were mostly blamed for the traffic accidents. Tired, weary, sleepy and absentminded driving were common reasons for traffic accidents. Among these reasons mental and reflex conditions of drivers are significant.
+
+Toxoplasmosis is one of the most common zoonoses throughout the world. In most cases, toxoplasmosis has no clinical signs or symptoms and infection may only be detected by serological examinations. This kind of latent or dormant toxoplasmosis can be located in neural or muscular tissues and cause prolonged reaction times of the muscles. Extended reaction times also lead to deceleration of the reflexes which could be a major cause of traffic accidents. In light of this possibility, @Yereli.etal2006 investigated the incidence of *Toxoplasma gondii* (Figure \@ref(fig:lifeCycle), [see this CDC link for more toxoplasmosis information](https://www.cdc.gov/parasites/toxoplasmosis/)) among a group of drivers who were involved in traffic accidents.
+
+
+```{r lifeCycle}
+#| fig.cap = "*Toxoplasma gondii* life cycle. Image provided by the Centers for
+#|    Disease Control and Prevention, Division of Parasitic Diseases and 
+#|    Malaria.",
+#| out.width = "50%",
+#| fig.align = "center"
+
+knitr::include_graphics("toxoplasma.gif")
+```
+
+
+## Methods
+
+
+A total of 185 drivers (100 men and 85 women) that had been involved in auto accidents, aged between 21 and 40 years, living in Izmir and Manisa, and 185 people (95 men and 90 women), residents of the same region, in same age group that had not been involved in accidents were tested for infection using commercial IgG and IgM ELISA kits. Our goal was to examine whether there was a connection between being infected and being involved in an auto accident.
+
+
+### Statistical Methods
+
+
+```{r toxoimport, include=FALSE}
+
+toxo<-read_csv("toxoplasmosis.csv",
+               show_col_types=TRUE)
+
+toxo2<-toxo|>
+  group_by(condition,accident)|>
+  mutate(count=1)
+
+```
+
+
+Data from @Yereli.etal2006 was imported and transformed into a contingency table displaying observed values using the xtab() function and functions from the kableExtra package from @R-kableExtra (Table \@ref(tab:toxocon)). The contingency table describes those who have and who have not been infected with *T. gondii* and whether or not they have been involved in an automobile accident. 
+
+Using the chisq.test() function we conducted a chi-square test of the observed values contingency table against an expected values contingency table that assumes a 50/50 likelihood of accident occurrence. The G-test, provided by the DescTools package from @R-DescTools, is a method to compare the expected values contingency table against the observed values contingency table. Resulting values from the G-test are visible in Table \@ref(tab:toxochi), which was created using functions from @R-kableExtra. 
+
+
+## Results
+
+
+The data from @Yereli.etal2006 showed an uneven distribution of accident occurence between those infected and those uninfected with *T. gondii* (Table \@ref(tab:toxocon)). The infected individuals had a higher accident occurrence than those that were uninfected, with more individuals having accidents in the former and not having an accident in the latter. 
+
+
+```{r toxocon, echo=FALSE}
+
+#using @R-kableExtra package
+contintab<-xtabs(count~condition+accident,
+                  data=toxo2)
+
+#using @R-kableExtra package
+kbl(contintab,
+    caption="Contingency table of occurrence of individuals infected or not infected with Toxoplasmosis and whether or not they were in an automobile accident.")|>
+  kable_classic(full=FALSE)
+
+#Observed values contingency table of whether or not those infected and those uninfected  with toxoplasmosis are likely to be in an auto accident
+
+```
+
+
+```{r expectoxo, include=FALSE}
+
+chi.out<-chisq.test(contintab)
+chi.out
+
+#using @R-kableExtra package
+kbl(chi.out$expected,
+    caption="Expected Values")|>
+  column_spec(3,width="30em")|>
+  kable_classic(full=FALSE)
+
+#Creating a expected values contingency table with equal likelihood of being in an accident or not
+
+```
+
+
+Using the G-test from the Desctools package shows a significant difference (p < 0.0001) between values in the observed versus expected contingency tables. The strength of this significance provides us enough evidence to reject the null hypothesis. Our results indicate an interaction between infection with *T gondii* and accident occurrence, meaning those infected show an increased likelihood of being in an accident (Table \@ref(tab:toxochi)). 
+
+
+```{r toxochi, echo=FALSE}
+
+#G-test
+gtest.out<-tidy(GTest(contintab))
+
+#transforms the p-value from .0000003489 into <0.0001
+gtest.out$p.value<-format.pval(gtest.out$p.value,
+                               eps=0.0001,
+                               digits=4,
+                               na.form=""
+                               )
+#using @R-kableExtra package
+kbl(gtest.out[,1:2],
+    caption=gtest.out[1,4],
+    col.names=c("$\\chi^2$",
+                "P-value"),
+    align="r",
+    digits=c(3,4)
+    )|>
+  column_spec(2,width="12em")|>
+  kable_classic(full=FALSE)
+
+#chi-sq compares the expected values contingency table against the measured values contingency table.
+#if sig. reject null hypothesis, there is an interaction
+#if non-sig. fail to reject null hypothesis
+
+#Here, we have sufficient evidence to reject the null hypothesis. Our results indicate there is an interaction between Toxoplasmosis infection and likelihood of being in an auto accident. 
+
+```
+
+
+# Scenario 2: Non-consumptive effects of predators on community and ecosystem metrics.
+
+Top-down effects of predators may produce large effects on prey assemblages and ecosystem function through direct removal of individual prey and nutrient release. Over the last few decades evidence that behavioral response to predation risk may also produce detectable effects in community dynamics and ecosystem function (= non-consumptive effects). @Marino.etal2016 conducted an experiment in tank bromeliads (Figure \@ref(fig:tanks)) to ask: 1) whether the mere presence of predators, in the absence of consumed prey, can affect food web structure and function; and, 2) if an additional source of predation cue (alarm cues from consumed prey) increases the responsiveness to predation risk.
+
+
+```{r tanks}
+#| fig.cap = "The tank bromeliad *Neoregelia cruenta*. (A) Detail of the central tank that hosts a miniature aquatic ecosystem created by the rain water accumulated between the bromeliad leaves (B). Photo from @Pires.etal2017.",
+#| out.width = "30%",
+#| fig.align = "center"
+
+knitr::include_graphics("tank.png")
+```
+
+
+## Methods
+
+
+The experiment used 15 bromeliads (*Neoregelia cruenta*) that they had collected from the field. The tanks were emptied and dried, all predators removed from the drained water, then the now predator-free water was replaced in the tanks. In these systems, the top predator is most often, the larval damselfly, *Leptagrion andromache*. To examine how the presence of the damselfly affected their prey assemblage, the researchers developed three treatments: bromeliads containing a cage with no damselflies present, a cage with an unfed damselfly, or a cage with a damselfly fed with mosquito larvae.
+
+The treatments were replicated 5 times and assigned to the bromeliads in a completely randomized design. They measured the community response as bacterial carbon biomass (g C/L), bacterial carbon production (μmole C/Lh), nitrogen flux from enriched detritus to bromeliad leaves (δ15N), CO~2~ flux from the reservoir to the atmosphere (g C/(m^2^d)), macroinvertebrate richness, macroinvertebrate abundance (number of individuals), and macroinvertebrate biomass (mg). Using multivariate tools we aimed to assess whether their treatments affected community dynamics or ecosystem function.
+
+
+### Statistical Methods
+
+
+```{r broimport, include=FALSE}
+
+bro<-read_csv('marino.csv',
+              show_col_types=TRUE)
+
+bro                                  #untransformed
+bro.com<-bro[,c(1:4,9:11)]           #community variables
+bro.eco<-bro[,c(1:8)]                #ecosystem variables
+
+#minus "Damselfly presence only"
+bro2<-bro[c(1:2,5,7:10,12,14:15),]     #transformed
+bro2.com<-bro2[,c(1:4,9:11)]           #community variables
+bro2.eco<-bro2[,c(1:8)]                #ecosystem variables
+
+#Explanatory variables;
+  #1 - Treatment: descriptive treatment names
+  #2 - Tanks: the number of tank compartments in the bromeliad
+  #3 - volume: the total volume of the micro-ecosystem provided by the
+    #bromeliad (mL)
+  #4 - mass: the size (g) of each bromeliad
+
+#Ecosystem variables;
+  #5 - bactbio: bacterial carbon biomass (g C/L)
+  #6 - bactprod: bacterial carbon production (μmole C/Lh)
+  #7 - nitroflux: nitrogen flux from enriched detritus to bromeliad leaves
+    #(δ15N)
+  #8 - co2flux: CO2 flux (g C/m^2^d)
+
+#Community variables;
+  #9 - richness: macroinvertebrate taxa richness
+  #10 - count: total number of macroinvertebrates
+  #11 - biomass: estimated total macroinvertebrate biomass (mg)
+
+```
+
+
+Data from @Marino.etal2016 was imported to the statistical software R Studio and treatment group and a linear regression model was created [@R-base]. We made total estimated macroinvertebrate biomass (mg) as a function of total volume of the ecosystem provided by the bromeliad (mL). Figure \@ref(fig:brotation), created using functions from the ggplot2 package [@R-ggplot2], was created following an assumption check using the autoplot() function from @R-ggfortify.
+
+PCA bi-plots were created for the community variables and for the ecosystem variables respectively. The community variables associated with our community model include; macroinvertebrate taxa richness, total number of macroinvertebrates, estimated total macroinvertebrate biomass (mg) against bromeliad explanatory variables; treatment, number of tanks providing a microecosystem, total volume of ecosystem provided by the microecosystem (mL), and size of each bromeliad measured in milligrams (Figure \@ref(fig:pcacom)). We then conducted a permutation analysis of variance on the community data to examine the significance of community variables against treatment groups using functions from the vegan package (Table \@ref(tab:comperm)) [@R-vegan]. 
+
+The ecosystem variables associated with our ecosystem model include; bacterial carbon biomass (gC/L), bacterial carbon production (μmol C/Lh), nitroflux from enriched detritus to the bromeliad (δ15N), and CO2 flux (g C/m^2^d) of microbes against the same bromeliad explanatory variables (Figure \@ref(fig:pcaeco)). We then conducted another permutation anova on the ecosystem data to examine the significance of the ecosystem variables against treatment groups using functions from the vegan package (Table \@ref(tab:ecoperm)) [@R-vegan].
+
+
+## Results
+
+
+Our linear regression model of total estimated macroinvertebrate biomass (mg) (biomass) versus total volume of the ecosystem provided by the bromeliad (mL) (volume) shows that there is a strong correlation between the two. The treatment group "Damselfly absent" is more strongly correlated with biomass than volume, the opposite is true for the treatment group "Damselfly presence only", while the "Presence + Consumption cues" treatment isn't particularly correlated with either variable (Figure \@ref(fig:brotation)).
+
+
+```{r brotation, echo=FALSE}
+#| fig.cap = "A scatter plot of the total estimated macroinvertebrate biomass (mg) versus total volume of the ecosystem provided by the bromeliad (mL). Data points grouped by the number of tanks provided by the bromeliad from data collected by [@Marino.etal2016].",
+#| fig.align = "center"
+
+#bro
+
+bro.mod<-lm(biomass~volume,
+            data=bro)
+
+#autoplot(bro.mod)
+#summary(bro.mod)
+
+#using @R-ggplot2 package
+ggplot(bro)+
+  geom_text(aes(biomass,
+                volume,
+                label=Tanks,
+                color=Treatment
+                ),
+            size=4
+            )+
+  geom_abline(slope=bro.mod$coefficients,
+              intercept=bro.mod$coefficients,
+              color="darkorchid2"
+              )+
+  ylab('Total volume of the ecosystem provided by the bromeliad (mL)')+
+  xlab('Total estimated macroinvertebrate biomass (mg)')+
+  theme_classic()
+
+```
+
+
+```{r pcacom, echo=FALSE}
+#| fig.cap = "PCA biplot of community variables (dashed arrows) in relation to the Bromeliad explanatory variables (solid arrows) with individual data points graphed by treatment group from data collected by @Marino.etal2016.",
+#| fig.align = "center"
+
+#Explanatory variables;
+  #1 - Treatment: descriptive treatment names
+  #2 - Tanks: the number of tank compartments in the bromeliad
+  #3 - volume: the total volume of the micro-ecosystem provided by the
+    #bromeliad (mL)
+  #4 - mass: the size (g) of each bromeliad
+
+#Community variables;
+  #9 - richness: macroinvertebrate taxa richness
+  #10 - count: total number of macroinvertebrates
+  #11 - biomass: estimated total macroinvertebrate biomass (mg)
+
+#PCA of community variables
+pca.com<-PCA(bro.com,
+             quanti.sup=c(5:7),
+             graph=FALSE,
+             quali.sup=1,
+             scale.unit=TRUE
+             )
+
+#using @R-factoextra
+fviz_pca_biplot(pca.com,
+                habillage=1,      #habillage=grouping
+                repel=TRUE
+                )
+
+
+
+```
+
+
+```{r comperm, echo=FALSE}
+
+
+#using @R-vegan package
+comperm<-adonis2(bro[,-1]~Treatment,
+  data=bro, 
+  method="euclidean",
+  permutations=10001
+  )
+
+comperm.tab<-"Summary of PERMANOVA test results for multivariate differences among community variables of treatment groups from bromeliad data gathered by @Marino.etal2016."
+
+comperm$`Pr(>F)`<-format.pval(comperm$`Pr(>F)`,
+                              eps=0.0001,
+                              digits=4,
+                              na.form=""
+                              )
+
+#using R-kableExtra package
+kbl(comperm,
+    caption=comperm.tab,
+    col.names=c(
+      "df",
+      "SS",
+      "$R^2$",
+      "F",
+      "P"
+      ),
+    align="r",
+    digits=c(0,1,2,2,4)
+    )|>
+  kable_classic(full=FALSE)
+
+```
+
+
+```{r pcaeco, echo=FALSE}
+#| fig.cap = "PCA biplot of ecosystem variables (dashed arrows) in relation to community variables (solid arrows) with individual data points graphed by treatment group of bromeliad data collected by @Marino.etal2016.",
+#| fig.align = "center"
+
+#Explanatory variables;
+  #1 - Treatment: descriptive treatment names
+  #2 - Tanks: the number of tank compartments in the bromeliad
+  #3 - volume: the total volume of the micro-ecosystem provided by the
+    #bromeliad (mL)
+  #4 - mass: the size (g) of each bromeliad
+
+#Ecosystem variables;
+  #5 - bactbio: bacterial carbon biomass (g C/L)
+  #6 - bactprod: bacterial carbon production (μmole C/Lh)
+  #7 - nitroflux: nitrogen flux from enriched detritus to bromeliad leaves
+    #(δ15N)
+  #8 - co2flux: CO2 flux (g C/m^2^d)
+
+#PCA of ecosystem variables
+pca.eco<-PCA(bro.eco,
+             quanti.sup=c(5:8),
+             graph=FALSE,
+             quali.sup=1,
+             scale.unit=TRUE
+             )
+
+#using @R-factoextra
+fviz_pca_biplot(pca.eco,
+                habillage=1,      #habillage=grouping
+                repel=TRUE
+                )
+
+```
+
+
+```{r ecoperm, echo=FALSE}
+
+
+#using @R-vegan package
+ecoperm<-adonis2(bro2[,-1]~Treatment,
+  data=bro2, 
+  method="euclidean",
+  permutations=10001
+  )
+
+ecoperm.tab<-"Summary of PERMANOVA test results for multivariate differences among community variables of treatment groups from bromeliad data gathered by @Marino.etal2016."
+
+ecoperm$`Pr(>F)`<-format.pval(ecoperm$`Pr(>F)`,
+                              eps=0.0001,
+                              digits=4,
+                              na.form=""
+                              )
+
+#using R-kableExtra package
+kbl(ecoperm,
+    caption=ecoperm.tab,
+    col.names=c(
+      "df",
+      "SS",
+      "$R^2$",
+      "F",
+      "P"
+      ),
+    align="r",
+    digits=c(0,1,2,2,4)
+    )|>
+  kable_classic(full=FALSE)
+
+```
+
+
+Words.
+
+
+# References
+
+
+
+
+
+
+
+
+
+
+
+

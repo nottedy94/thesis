@@ -1,0 +1,58 @@
+---
+title: "GAE 9: the penultimate GAE"
+output:
+  bookdown::html_document2:
+    toc: TRUE
+    self_contained: yes
+    number_sections: no
+    code_download: TRUE
+bibliography: 
+- GAE9.bib
+- r-GAE9.bib
+csl: ecology.csl
+---
+
+```{r setup }
+#| message = FALSE,
+#| echo = FALSE
+
+knitr::opts_chunk$set(echo = FALSE)
+
+library(tidyverse)
+
+papaja::r_refs(file = "r-GAE9.bib")
+
+```
+
+# Scenario 1: Shakira the Saurian's "hips don't lie"
+
+Establishing a dependable means to determine the sex of dinosaurs is one of the most sought after goals in dinosaur vertebrate paleontology [@Erickson2005]. Paleontologists would like to be able to determine the sex of dinosaurs from fossilized skeletal features. Living crocodilians belong to the Archosauria clade and are in the sister clade to the group including the Dinosauromorpha.  Beginning in the 1950s, researchers have used living crocodilians as surrogates to look for sex-specific skeletal attributes that may prove useful in determining sex of fossil dinosaurs [@Romer1956]. <span style="color:darkorchid">***Given that female pelvic canals must allow passageway for eggs while male pelvic canals do not, is there a difference between males and females in pelvic canal width in American alligators?***</span>
+
+## Methods
+
+@Prieto-Marquez2007 measured several characters that are thought to distinguish the sexes in American alligators, _Alligator mississipiensis_, one of the largest surviving reptiles. One of the characters measured was pelvic canal width (cm, "pelvicwidth"). The researchers also knew that it is common for anatomical features to be strongly correlated, so they also measured snout-vent length (m, "snoutvent") to use as a covariate to correct for the size of alligator when comparing pelvic canal width among individuals. The data are provided in the file alligator.csv. 
+
+### Statistical Methods
+
+```{r alligatorImport}
+S1 <- read_csv("alligator.csv", show_col_types = FALSE)
+```
+
+
+# Scenario 2: Stella the Stressed-out Stork
+
+Physiological studies on animals usually involve routine handling, such as weighing, banding for identification, or blood sampling. @Le1992 found that even a minor rountine handling procedure induced a marked physiological stress response in domestic geese even though the geese had been trained to the procedure for several weeks and showed no behavioral signs of stress. There is also evidence that stress in nestlings may reduce their survival rates [@Mullner2004].
+
+## Methods
+
+@Blas2007 measured circulating glucocorticosteroids in white stork nestlings after restraining them for 45 min (estimated to coincide with maximal physiological response to stress).  They banded the birds for individual identification and returned them to their nests.  Between 2001 and 2005 they conducted extensive, intensive field surveys of banded birds on a local, national (Spain), and international scale to relocate these individuals.  Of the original 34 birds included in the study, only 13 were relocated.  
+
+### Statistical Methods
+
+<span style="color:darkorchid">***Was there a connection between stress response of nestlings and their later survival?***</span>
+
+```{r storkImport}
+S3 <- read_csv("stork.csv", show_col_types = FALSE)
+```
+
+# References

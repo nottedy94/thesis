@@ -1,0 +1,422 @@
+---
+title: "Analysis of Covariance (ANCOVA)"
+output: 
+  bookdown::html_document2: 
+    fig_caption: yes
+    toc: yes
+    number_sections: FALSE
+    code_download: TRUE
+    
+bibliography: 
+- Quinn_Keough2002.bib
+- r-ancova.bib
+
+csl: ecology.csl
+
+---
+
+```{r setup, include=FALSE}
+
+knitr::opts_chunk$set(echo = FALSE)
+
+library(emmeans)
+library(multcomp)
+library(car)
+library(latex2exp)
+library(kableExtra)
+library(ggfortify)
+library(patchwork)
+library(broom)
+library(tidyverse)
+
+papaja::r_refs(file = "r-ancova.bib")
+
+options(scipen = 99) # a "trick" to keep R from using scientific notation.
+
+options(knitr.kable.NA = "")
+
+```
+
+# **An**alysis of **Cova**riance (ANCOVA)
+
+The term ANCOVA is used somewhat differently by different analysts and computer programs, but the most common meaning refers to a linear model involving factors that the researcher is most interested in, and a quantitative continuous variable that may be introducing nuisance variation. 
+
+Usually, the conceptual model is presented as:
+
+$$y_{ij} = \mu + \tau_i + \beta_1 (x_{ij}-\bar{x}) + \epsilon_{ij}$$
+Where: 
+
+  * $y_{ij}$ is value of the dependent variable for each observation,
+  * $\mu$ is the grand mean - think of it as the mean of intercepts of different regression lines for each level of $\tau$.
+  * $\tau_i$ is the treatment effect of each level $i$ of the factor of interest - think of it as how the intercept for a particular treatment level differs from the grand mean.
+  * $\beta_1$ is the common slope of the regression lines
+  * $x_{ij}$ and $\bar{x}$ are the individual covariate measures and the mean of the covariate measures, respectively.
+  * $\epsilon$ are the residuals, $\epsilon \rightarrow ~ NID(0,\sigma^2)$
+    
+### The usual steps for conducting an ANCOVA are:
+
+  1. Test the assumption of homogeneity of slopes by testing for an interaction between the factor and the covariate.
+  2. If the interaction is significant, your data do not fit the conceptual model as presented, and you must interpret the effects of the factor as being dependent on the covariate.
+  3. If the interaction is not significant, drop the interaction term from the model, and run the reduced model.
+  
+
+# Box 12.1: @Partridge.Farquhar1981, Sexual activity reduces lifespan of male fruitflies.
+
+@Partridge.Farquhar1981 studied the effect of number of mating partners on longevity of fruit flies (*Drosophila melanogaster*). There were five treatments: one virgin female per day, eight virgin females per day, a control group with one newly inseminated female per day, a control group with eight newly inseminated females per day, and a control group with no females. Also, the thorax length of each individual fly was recorded as a covariate. The raw data were extracted by reading from Figure 2 in the original paper [@Partridge.Farquhar1981].
+
+The researchers argued that while it was common to assume a physiological cost of reproduction for females expressed as shortened life span, that males may similarly experience physiological cost due to increased activity and lost feeding opportunity associated with reproduction even if their only material investment in their future offspring is their gametes.
+
+Male fruit flies exhibit a surprisingly rich repertoire of courtship behaviors (Figure \@ref(fig:flyData)).  Newly inseminated females will not remate, nor respond to courtship behaviors, so they served as controls for treatments with virgin females.
+
+partridge.csv contents:
+
+  * partners - categorical listing of the number of female partners
+  * type - type of female (0=pregnant, 9=none, 1=virgin)
+  * treatment - PARTNERS/TYPE combinations
+    * 1 - Control group - 8 newly inseminated female partners per day
+    * 2 - Control group - 0 female partners per day
+    * 3 - Control group - 1 newly inseminated female partner
+    * 4 - Experimental group - 1 virgin female partner per day
+    * 5 - Experimental group - 8 virgin female partners per day
+  * longevity - longevity of male fruitflies (days)
+  * thorax - length of male's thorax (mm)
+
+```{r flyData }
+#| fig.cap = "The array of typical male fruitfly courtship behaviors.",
+#| out.width = "60%"
+
+
+df1 <- read_csv('partridge.csv', show_col_types = FALSE)
+
+df1$type <- factor(df1$type, 
+                   levels = c('0', '9', '1'),
+                   labels = c('pregnant', 'none', 'virgin')
+                   )
+
+df1$treatment <- factor(df1$treatment, levels = c('1', '2', '3', '4', '5'),
+                        labels = c('8 inseminated', 
+                                   '0 females', 
+                                   '1 inseminated', 
+                                   '1 virgin', 
+                                   '8 virgin')
+                        )
+
+# knitr::include_graphics("fruitfly.png")
+
+```
+
+----------------------------
+
+If we have a look at the data (Figure \@ref(fig:flyScatter)), we see that there appears to be a correlation between longevity and male size.  So we expect that the size of males used in the experiment will have introduced an added source of variation to the longevity.
+
+```{r flyScatter }
+#| fig.cap = "Scatterplot of male longevity versus thorax length."
+
+ggplot(df1) +
+  geom_point(aes(thorax, longevity)) +
+  ylab("Longevity (d)") +
+  xlab("Thorax Length (mm)") +
+  theme_classic()
+
+```
+We can use a technique similar in concept to randomized complete block design to increase the precision: ***AN**alysis of **COVA**riance - **ANCOVA***. Essentially, we can estimate the variance due to the regression with the covariate and subtract it from the residual variance.
+
+The traditional statistical model for ANCOVA is:
+$$y_{ij} = \mu + \tau_i + \beta (x_{ij} - \bar x) + \epsilon_{ij}$$
+
+Where $\beta$ is a common slope of the linear relationship between the response variable and the covariate ($x$), while the different levels of $\tau$ are represented by different y-intercepts.  In practice, many people don't standardize the covariate.
+
+Building the model begins by checking the homogeneity of slopes for the different treatments by checking to see if there is a significant interaction between the treatments and the covariate. 
+
+Our model here is: 
+$$y_{ij} = \mu + \tau_i + \beta x_{ij} + (\tau_i \times \beta(x_{ij}) + \epsilon_{ij}$$
+
+```{r ANCOVAstep1 }
+#| fig.show = 'hide'
+
+mod1 <- lm(longevity ~ treatment + thorax + treatment:thorax, df1)
+
+mod1
+
+autoplot(mod1)
+```
+
+A check of the diagnostic plots suggests there may be a heterscedasticity problem, so your textbook authors suggest using $log_{10}(y)$ as a transformation. The interaction is not significant (Table \@ref(tab:ANCOVAstep1a)), so we can continue with the analysis by removing the interaction term from the model and our statistical model becomes:
+
+$$y_{ij} = \mu + \tau_i + \beta (x_{ij}) + \epsilon_{ij}$$
+
+```{r ANCOVAstep1a, fig.show='hide'}
+mod1a <- lm(log10(longevity) ~ treatment + thorax + treatment:thorax, df1)
+autoplot(mod1a)
+
+mod1a.tab <- Anova(mod1a)
+
+mod1a.tab$`Pr(>F)` <- format.pval(mod1a.tab$`Pr(>F)`,
+                                 eps = 0.0001,
+                                 digits = 4,
+                                 na.form = ""
+                                 )
+
+kbl(mod1a.tab, 
+    digits = c(3, 0, 3, 4), 
+    caption = "Test for homogeneity of slopes.",
+    align = "r"
+    ) |>
+    kable_classic(full = FALSE)
+    
+```
+
+We see that there is a significant effect of the treatments (Table \@ref(tab:ANCOVAstep2)).  
+
+```{r ANCOVAstep2, results='asis'}
+
+mod2 <- lm(log10(longevity) ~ treatment + thorax, df1)
+
+mod2.tab <- Anova(mod2)
+
+mod2.tab$`Pr(>F)` <- format.pval(mod2.tab$`Pr(>F)`,
+                                 eps = 0.0001,
+                                 digits = 4,
+                                 na.form = ""
+                                 )
+
+kbl(mod2.tab,
+    digits = 3,
+    col.names = c("SS", "df", "F", "P"),
+    caption = 'ANCOVA summary.',
+    align = 'r'
+    ) |>
+  kable_classic(full = FALSE)
+```
+
+If we look at the summary of the linear model we see that R is actually testing for differences in the y-intercepts of different regression lines, each of which has the same slope:
+
+```{r mod2summary}
+summary(mod2)
+```
+
+
+We can see the coefficients for the actual dummy-variable model that is being analyzed:
+
+$$y_{i,j} = \beta_0 + \beta_1(0 \; females) + \beta_2(1 \; inseminated) + \beta_3(1 \; virgin) + \beta_4(8 \; virgin) + \beta_5(x) + \epsilon_{i,j}$$
+
+***Interpretation:***
+
+Remember that the first mean gets used as the intercept, then the coefficients for the other treatments represent differences between that first mean and the mean for that treatment.  Here the first treatment is "8 inseminated females," so the predicted mean longevity males in the presence of 8 inseminated females is:
+$$\widehat{longevity} = 0.827 + 1.194(thorax \; length)$$
+The predicted longevity of males in the presence of 8 virgin females per day is:
+$$\widehat{longevity} = (0.827 - 0.218) + 1.194(thorax \; length)$$
+
+One popular way to visualize the results of a simple ANCOVA is to produce a scatterplot with regression lines, using shape, line type, and color to distinguish among the different treatments (Figure \@ref(fig:aPosteriori)).
+
+
+```{r predictValues}
+
+# Don't forget that we have to "back-transform" our predicted values.
+df1$pred <- 10^predict(mod2)
+
+```
+
+
+```{r flyLines, fig.cap="Longevity as a function of male size and number of available females."}
+A <- ggplot(df1) +
+  geom_point(aes(x = thorax, 
+                 y = longevity, 
+                 group = treatment, 
+                 color = treatment,
+                 shape = treatment)
+             ) +
+  geom_line(aes(x = thorax, 
+                y = pred, 
+                group = treatment, 
+                linetype = treatment, 
+                color = treatment)
+            ) +
+  scale_y_log10(
+    name = 'Longevity (d)',
+    limits = c(10,100), 
+    breaks = c(10, 50, 100),  
+    expand = c(0,0)) +
+  annotation_logticks(sides = 'l') +
+  scale_x_continuous(
+    name = 'Male size, thorax length (mm)',
+    limits = c(0.5,1.0), 
+    expand = c(0,0)
+    ) +
+  scale_shape_discrete(name = 'Females') +
+  scale_color_discrete(name = 'Females') +
+  scale_linetype_discrete(name = 'Females') +
+  theme_classic(base_size = 10) +
+  theme(legend.position = "none")
+```
+
+------------------------------
+
+We can also compare means for the factor(s) of interest just like for an ANOVA. For instance, it's reasonable to believe that the original researchers had planned to compare their controls to those treatments in which they provided females available for mating (virgins), and that they had planned to compare the treatment with 1 virgin female per day to the one with 8 virgin females per day (Table \@ref(tab:aPriori)). 
+
+
+```{r aPriori}
+
+flyMeans.emm <- emmeans(mod2, ~ treatment)
+
+Contrasts <- tidy(
+contrast(flyMeans.emm,                    # 8I  0F  1I  1V    8V
+         list('Controls vs Virgins '   = c( 2,  2,  2,  -3,   -3),
+              '1 Virgin vs 8 Virgin'   = c( 0,  0,  0,   1,   -1)
+              )
+         )
+    )
+
+Contrasts$p.value <- format.pval(Contrasts$p.value,
+                                 eps = 0.0001,
+                                 digits = 4,
+                                 na.form = ""
+                                 )
+
+kbl(Contrasts[,-3],
+    digits = c(0,0,3,3,0,2,4),
+    align = c("lcrrrrr"),
+    col.names = c("Term", "Contrast", "Difference", "SE", "df", "t", "P(>t)"),
+    caption = "Planned contrasts: the first compares male longevity for
+    treatments that had no females available for mating with those that did, and
+    the second compares male longevity in treatments with a single available
+    female to that from treatments with 8 available females."
+    ) |>
+  kable_classic(full = FALSE)
+
+```
+
+We could also have performed Tukey-Kramer comparisons and provide another approach to visualizing the differences among treatments (Figure \@ref(fig:aPosteriori)). Note that here I had to extract the "linear predictors" from the object produced by the `cld()` function in order to replicate the output of `plot(cld(comps))` in ggplot2. These values are "corrected" for the effect of thorax length; essentially the regression is used to map each longevity value to what it would be if the animal had been of average thorax length.
+
+```{r aPosteriori }
+#| fig.cap="A comparison of male fruitfly longevity response to varying reproductive activity.  Treatments with the same letter were not significantly different ($\\alpha_{family} = 0.05$, Tukey-Kramer comparisons).",
+#| out.width = "100%"
+
+comps <- glht(mod2, linfct = mcp(treatment = 'Tukey'))
+
+cld <- cld(comps)
+
+B <- ggplot(df1, aes(treatment, longevity, color = treatment)) +
+  geom_boxplot() +
+  geom_jitter(width = 0.3, shape = 1) +
+  ylab('Longevity (d) \ncorrected for size') +
+  xlab('') +
+  annotate(geom = "text", 
+           x = levels(df1$treatment), 
+           y = 100, 
+           label = cld$mcletters$monospacedLetters,
+           size = 5) +
+  theme_classic(base_size = 10) +
+  theme(legend.position = "none",
+        axis.text.x = element_text(angle = -25,
+                                   vjust = 0)
+        )
+
+A + B
+```
+
+
+
+--------------------------------
+
+# Tree cricket chirps [@Walker1962]:
+
+```{r treeCricket }
+#| fig.cap="Male Davis tree cricket (*Oecanthus exclamationis*).  Photo courtesy of Brandon Woo ( via http://bugguide.net/node/view/216225/bgimage)."
+
+knitr::include_graphics("male_Davis_tree_cricket.png")
+
+```
+
+You may recognize their call: Courtesy of http://songsofinsects.com/crickets/daviss-tree-cricket:
+
+https://player.vimeo.com/video/81109970
+<audio class="wp-audio-shortcode" id="audio-28727-1" preload="none" style="width: 100%;" controls="controls"><source type="audio/mpeg" src="http://songsofinsects.com/wp-content/uploads/insect_musicians_davis_tree_cricket.mp3?_=1" /><a href="http://songsofinsects.com/wp-content/uploads/insect_musicians_davis_tree_cricket.mp3">http://songsofinsects.com/wp-content/uploads/insect_musicians_davis_tree_cricket.mp3</a></audio>
+
+For male tree crickets, each wingstroke produces a pulse of song, and females may use the number of pulses per second to identify males of the correct species. @Walker1962 wanted to know whether the chirps of the Davis Tree Cricket (*Oecanthus exclamationis*) and the Narrow-winged Tree Cricket (*Oecanthus niveus*) had different pulse rates.  It has long been known that cricket calls are strongly affected by temperature, so Walker recorded temperature in addition to number of pulses per second for individuals of each species.
+
+```{r cricketData}
+
+# I don't remember where I originally found the data -- it's used in many
+# statistics text books (but not Quinn and Keough)
+
+walker <- read_csv('walker.csv', show_col_types = FALSE)
+```
+
+
+```{r cricketMod1 }
+#| fig.show = "hide"
+
+cmod1 <- lm(PPS ~ species*T, data = walker)
+
+autoplot(cmod1)
+
+cmod1
+
+cmod1.out <- Anova(cmod1)
+
+cmod1.out$'Pr(>F)' <- format.pval(cmod1.out$'Pr(>F)',
+                                 eps = 0.0001,
+                                 digits = 4,
+                                 na.form = ""
+                                 )
+
+cmod1.cap <- "ANOVA summary for @Walker1962 data, including interaction."
+
+kbl(cmod1.out,
+    align = 'r',
+    digits = c(2,0,2,4),
+    caption = cmod1.cap
+    ) |>
+  kable_classic(full = FALSE)
+```
+I think the data fit the assumptions for regression well enough. The interaction term was not significant, so I have dropped it from the model for the analysis of covariance. The Davis tree cricket called at a higher frequency than the narrow-winged tree cricket at all temperatures (Table \@ref(tab:cricketMod2), Figure \@ref(fig:treeCrickets)). 
+
+
+```{r cricketMod2 }
+#| fig.show = "hide"
+
+cmod2 <- lm(PPS ~ species + T, data = walker)
+
+autoplot(cmod2)
+
+cmod2.out <- Anova(cmod2)
+
+cmod2.out$'Pr(>F)' <- format.pval(cmod2.out$'Pr(>F)',
+                                 eps = 0.0001,
+                                 digits = 4,
+                                 na.form = ""
+                                 )
+
+cmod1.cap <- "ANCOVA summary for the @Walker1962 tree cricket data."
+
+kbl(cmod2.out,
+    align = 'r',
+    digits = c(2,0,2,4),
+    caption = cmod1.cap
+    ) |>
+  kable_classic(full = FALSE)
+```
+
+```{r treeCrickets }
+#| fig.cap = "Comparison of call frequencies of Davis (*Oecanthus exclamationis*) and narrow-winged (*Oecanthus niveus*) tree crickets at different temperatures."
+
+# predicted values from the model
+walker$pred <- predict(cmod2, type = "response")
+
+xlab <- TeX("Temperature $^{\\degree}$C")
+  
+ggplot(walker) +
+  geom_point(aes(x = T, y = PPS, group = species, color = species, 
+                 shape = species)) +
+  geom_line(aes(x = T, y = pred, group = species, color = species)) +
+  labs(x = xlab, y = "Call Frequency (pulses/s)") +
+  theme_classic() +
+  theme(legend.position = c(0.75, 0.3),
+        legend.title = element_blank(),
+        legend.background = element_blank(),
+        legend.box.background = element_rect(color = "black"),
+        legend.text = element_text(face = "italic"))
+```
+
+# Literature Cited

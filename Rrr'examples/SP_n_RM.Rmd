@@ -1,0 +1,318 @@
+---
+title: "Split-Plot and Repeated Measures"
+output:
+  bookdown::html_document2:
+    toc: yes
+    number_sections: FALSE
+    code_download: TRUE
+
+bibliography:
+- Quinn_Keough2002.bib
+- R-sp_n_RM.bib
+
+csl: ecology.csl
+
+---
+
+```{r setup, include=FALSE}
+
+knitr::opts_chunk$set(echo = FALSE)
+
+library(car)
+library(lmerTest)
+library(latex2exp)
+library(kableExtra)
+library(patchwork)
+library(broom)
+library(tidyverse)
+
+papaja::r_refs(file = "R-sp_n_RM.bib")
+
+options(knitr.kable.NA = "")
+
+# Needed if we decide to use Type III SS
+options(contrasts = c('contr.sum','contr.poly'))
+
+```
+
+# Split Plot designs
+
+Split-plot designs are conducted in much the same way that randomized complete blocks are conducted, except each "block" is actually a replicate of the the treatment combinations of another factor. The name of these designs originated in agricultural experiments where fields were split into plots and subplots. These designs were developed for situations where it was easier to manipulate some factors than it was others due to logistic constraints. For example, it may be much easier to manipulate fertilizer on a small scale than it is irrigation. We could nest a complete set of the levels of fertilizer within each replicate of the larger scale irrigation treatment levels (Figure \@ref(fig:splitPlotPhoto)). @Altman.Krzywinski2015 does a good job of discussing the difference between *Split-Plot* and *RCBD*.
+
+```{r splitPlotPhoto }
+#| fig.cap = "Photograph of an agricultural split-plot experiment."
+
+knitr::include_graphics("splitplot.png")
+
+```
+
+## Paper "cooking" example.
+
+Paper is made from the cellulose fibers that are present in hardwood and softwood trees. Whether using wood or recovered paper, the first step is to dissolve the material into pulp. Regardless of the type of pulping process used, the wood or recovered paper is broken down so that the fibers can be separated. The pulping results in a mass of individual fibers being produced. The fibers are then washed and screened to remove any remaining fiber bundles. The water is then pressed out and the residue is dried. Pulp is refined and mixed in water with other additives to make a pulp slurry. The head-box of the paper machine (Fourdrinier machine) distributes the slurry onto a moving continuous screen, water drains from the slurry (by gravity or under vacuum), the wet paper sheet goes through presses and dries, and finally rolls into large rolls (Figure \@ref(fig:paperPNG)).
+
+```{r paperPNG }
+#| fig.cap = "Diagram of a typical industrial paper-making operation."
+
+knitr::include_graphics("paper.png")
+
+```
+
+Paper strength is a function of the tensile strength of the individual fibers and the strength of the bond among fibers forming a network. Typically, longer fibers yield stronger paper.
+
+Paper strength was measured in an experiment where 9 different batches of wood fiber were selected and randomly assigned to 3 different methods of pulping (3 replicates per pulping method, Figure \@ref(fig:expDesDiag)). Each batch was then split into 4 parts and each part was cooked at different temperatures (200$^\circ$F, 225$^\circ$F, 250$^\circ$F, and 275$^\circ$F). Finally the strength of the paper was measured (units appear to be pound-force per square inch, psi) for each combination of method and temperature.
+
+
+```{r expDesDiag }
+#| fig.cap = "Diagramatic representation of the split-plot experiment design to test for differences in pulping methods and different cooking temperatures on the strength of the paper produced."
+
+knitr::include_graphics("paperdiag.png")
+
+```
+
+First we import the data and use the factor() function [@R-base] to tell R to treat the integers used as factor levels as factors.
+
+```{r paperData }
+paper <- read_csv('paper.csv', show_col_types = FALSE)
+
+paper$Method <- factor(paper$Method)
+paper$Batch <- factor(paper$Batch)
+paper$Temp <- factor(paper$Temp)
+```
+
+The test for differences among methods has a different level of replication than does the test for differences among temperatures, so we need to use two different error terms to get the correct F-tests. Note that this experiment had replicates for each combination of method and temperature, so we can also test the interaction between whole-plot factor and the split-plot factor (pulp method by temperature interaction). I've produced a completely specified model (Table \@ref(tab:paperANOVAfull)) to allow us to see which terms should be used as the error for the "whole-plot" part of the experiment.
+
+```{r paperANOVAfull }
+
+paper.full <- aov(Strength ~ Method*Temp*Batch, paper)
+
+kbl(anova(paper.full), 
+    caption = 'SS and MS for the full model. Note that we
+    "used up" all of the degrees of freedom, so no tests were possible.',
+    digits = c(0,2,2,0,0)
+    ) |>
+  kable_classic()
+
+```
+
+Remember that the 9 batches were the whole-plot experimental units, so the total sums-of-squares would have $9-1=8$ degrees-of-freedom. The test of the main-effect of pulping method had 3 levels, so $3-1=2$ degrees-of-freedom, and thus the error or residual sums-of-squares should have $8-2=6$ degrees-of-freedom. We can see that *Batch* has 6 degrees-of-freedom (Table \@ref(tab:paperANOVAfull)) and is the appropriate choice to serve as the error term for the whole-plot test. In the aov() function, when we declare the appropriate error term for the model, the summary output is produced in appropriate error terms for each portion of the analysis (Table \@ref(tab:paperANOVA)).
+
+```{r paperANOVA}
+paper.aov <- aov(Strength ~ Method + Temp + Method:Temp + Error(Batch), paper)
+
+kbl(tidy(paper.aov), 
+    caption = 'Split-plot analysis with $MS_{Batch}$ as the error or
+    Residuals term for the whole-plot main effect and $MS_{Temp:Batch}$ for
+    the split-plot and interaction effects.', 
+    digits = 4,
+    col.names = c("", "Source", "df", "SS", "MS", "F", "P")
+    ) |>
+  kable_classic()
+```
+
+If we assume that the Batches were chosen at random from available Batches, they are random effects and we can use linear mixed models to analyze the data. I'll use lmer() from the lme4 package (@R-lme4) as modifed by the lmerTest package (@R-lmerTest) to provide p-values.
+
+There is a bit of arcane computer programming jargon thrown into the code here. Remember that lmer() estimates the parameters using an iterative computationally intensive method. The default optimizing method used by lmer() is the bobyqa (**b**ound **o**ptimization **by** **q**uadratic **a**pproximation) algorithm. The Nelder-Mead algorithm is apparently slower, but in my experience tends to produce fewer warnings about non-convergence (= can't find good maxima, so the estimates are suspect).
+
+Our statistical model is:
+
+$$S_{i,j,k} = \mu + \alpha_i + \beta_j + (\alpha \times \beta)_{i,j} + B_k + \epsilon_{i,j,k}$$ Where:
+
+-   $S_{i,j,k}$ refers to the tensil strength of the paper,
+-   $\alpha_i$ refers to the fixed factor effect of different pulping methods,
+-   $\beta_j$ refers to the fixed factor effect of different cooking temperatures, &
+-   $B_k$ refers to the random factor effect introduced by different batches of fiber.
+
+```{r paperLMER }
+paper.lmer <- lmer(Strength ~ Method + Temp + Method:Temp + (1|Batch), paper,
+              control = lmerControl(optimizer = "Nelder_Mead"))
+
+
+```
+
+The assumptions for a linear mixed-effects model and tests are pretty much the same as for standard regression and ANOVA models:
+
+  1. Residuals and random effects are normally distributed,
+  2. Residual variance is homogeneous = homoskedasticity
+  3. The model is additive = a linear model
+  4. Residuals are independent of each other and of the fixed effects
+  5. The fixed effects are indeed fixed.
+
+```{r redres}
+# launch_redres(paper.lmer)
+```
+
+The residual plot for the model looks okay. A few residuals are pretty far from the theoretical expectations in the normal Q-Q plot, but most of them are very close.
+
+As we saw earlier (Table \@ref(tab:paperANOVA), cooking temperature affected paper strength (Table \@ref(tab:paperANOVA2)) with higher temperatures producing greater tensile strength (Figure \@ref(fig:paperPlot)).
+
+```{r paperANOVA2}
+
+kbl(anova(paper.lmer, type = 2), 
+    digits = c(2,2,0,2,2,4),
+    caption = 'ANOVA summary for fixed effects (Type II SS).',
+    col.names = c("SS", "MS", "df_num", "df_den", "F", "P")
+    ) |>
+  kable_classic()
+
+
+```
+
+We can also test to see if the random effect contributed a significant amount of variation, though in this particular case the test is not of interest and the result is trivial (Table \@ref(tab:paperRandom)).
+
+```{r paperRandom}
+kbl(ranova(paper.lmer), 
+    round = 4,
+    caption = 'Analysis of deviance summary for the test of significant 
+    variance component for the random batch effect.'
+    ) |>
+  kable_classic()
+
+```
+
+```{r paperPlot }
+#| fig.cap="Paper strength as a function of pulping method and cooking temperature."
+
+Xlab <- TeX("Temperature ($^oF)$")
+
+ggplot(paper) +
+  stat_summary(aes(Temp, Strength, 
+                   group = Method)) +
+  stat_summary(aes(Temp, Strength, 
+                   group = Method, 
+                   linetype = Method), 
+               geom = 'line') +
+  xlab(Xlab) +
+  ylab("Tensile Strength (psi)") +
+  theme_classic()
+```
+
+## Root-rot in sugar beets [@Thomson.etal1981]
+
+### RCBD & split-plot
+
+@Thomson.etal1981 carried out an experiment to determine the effect of bacterial vascular necrosis on the root yield of sugar beets planted at different in-row spacings. The two factors in the experiment were inoculation (inoculated versus not inoculated with *Erwinia carotovora*) and in-row spacing between plants (4, 6, 12, and 18 inches).
+
+The bacterial inoculation levels were applied to large plots (main plot or whole plot) and the spacing levels were assigned to small plots (subplots) within the main plots. There were two reasons for assigning inoculation levels to main plots: 1) To confine the inoculum as well as possible to its assigned plots (i.e. to avoid contaminating non-inoculated plants); and 2) To allocate precision in the experiment to where it is needed most (i.e. while large differences in yield are expected between healthy and diseased plants, relatively smaller differences in yield are expected due to in-row spacing effects).
+
+The two inoculation levels were randomly assigned to the main plots within each of the six blocks with no replication within blocks. As far as the main plot treatments are concerned, then, this is a RCBD. The subplot treatment levels (spacings) were then randomly assigned within each main plot. A separate randomization of subplot levels occurred within each main plot.
+
+```{r beetData}
+beets <- read.csv('beets.csv')
+beets$treatment <- factor(beets$treatment)
+beets$spacing <- factor(beets$spacing)
+beets$block <- factor(beets$block)
+
+```
+
+
+```{r rotLmer}
+rotLmer <- lmer(yield ~ 
+                  treatment + 
+                  spacing + 
+                  treatment:spacing + 
+                  (1|block/treatment), 
+                beets)
+
+# launch_redres(rotLmer)
+
+kbl(anova(rotLmer, type = 2),
+    digits = c(2,2,0,0,2,4)
+    ) |>
+  kable_classic()
+
+```
+
+
+```{r rotRanova}
+
+kbl(ranova(rotLmer),
+       digits = c(0,2,2,3,0,4)
+    ) |>
+  kable_classic()
+
+```
+
+------------------------------------------------------------------------
+
+# Repeated Measures
+
+There are many situations when it's advantageous to observe our experiment repeatedly through time. So, how do we analyze data when we have observations that are obviously not independent of each other?
+
+There are four primary ways that folks deal with repeated measures analysis:
+
+1.  **Randomized Complete Blocks Design**: the experimental units are the blocks and the repeated measures are nested within each block. *The paired t-test we did at the beginning of the semester is an example.*
+2.  **Split-Plot Design**: the repeated measures are treated as split-plots within whole plots. Of course, we've just seen that split-plot designs are closely related to RCBDs.
+3.  **Linear mixed effects models**: again, we've seen that RCBDs with blocks as random effects are efficiently modeled using the mixed model approach.
+4.  **MANOVA (multivariate analysis of variance)**: the repeated measures are treated as multiple dependent variables describing each experimental unit. This approach tends to be very low-powered isn't used very often, though in the 80s it was the preferred approach.
+
+## Organic solvent degredation by fungi
+
+**Data from an experiment performed at Simon Fraser University**: A former gas station was being torn down and the owners wished to build an apartment complex on the property. Unfortunately, the soil was contaminated and before a new complex could be built, the soil had to be "cleaned up." Over time, organic solvents will naturally degrade, but certain fungi can speed up the process. In this experiment, 12 sites (plots) on the property were randomly selected. Three of the 12 sites were randomly assigned to each of the four fungal treatments (Control, and three different combinations of fungi in different concentrations). The amount of organic solvent was measured at 1, 2, 3, and 4 months post treatment from each of the 12 plots, resulting in a total of 48 observations.
+
+```{r fungusData}
+fungus <- read.csv('fungus.csv')
+fungus$Time <- factor(fungus$Time)
+fungus$Site <- factor(fungus$Site)
+
+```
+
+I've used the linear mixed-effects modeling approach using the lmer() function provided by the lme4 package [@R-lme4] with P-values provided by the lmerTest package [@R-lmerTest]. ***This is currently the recommended approach to repeated measures analysis.***
+
+There were differences in solvent levels among the fungal treatments as well as a general decrease through time, but no evidence of an interaction between fungal treatment and time (Table \@ref(tab:fungusMod), Figure \@ref(fig:fungusPlot)).
+
+```{r fungusMod, results='asis'}
+fungusMod <- lmer(Solvent ~ Fungus + Time + Fungus:Time + (1|Site), fungus)
+
+kbl(anova(fungusMod, type=2),
+    digits = c(1,1,0,0,2,4), 
+    caption = 'ANOVA summary for the fixed factors in the
+    analysis.'
+    ) |>
+  kable_classic()
+
+```
+
+Note that for this analysis the test of the random effect is trivial and not of interest.
+
+```{r fungusPlot }
+#| fig.cap = "A profile plot of the treatment effect through time on solvent concentration."
+
+ggplot(fungus) +
+  stat_summary(aes(Time, Solvent, group = Fungus)) +
+  stat_summary(aes(Time, Solvent, group = Fungus, linetype = Fungus), 
+               geom = 'line') +
+  theme_classic(base_size = 20)
+```
+
+
+
+
+------------------------------------------------------------------------
+
+# Multivariate ANOVA (MANOVA) approach
+
+I'll demonstrate the MANOVA because it may be useful to you at some point when you have multiple non-independent measures.
+
+First, we must re-shape our data from the "long" format to the "wide" format.
+
+```{r wideData }
+fungus_wide <- spread(fungus, Time, Solvent)
+
+kbl(fungus_wide,
+    caption = "Simon Fraser fungus data reformted samples from different dates
+    treated as seperate variables.") |>
+  kable_classic()
+```
+
+Next, we calculate the MANOVA. The syntax is very similar to that for `aov()`, except that we use `cbind()` to group the columns with the repeated measures as the dependent variable. To see the results of the MANOVA, we use `summary()`. If we get significance, we would want to look at the univariate ANOVAs to see if and when a particular repeated measure contributed to the overall significance. We can do that using `summary.aov()`.
+
+```{r manova}
+manova_mod <- manova(cbind(fungus_wide$`1`, fungus_wide$`2`, fungus_wide$`3`,
+                           fungus_wide$`4`) 
+                     ~ Fungus, fungus_wide)
+Anova(manova_mod)
+
+# summary.aov(manova_mod)
+```
+
+# Literature Cited

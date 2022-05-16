@@ -1,0 +1,248 @@
+---
+title: "Random Complete Block Design"
+author: "J. Hillert"
+date: "4/3/2022"
+output:
+  bookdown::html_document2:
+    number_sections: false
+    toc: yes
+bibliography:
+- ANOVA_packages.bib
+- R-GAE8.bib
+- R-rcbd.bib
+
+csl: ecology.csl
+---
+
+
+```{r setup, include=FALSE}
+
+knitr::opts_chunk$set(echo = FALSE)
+
+library(lme4)      # For linear mixed effects modelling
+library(lmerTest)  # To provide P-values for lme4
+library(lattice)   # For diagnotsic plots of linear models in LME4
+library(car)       # Primarily for the Anova() function
+library(emmeans)
+library(latex2exp)
+library(kableExtra)
+library(ggfortify)
+library(broom)
+library(tidyverse)
+library(redres)
+
+papaja::r_refs(file = "russ.bib")
+
+options(knitr.kable.NA = "")
+
+# Needed if we decide to use Type III SS
+options(contrasts = c('contr.sum','contr.poly'))
+
+```
+
+
+# Introduction
+
+
+@Russell.etal2017a reported on a 12-year experiment to examine how trees with different species traits may affect soil cation dynamics. One of the species traits they were interested in was fine root growth. Their rationale was, "Fine-root growth allows for exploration of the soil volume; thus differences among species in this trait could result in differential uptake of available soil cations."
+
+
+<p style="color:darkorchid"> I would like for you to test for differences in fine root growth among the species used in the experiment.</p>
+
+
+# Methods
+
+
+The authors reported that this experiment was begun in 1988 on abandoned pasture land that had once supported broad-leaved rain forest, now part of La Selva Biological Station, Costa Rica [@Russell.etal2017a]. The experiment consisted of five treatments: monoculture plantings of four native rain forest trees with differing life-history traits (see Table 1 in @Russell.etal2017a) and controls with no trees planted. Plots were 50 x 50 m (0.25 ha).
+
+
+Treatments were deployed in a randomized complete block design with four spatial blocks. The authors report that the area is "hilly" and that each block was centered on a hilltop [@Russell.etal2017a]. While the experiment was originally deployed in a randomized complete block design, the authors report that October of 2009, the *Vochysia guatemalensis* treatment in Block 1 was destroyed by a "stand-level lightening event" [@Russell.etal2017b]. See @Russell.etal2017a for details on fine root growth determination.
+
+
+```{r dataimport, include=FALSE}
+# Species in monodominant plantations:  Hieronyma alchorneoides = HIAL;
+# Pentaclethra macroloba = PEMA; Virola koschnyi = VIKO; and Vochysia
+# guatemalensis = VOGU.  Control = unplanted, naturally regenerating treatment.
+
+# Growth units: cm/cm2/yr
+
+russ<-read_csv("Russell_etal2017.csv",
+               show_col_types = TRUE
+               )
+russ
+
+# 5 treatments x 4 replicates
+# T~Block
+#data is unbalanced
+```
+
+
+## Statistical Methods
+
+
+The authors provided their data via the Dryad Digital Data Repository [@Russell.etal2017b]. All analyses were conducted in R [@R-base] and packages from the tidyverse metapackage [@R-tidyverse] were used for all data import, manipulations, and graphical presentations. 
+
+Data was imported into R and visualized for better representation of outcomes (Table \@ref(tab:datatable), Figure \@ref(fig:russplot)). The data was modeled as fine root growth between monoculture treatments and block using the lmer() function from [@R-lme4]. To ensure data meets the assumptions of linear mixed effect modeling of our randomized complete block design, we used functions from R and the qqmath() function from the lattice package [@R-lattice]. 
+
+Given that our data was unbalanced due to a "stand-level lightning event" we calculated the effective degrees of freedom for our model using the Satterthwaite and Kenward-Roger approximations (Table \@ref(tab:satken)). Contrasts of the means between treatments were conducted using the emmeans package [@R-emmeans]. We first looked at the difference between growth in the four monoculture stands in contrast to the natural growth control stand treatment. We then looked at the difference between growth in just the monoculture stands (Table \@ref(tab:contrasts)). 
+
+To test unplanned comparisons, we used the emmeans::pairs() function to get all possible comparisons with a Tukey adjustment to protect he experiment-wise error rate (Table \@ref(tab:russtukey)). Lastly, we looked at the likelihood of random effects confounding our data using the Wilks test and the lmerTest::ranova() function from [@R-lmerTest] (Table \@ref(tab:randomruss)).
+
+
+# Results
+
+
+```{r russplot, echo=FALSE}
+#| fig.cap = "Fine root growth of four native monoculture rain forest tree stands and the natural growth control treatment per block."
+
+ggplot(russ) +
+  geom_boxplot(aes(T,Growth))+
+  geom_jitter(aes(x=T, 
+                  y=Growth, 
+                  color=Block
+                  ),
+              width=0.3, 
+              alpha=0.5, 
+              size=4, 
+              shape=16)+
+  xlab("")+
+  theme_classic()
+```
+
+
+It is evident from our collected data in Table \@ref(tab:datatable), that fine root growth was greatest in the (VOGU) monoculture stand, followed by the mature stand control treatment (Control). However, the control and the HIAL, PEMA, and VIKO treatments look indifferent from each other (Figure \@ref(fig:russplot)).
+
+
+```{r datatable, echo=FALSE}
+kbl(
+  russ,
+  caption="Fine root growth (cm/cm^2/yr) of native forest trees from an abandoned pasture land following deforestation. Data collected from  [@Russell.etal2017a]."
+  )|>
+  kable_classic(full=FALSE)
+
+```
+
+
+We modeled fine root growth as a function of the monoculture stands with block as a random effect. Our diagnostic plots look like our model meets assumptions and the results of our Satterthwaite test (df = 11, p = 0.0045) allows us to make statistical inferences of our data (Table \@ref(tab:satken)). 
+
+
+```{r mixedmod, include=FALSE}
+
+rumer<-lmer(Growth~T+(1|Block),
+            data=russ)
+summary(rumer)
+
+```
+
+
+```{r diagnostics, include=FALSE}
+
+resfit<-plot(rumer,resid(.,scaled=TRUE)~fitted(.),
+     abline=0)
+
+qq<-lattice::qqmath(rumer,id=0.05)
+
+scalelocation<-function(m,
+                        line.col="red", 
+                        line.lty=1,
+                        line.lwd=2
+                        ){plot(m,
+       sqrt(abs(resid(.)))~fitted(.),
+       type=c("p","smooth"),
+       par.settings=list(
+         plot.line=list(
+           alpha=1, 
+           col=line.col,
+           lty=line.lty, 
+           lwd=line.lwd
+         )
+       )
+  )
+}
+
+resfit
+qq
+scalelocation(rumer)
+
+#Diagnotsic plots look good.
+
+```
+
+
+```{r satken, echo=FALSE}
+
+Sat.type3 <- anova(rumer, type = 3)
+Ken.type3 <- anova(rumer, type = 3, ddf = "Kenward-Roger")
+
+output <- rbind(Sat.type3,
+                Ken.type3)
+
+rownames(output) <- c("Satterthwaite", "Kenward-Roger")
+
+output.caption <- "A comparison of the Satterthwaite and Kenward-Roger methods for estimating denomenator degrees-of-freedom."
+
+kbl(output,
+    digits = c(2,2,0,0,3,4),
+    caption = output.caption
+    ) |>
+  kable_classic()
+
+```
+
+
+We first looked at the difference in fine root growth between the control stand and the four monoculture stands and found no significant difference (df = 11.04, p = 0.8447). Because of the large visual difference among the four monoculture stands we then compared the VOGU stand against HIAL, PIMA, and VIKO. There was a significant difference in the fine root growth of VOGU in comparison to the other three (df = 11.42, p = 0.0004) (Table \@ref(tab:contrasts)).
+
+
+```{r contrasts, echo=FALSE}
+
+rummeans<-emmeans(rumer,"T")
+
+rucontrasts<-contrast(rummeans,
+                          list("Control vs. Treatments"
+                               =c(4,-1,-1,-1,-1),
+                               "VOGU vs. HIAL, PEMA, & VIKO"
+                               =c(0,-1,-1,-1,3)
+                               )
+                      )
+
+kbl(rucontrasts,
+    digits=c(0,2,2,2,2,4),
+    caption="Planned contrasts."
+    )|>
+  kable_classic()
+
+
+```
+
+
+Using Tukey-Kramer pairwise comparisons test from [@R-emmeans], we were able to look at all possible comparisons between treatments (Table \@ref(tab:russtukey)). There were consistent statistical differences between the fine root growth in the VOGU stands and any other stand; control vs. VOGU (p = 0.0411), HIAL vs. VOGU (p = 0.0234), PEMA vs. VOGU (p = 0.0026), and VIKO vs. VOGU (p = 0.0123). 
+
+
+```{r russtukey, echo=FALSE}
+
+kbl(pairs(rummeans),
+    digits=c(0,2,2,2,2,4),
+    caption="Tukey-Kramer pairwise comparisons among means [@R-emmeans]."
+    )|>
+  kable_classic()
+
+```
+
+
+Lastly, we looked at the possibility of random effects confounding our data using the Wilks test (Table \@ref(tab:randomruss)). We found no statistical difference and infer that random effects did not influence our analysis. Akaike information criterion estimates are near enough in value to indicate that models with and without random effects similarly represent the data. 
+
+
+```{r randomruss, echo=FALSE}
+
+kbl(ranova(rumer),
+    digits = c(0,2,2,2,0,4),
+    caption = "A log-likelihood ratio test of the contribution of the blocks                   random effect to the model provided by lmerTest::ranova()
+               [@R-lmerTest]."
+    ) |>
+  kable_classic()
+
+```
+
+
+# References
+

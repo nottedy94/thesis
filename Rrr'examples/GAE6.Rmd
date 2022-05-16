@@ -1,0 +1,154 @@
+---
+title: "GAE6"
+subtitle: "Multiple Comparisons"
+author: "THM"
+date: "3/3/2022"
+output:
+  bookdown::html_document2:
+    number_sections: false
+    toc: yes
+bibliography:
+- GAE6.bib
+
+csl: ecology.csl
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = FALSE,
+  warning = FALSE,
+  message = FALSE
+)
+
+library(patchwork)
+library(car)
+library(ggfortify)
+library(gtsummary)
+library(kableExtra)
+library(tidyverse)
+
+# automatically create a bib database for R packages
+papaja::r_refs(file = "GAE5.bib")
+
+options(knitr.kable.NA = "")
+```
+
+# Peas, auxin, and sugars
+
+It is now relatively well known that sugars can act as signalling molecules in plants and interact with various plant signaling pathways to modulate growth and development (see @Mishra.etal2022 for a review). The data for this exercise was collected as part of the early work on the physiology of the interactions between sugars and auxin (e.g. indole-3-acetic acid, IAA) compounds. @Purves1959 knew from previous work in A.W. Galston's lab at Yale and elsewhere, where Purves was a student, that varying levels of sucrose could inhibit or promote the action of IAA, so Purves set out to explore other sugars' role in interactions with auxin. These data are just one small part of his larger thesis work.
+
+For these data, Purves was most interested in:
+
+  1. Does the presence of sugar solutions alter the growth of pea sections?
+  2. Do different sugars produce different effects?
+  3. Do combinations of sugars affect growth in the same way as individual sugars?
+  
+<DIV style="color:DarkOrchid">
+#### Your assignment:
+
+  1. Use ANOVA and orthogonal contrasts to help answer these specific questions. 
+  2. Then explore other hypotheses that may be suggested by the data.
+  3. Edit this document to report your statistical methods, results, and your conclusions. *<You'll need to also edit the text to reflect that you are the author, not me, which will include deleting this bit about the assignment and re-working the bits where I say "I".>*
+</DIV>
+
+# Methods 
+### (*exerpted from @Purves1959 with minor editing to reduce the length*)
+Seeds of *Pisum sativum* L., var. 'Alaska' (obtained from Associated Seed Growers, Inc. of New Haven Conn.) were soaked in tap water for 3-4 hr. and then sown in  thoroughly washed vermiculite (Mica-Gro Type B, supplied by Platt Seed Co., Branford, Conn.). The seedlings were allowed to develop in a curtained cabinet in a dark room maintained at $27 \pm 1$ $^o$C. They were exposed sparingly to dim green light at the time of harvest and, briefly, when the curtains were opened during normal activity in the dark room.
+
+All sections were taken from plants having recurved apical crooks and third internodes between 15 and 50 mm in length. Sections 5-mm in length taken 1 mm below the apical crook were used. The sections were randomized in the basal medium, which was 0.02 M $KH_2PO_4-Na_2HPO_4$ buffer, pH 6.1, and lots of 10 sections were floated on 5 ml of various media in 5-cm Petri dishes. After approximately 20 hr growth in darkness, sections were measured to the nearest 0.1 mm by means of a dissecting microscope with an ocular micrometer.
+
+The available data were presented in "wide" format (Table \@ref(tab:dataImport)), so I have rearranged it into "tidy" format. It appears that in this experiment, the sugars may have resulted in an inhibition of growth (Figure \@ref(fig:dataImport)).
+
+```{r dataImport}
+#| fig.cap = "Pea sections grown in tissue culture with auxin present. Treatments were added sugar solutions and response was measured as length (mm)."
+
+df1 <- read_csv('peas.csv',
+                  show_col_types =TRUE
+                )
+df1
+```
+
+
+```{r}
+peaTab1 <- "The effect of the addition of different sugars on length of pea sections grown in tissue culture with auxin present. *Data extracted from @Purves1959*."
+
+kbl(
+  escape = FALSE,  # To allow the use of <br> to control the linefeed
+  df1,
+  col.names = c(
+    "Replicate",
+    "Control",
+    "2% glucose",
+    "2% fructose",
+    "1% glucose<br>1% fructose",
+    "2% sucrose"
+  ),
+  caption = peaTab1
+) |>
+  kable_classic(full = FALSE) |>
+  row_spec(0 ,  bold = F, extra_css = 'vertical-align: bottom !important;')
+
+# Note that the data are in wide format, so I'll use pivot_longer to rearrange
+# the data.
+```
+
+
+```{r}
+df2 <- df1 |>
+  pivot_longer(
+    cols = 2:6,
+    names_to = "Treatment",
+    values_to = "Length"
+    )
+df2
+# Note the order I have used here for the treatments!!!
+```
+
+
+```{r}
+df2$Treatment <- factor(
+  df2$Treatment,
+  levels = c(
+    "Control",
+    "glucose",
+    "glucose.fructose",
+    "fructose",
+    "sucrose"
+    ),
+  labels = c(
+    "Control",
+    "2% Glucose",
+    "1% Glucose & 1% Fructose",
+    "2% Fructose",
+    "2% Sucrose"
+    )
+  )
+
+ggplot(df2, aes(x = Treatment, y = Length)) +
+  geom_boxplot(outlier.alpha = 0) +
+  geom_jitter(width = 0.35, 
+              height = 0, 
+              size = 3,
+              alpha = 0.7,
+              shape = 21,
+              color = "darkgreen",
+              fill = "#99cc33") +
+  scale_x_discrete(
+    name = "",
+    labels = c(
+      "Control",
+      "2% glucose",
+      "1% glucose\n1% fructose", # note that in ggplot2 labels \n produces a
+      "2% fructose",             # linefeed
+      "2% sucrose"
+    )) +
+  scale_y_continuous(name = "Pea Section Length (mm)",
+                     expand = c(0,0),
+                     limits = c(6,10)) +
+  theme_classic(base_size = 16)
+
+```
+
+
+
+# References

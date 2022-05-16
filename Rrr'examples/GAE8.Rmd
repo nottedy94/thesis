@@ -1,0 +1,80 @@
+---
+title: "GAE8-RCB"
+subtitle: "Analysis of @Russell.etal2017a fine root growth data"
+author: "*your name here*"
+date: 'Spring 2022'
+output:
+  bookdown::html_document2:
+    toc: yes
+    number_sections: FALSE
+    code_download: TRUE
+    
+bibliography:
+- R-GAE8.bib
+csl: ecology.csl
+---
+
+```{r setup, include=FALSE}
+
+knitr::opts_chunk$set(echo = FALSE)
+
+library(lme4)      # For linear mixed effects modelling
+library(lmerTest)  # To provide P-values for lme4
+library(car)       # Primarily for the Anova() function
+library(latex2exp)
+library(kableExtra)
+library(ggfortify)
+library(broom)
+library(tidyverse)
+
+papaja::r_refs(file = "R-GAE8.bib")
+
+options(knitr.kable.NA = "")
+
+# Needed if we decide to use Type III SS
+options(contrasts = c('contr.sum','contr.poly'))
+
+```
+
+# Introduction
+
+@Russell.etal2017a reported on a 12-year experiment to examine how trees with different species traits may affect soil cation dynamics. One of the species traits they were interested in was fine root growth. Their rationale was, "Fine-root growth allows for exploration of the soil volume; thus differences among species in this trait could result in differential uptake of available soil cations."
+
+<p style="color:darkorchid"> I would like for you to test for differences in fine root growth among the species used in the experiment.</p>
+
+# Methods
+
+The authors reported that this experiment was begun in 1988 on abandoned pasture land that had once supported broad-leaved rain forest, now part of La Selva Biological Station, Costa Rica [@Russell.etal2017a]. The experiment consisted of five treatments: monoculture plantings of four native rain forest trees with differing life-history traits (see Table 1 in @Russell.etal2017a) and controls with no trees planted. Plots were 50 x 50 m (0.25 ha).
+
+Treatments were deployed in a randomized complete block design with four spatial blocks. The authors report that the area is "hilly" and that each block was centered on a hilltop [@Russell.etal2017a]. While the experiment was originally deployed in a randomized complete block design, the authors report that October of 2009, the *Vochysia guatemalensis* treatment in Block 1 was destroyed by a "stand-level lightening event" [@Russell.etal2017b]. See @Russell.etal2017a for details on fine root growth determination.
+
+## Statistical Methods
+
+```{r dataImport}
+# Species in monodominant plantations:  Hieronyma alchorneoides = HIAL;
+# Pentaclethra macroloba = PEMA; Virola koschnyi = VIKO; and Vochysia
+# guatemalensis = VOGU.  Control = unplanted, naturally regenerating treatment.
+
+# Growth units: cm/cm2/yr
+
+df1 <- read_csv("Russell_etal2017.csv",
+                show_col_types = FALSE
+                )
+```
+
+The authors provided their data via the Dryad Digital Data Repository [@Russell.etal2017b]. All analyses were conducted in R [@R-base] and I used packages from the tidyverse metapackage [@R-tidyverse] for all data import, manipulations, and graphical presentations. 
+
+<p style = "color:darkorchid"> What you decide to do for analysis goes here.</p>
+
+# Results
+
+<p style = "color:darkorchid"> Your results . . . tables, figures, and interpretation. </p>
+
+
+
+
+
+
+
+
+# References

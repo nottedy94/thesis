@@ -1,0 +1,109 @@
+---
+title: 'GAE10: The ultimate GAE'
+output:
+  bookdown::html_document2:
+    toc: TRUE
+    self_contained: yes
+    number_sections: no
+    code_download: TRUE
+    
+bibliography:
+- GAE10.bib
+- R-GAE10.bib
+
+csl: ecology.csl
+---
+
+```{r setup }
+#| echo = FALSE,
+#| message = FALSE
+
+knitr::opts_chunk$set(echo = FALSE)
+
+library(vegan)
+library(ggrepel)
+library(FactoMineR)
+library(factoextra)
+library(DHARMa)
+library(car)
+library(broom)
+library(kableExtra)
+library(tidyverse)
+
+papaja::r_refs(file = "R-GAE10.bib")
+
+options(knitr.kable.NA = "")
+
+set.seed(123)
+
+```
+
+# Scenario 1: Turkey, Traffic, and Toxoplasmosis
+*(or, Does your cat make you a bad driver?)*
+
+In Turkey, traffic accidents are major causes of mortality and morbidity. According to the statistics reported by Turkish Security Headquarters for the year 2000, 7500 people were killed in traffic accidents. Drivers were mostly blamed for the traffic accidents. Tired, weary, sleepy and absentminded driving were common reasons for traffic accidents. Among these reasons mental and reflex conditions of drivers are significant.
+
+Toxoplasmosis is one of the most common zoonoses throughout the world. In most cases, toxoplasmosis has no clinical signs or symptoms and infection may only be detected by serological examinations. This kind of latent or dormant toxoplasmosis can be located in neural or muscular tissues and cause prolonged reaction times of the muscles. Extended reaction times also lead to deceleration of the reflexes which could be a major cause of traffic accidents. In light of this possibility, @Yereli.etal2006 investigated the incidence of *Toxoplasma gondii* (Figure \@ref(fig:lifeCycle), [see this CDC link for more toxoplasmosis information](https://www.cdc.gov/parasites/toxoplasmosis/)) among a group of drivers who were involved in traffic accidents.
+
+```{r lifeCycle}
+#| fig.cap = "*Toxoplasma gondii* life cycle. Image provided by the Centers for
+#|    Disease Control and Prevention, Division of Parasitic Diseases and 
+#|    Malaria.",
+#| out.width = "50%",
+#| fig.align = "center"
+
+knitr::include_graphics("toxoplasma.gif")
+```
+
+## Methods
+
+A total of 185 drivers (100 men and 85 women) that had been involved in auto accidents, aged between 21 and 40 years, living in Izmir and Manisa, and 185 people (95 men and 90 women), residents of the same region, in same age group that had not been involved in accidents were tested for infection using commercial IgG and IgM ELISA kits.
+
+```{r S1dataImport}
+
+df1 <- read_csv("toxoplasmosis.csv", show_col_types = FALSE)
+
+```
+
+### Statistical Methods
+
+<font style="color:darkorchid">Was there a connection between being infected and being involved in an auto accident?</font>
+
+# Scenario 2: Non-consumptive effects of predators on community and ecosystem metrics.
+
+Top-down effects of predators may produce large effects on prey assemblages and ecosystem function through direct removal of individual prey and nutrient release. Over the last few decades evidence that behavioral response to predation risk may also produce detectable effects in community dynamics and ecosystem function (= non-consumptive effects). @Marino.etal2016 conducted an experiment in tank bromeliads (Figure \@ref(fig:tanks)) to ask: 1) whether the mere presence of predators, in the absence of consumed prey, can affect food web structure and function; and, 2) if an additional source of predation cue (alarm cues from consumed prey) increases the responsiveness to predation risk.
+
+```{r tanks}
+#| fig.cap = "The tank bromeliad *Neoregelia cruenta*. (A) Detail of the central tank that hosts a miniature aquatic ecosystem created by the rain water accumulated between the bromeliad leaves (B). Photo from @Pires.etal2017.",
+#| out.width = "30%",
+#| fig.align = "center"
+
+knitr::include_graphics("tank.png")
+```
+
+## Methods
+
+The experiment used 15 bromeliads (*Neoregelia cruenta*) that they had collected from the field. The tanks were emptied and dried, all predators removed from the drained water, then the now predator-free water was replaced in the tanks. In these systems, the top predator is most often, the larval damselfly, *Leptagrion andromache*. To examine how the presence of the damselfly affected their prey assemblage, the researchers developed three treatments: bromeliads containing a cage with no damselflies present, a cage with an unfed damselfly, or a cage with a damselfly fed with mosquito larvae.
+
+The treatments were replicated 5 times and assigned to the bromeliads in a completely randomized design. They measured the community response as bacterial carbon biomass (g C/L), bacterial carbon production (μmole C/Lh), nitrogen flux from enriched detritus to bromeliad leaves (δ15N), CO~2~ flux from the reservoir to the atmosphere (g C/(m^2^d)), macroinvertebrate richness, macroinvertebrate abundance (number of individuals), and macroinvertebrate biomass (mg). 
+
+```{r bromdataImport}
+
+# Treatment: descriptive treatment names
+# Tanks: the number of tank compartments in the bromeliad
+# volume: the total volume of the micro-ecosystem provided by the bromeliad
+# mass: the size (g) of each bromeliad
+# bactbio: bacterial carbon biomass (g C/L)
+# bactprod: bacterial carbon production (μmole C/Lh)
+# nitroflux: nitrogen flux from enriched detritus to bromeliad leaves (δ15N)
+# co2flux: CO2 flux (g C/m^2^d)
+# richness: macroinvertebrate taxa richness
+# count: total number of macroinvertebrates
+# biomass: estimated total macroinvertebrate biomass (mg)
+
+df2 <- read_csv('marino.csv', show_col_types = FALSE)
+```
+
+### Statistical Methods
+
+<font style="color:darkorchid"> Use multivariate tools to assess whether their treatments affected community dynamics or ecosystem function.</font>

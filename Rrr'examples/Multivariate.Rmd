@@ -1,0 +1,512 @@
+---
+title: "Multivariate analysis and Ordination -- Chapters 15-18"
+output: 
+  bookdown::html_document2:
+    number_sections: FALSE
+    fig_caption: yes
+    toc: yes
+    code_download: TRUE
+    
+bibliography: 
+- Quinn_Keough2002.bib
+- r-pca.bib
+---
+
+```{r setup, message=FALSE}
+#| echo = FALSE,
+#| results = 'hide'
+
+knitr::opts_chunk$set(echo = FALSE)
+
+library(vegan)       # tools for descriptive community ecology
+library(ggrepel)     # provides the ability to "jitter" labels on plots
+library(FactoMineR)  # provides exploratory mutlivariate methods
+library(factoextra)  # Visualize the Results of Multivariate Data Analyses
+library(patchwork)
+library(broom )
+library(kableExtra)
+library(tidyverse)
+
+papaja::r_refs(file = "r-pca.bib")
+
+options(knitr.kable.NA = "")
+
+options(scipen = 99)
+
+set.seed(123)       # Needed for techniques that use pseudorandom numbers to
+                    # insure reproducible results -- non-metric multi-dimensional
+                    # scaling relies on randomization processes.
+
+```
+
+# Ordination
+
+We often collect multiple bits of information from each observation in a study, such as recording the number of different species in a plot, or collecting environmental information associated with a replicate, etc. Typically these multiple measures that are within the same observation are strongly correlated, so in a typical hypothesis-testing situation, treating the multiple variables as independent and doing multiple testing would increase the experiment-wise error rate.
+
+Methods to reduce the number of dimensions of the data are often grouped under the heading ***Ordination***, variously defined:
+
+-   The simplest definition is "Putting Things in Order." The origin of the term "ordination" in ecology is attributed to @Goodall1954.
+-   "Ordination is the collective term for multivariate techniques that arrange sites along axes on the basis of data on species composition" [@Jongman.etal1987]
+-   "Ordination - The ordering of a set of data points with respect to one or more axes. Alternatively, the displaying of a swarm of data points in a two or three-dimensional coordinate frame so as to make the relationships among the points in many-dimensional space visible on inspection" [@Pielou1984].
+-   "Ordination is nothing but a way of drawing graphs, and it is best to inspect ordinations only graphically (which also implies that they should not be taken too seriously)." [@R-vegan].
+
+Mike Palmer, Botany Department, Oklahoma State University, Stillwater, maintains the Ordination Methods for Ecologists web site [ordination.okstate.edu](http://ordination.okstate.edu/) which has an enoormous amount of information, including a dichotomous key of recommendations for ordination.
+
+Multivariate techniques typically use linear algebra to manipulate square matrices based on observational data. Raw data is almost never square, but a variance-covariance matrix of the relationships among sites, or among species is. ![](SSCP.png)
+
+These values are often standardized by subtracting the mean and dividing by the standard deviation. This standardization transforms the variance-covariance matrix into a correlation matrix.
+
+## Principal Components Analysis (PCA)
+
+Principal components analysis (PCA) is one of the most commonly used multivariate statistical techniques and also serves as the basis for some other multivariate techniques. PCA uses linear combinations of the original data to map those observations onto the same number of independent components. It also organizes the components in order of the amount of variation in the data that is explained, so we can choose a reduced set of variables.
+
+PCA "decomposes" an association matrix. This matrix can be the raw data, a distance/similarity matrix derived from the original data, a variance-covariance matrix, or a correlation matrix. Most statistical software will use the correlation matrix by default (including R). The correlation matrix is a good choice when variables are measured in differing units, or when variances among variables differ considerably. The diagonal elements of the variance-covariance matrix equal the variances of the variables. If you scale your variables, the covariance matrix becomes a correlation matrix! *Remember scaling = standarizing and simply subtracts the mean and divides by the standard deviation.*
+
+> "Let **A** be a *p* by *p* matrix and **w** a *p*-element vector. If it is true that $\mathbf{A} \mathbf{w} = \lambda \mathbf{w}$ for some scalar $\lambda$, then $\mathbf{w}$ is an eigenvector of $\mathbf{A}$ and $\lambda$ is the corresponding eigenvalue. That is, an eigenvector of a matrix is a vector such that when we multiply the matrix by the vector we get the vector back again except that it has been multiplied by a particular constant, called the eigenvalue." - @Cliff1987.
+
+"Eigen" is German for "own" so you can think of the eigenvalue and eigenvector as those "owned" by the association matrix. These values are sometimes referred to as "latent roots" and "latent vectors," terms originally coined by British mathematician, James Joseph Sylvester in the late 1800s (hence the use of $\lambda$ or $l$ as the scalar variable.
+
+The process of finding the eigenvectors and eigenvalues of a matrix is known as eigenanalysis (or more precisely, singular-value decomposition). For a square matrix, there are as many eigenvectors and eigenvalues as there are rows and columns in the matrix. The eigenvalues are usually ranked from highest to lowest, and termed the first, second, third, etc..
+
+The visual display of the results of PCA usually involves rotating the components so that the components get plotted as axes on a graph with the original data mapped onto those axes using their PCA scores associated with the components. Typically you will see the first principal component (PC) as the x-axis, representing the greatest amount of variance in the data, and the second PC as the y-axis representing the second greatest amount of variation.
+
+\@Quinn.Keough2002 use the example of the correlation between red crab numbers and burrow abundance, data provided by @Green1997, to demonstrate axis rotation in their Figure 17.1. Hopefully this example of PCA on two dimensions helps demystify what PCA does on more than two dimensions. First, I've simply produced a scatterplot of the crab data with BURROWS on the x-axis and TOTMASS on the y-axis. The data points are represented by their individual identifier, QUADNUM.
+
+```{r crabRotation }
+#| fig.cap = "A scatterplot of red crab biomass plotted against number of 
+#| burrows [@Green1997]."
+
+crabs <- read.csv('green.csv')
+
+crabs$QUADNUM <- factor(crabs$QUADNUM)
+
+crab.mod <- lm(TOTMASS ~ BURROWS, data = crabs)
+
+ggplot(crabs) +
+  geom_text(aes(BURROWS, TOTMASS, label = QUADNUM), size = 4) +
+  geom_abline(intercept = crab.mod$coefficients[1], 
+              slope = crab.mod$coefficients[2]) +
+  ylab('Total Red Crab Biomass') +
+  xlab('Number of burrows') +
+  theme_classic()
+```
+
+Note that observations 4, 3, 10, and 5 lie very close to the regression line, while observation 9 and 8 are far away from the line on opposite sides (Figure \@ref(fig:crabRotation)).
+
+If we do a principle component analysis of this data containing only two variables, the output is mostly a rotation of the axis. There are at least 5 different functions available to compute the analysis available for R. Each one does the basic analysis, but differ in the "bells and whistles" they offer. In base R [@R-base], the **princomp()** and **prcomp()** functions do principal components analysis, but most folks recommend using **prcomp()**. There are also other packages that can do PCA e.g. **PCA()** from the FactoMineR package [@R-FactoMineR] and **rda()** from the vegan package [@R-vegan]. Here I've used the base-R **prcomp()** function. and the **fviz_pca_ind()** function from the **factoextra** package [@R-factoextra] to provide the visualization as a ggplot.
+
+```{r crabPCA}
+#| fig.cap = "An individuals plot of the two principle components of the red crab biomass and burrow data [@Green1997] as produced by prcomp() [@R-base] and visualized by fviz_pca_ind() [@R-factoextra]."
+
+crab.pca <- prcomp(crabs[,3:4])
+
+fviz_pca_ind(crab.pca, 
+             repel = TRUE, 
+             geom = 'text', 
+             title = 'PCA from prcomp()') +
+  scale_x_reverse()
+```
+
+Notice that first principle component (Dim1, Figure \@ref(fig:crabPCA)) is essentially the regression line from the scatterplot above (Figure \@ref(fig:crabRotation)). The PCA computed a linear combination of the variables that represented the greatest joint variation, then another combination at right angles to that, that described the next greatest joint variation.
+
+### Box 17.1: PCA of chemistry of forested watersheds.
+
+The variables in the study of 38 stream sites in New York state by @Lovett.etal2000 fell into two groups measured at different spatial scales -- watershed variables (elevation, stream length and area) and chemical variables for a site averaged across sampling dates. In this example, @Quinn.Keough2002 chose to only use the chemical variables for the PCA, as a PCA using all variables together was very difficult to interpret. Additionally, three variables (dissolved organic C, Cl and H) were very strongly skewed and were $log_{10}(x)$ transformed. I just replaced the original variables with their common log in the data frame.
+
+```{r lovettData}
+lovett <- read.csv('lovett2.csv')
+names(lovett) <- tolower(names(lovett))
+doc <- log10(lovett$doc)
+cl <- log10(lovett$cl)
+h <- log10(lovett$h)
+
+chem <- data.frame(lovett[,6:15])
+env <- data.frame(lovett[,2:5])
+```
+
+One of the most popular ways to visualize PCA results is to use a *"bi-plot"* in which the scores (just the result of the linear combination of the original data) for rows are plotted for given components and the scores for columns are overlayed. Typically, the "sites" or rows are plotted with points and the columns are plotted as vectors that originate from the focus. The interpretation is that the direction and length of the vectors represents the size of the correlation between them and the components included in the plot.
+
+```{r PCA, fig.asp = 1.5}
+#| fig.cap = "Biplots (samples as points and variables as vectors) for principle component analysis of the @Lovett.etal2000 chemistry of forested watersheds data calculated using three different functions from R. Panels A and B were produced using princomp() and prcomp() respectively, both provided by base R [@R-base]. Panel C calculations were provided by PCA() from the FactoMineR package [@R-FactoMineR]. All three panels were visualized using fviz_pca_ind() from the factoextra package [@R-factoextra]."
+
+
+out_princomp <- princomp(chem, cor = TRUE)
+a <- fviz_pca_biplot(out_princomp, repel = TRUE, title = 'A. PCA from princomp()') +
+  xlim(c(5, -5))
+
+out_prcomp <- prcomp(chem, scale = TRUE)
+b <- fviz_pca_biplot(out_prcomp, repel = TRUE, title = 'B. PCA from prcomp()') +
+  xlim(c(-5,5))
+
+out_PCA <- PCA(chem, graph = FALSE, scale.unit = TRUE)
+c <- fviz_pca_biplot(out_PCA, repel = TRUE, title = 'C. PCA from PCA()') +
+  xlim(c(-5,5))
+
+a + b + c + plot_layout(ncol = 1)
+
+```
+
+```{r RDA}
+#| fig.cap = "A biplot of the same data, but calculations and visualization provided by rda() from the vegan package [@R-vegan]."
+
+out_rda <- rda(chem, scale = TRUE, scaling = 'sites')
+biplot(out_rda, main = 'PCA from rda()')
+```
+
+### Interpretation:
+
+Remember that the vectors drawn on the plot represents correlation, so the smaller the angle between two vectors or between a vector and one of the components (axes) the more closely correlated the two are, with the length of the vector depicting the magnitude of the correlation. For example, in this PCA, we see that $NO_3$ and Total $N$ are strongly correlated with each other, not surprising, but are negatively correlated with PCA1 and positively correlated with PCA2. In comparison, $NH_4$ is positively correlated with PCA1, but the magnitude of the correlation is not as large as it is for $NO_3$. $NH_4$ is almost independent of PCA2, the angle is almost $90^\circ$.
+
+In ecology, we often see the data arranged with species as the different columns (presence/absence, counts, or relative density) and sample sites as the different rows. With these sorts of data, a PCA is usually called an "ordination." The term comes from the idea that we're attempting to order sites based on the communities of organisms that have been observed there, then reduce the dimensionality to allow us to see the patterns that emerge.
+
+In the vignette, Introduction to Ordination (available to you by typing **`browseVignettes("vegan")`** in the console), Jari Oksanen, one of the authors of the vegan package, states,
+
+> "Ordination is nothing but a way of drawing graphs, and it is best to inspect ordinations only graphically (which also implies that they should not be taken too seriously)."
+
+It is also possible to graph extra quantitative and qualitative information on the plots. **PCA()** allows us to include supplementary quantitative information, such as the physical information about the watersheds in the Lovett data:
+
+```{r lovettPCA}
+out <- PCA(lovett,
+               quanti.sup = c(2:5), 
+               quali.sup = 1,
+               graph = FALSE, 
+               scale.unit = TRUE)
+
+fviz_pca_biplot(out, repel = TRUE, col.quanti.sup = 'red',
+                title = 'PCA of stream chemistry')
+
+```
+
+So, we can see that elevation was negatively correlated with PCA1 and slightly positively correlated with PCA2.
+
+### Grouping variables and inferences
+
+When there is a meaningful grouping variable, we can display the output of PCA with confidence ellipses. I'm using Fisher's (or Anderson's) iris data [@Anderson1935; @Fisher1936] provided in the base installation of R. The data set gives the measurements in centimeters of the variables sepal length and width and petal length and width, respectively, for 50 flowers from each of 3 species of iris. The species are *Iris setosa*, *I. versicolor*, and *I. virginica*. In the code below, "quali.sup=5" refers to the 5th column in the data frame which contains the species ID. *"Habillage" is French for "dressing" -- the authors are French.*
+
+```{r irisPCA}
+data(iris)
+
+iris_PCA <- PCA(iris, graph = FALSE, quali.sup = 5, scale.unit = TRUE)
+
+fviz_pca_biplot(iris_PCA, habillage = 5, addEllipse = TRUE)
+
+```
+
+The default ellipses are 95% confidence intervals, so they give some idea of separation along the principal components. Here we see that petal length and petal width would likely work pretty well to separate *I. setosa* from the other two species, but that some other character would be needed to help separate *I. versicolor* from *I. verginica*.
+
+The vegan package [@R-vegan] also provides the adonis2() function that can perform permutation tests to provide tests of differences among groups based on the multivariate data. From the adonis2 help file: ". . . a function for the analysis and partitioning sums of squares using dissimilarities. The function is based on the principles of @Mcardle.Anderson2001 and can perform sequential, marginal and overall tests. The function also allows using additive constants or squareroot of dissimilarities to avoid negative eigenvalues, but can also handle semimetric indices (such as Bray-Curtis) that produce negative eigenvalues." See the help file for more info.
+
+```{r irisPERMANOVA }
+
+irisPERMANOVA <- adonis2(
+  iris[,-5] ~ Species, 
+  data = iris, 
+  method = "euclidean",
+  permutations = 10001
+  )
+
+irisPERMANOVA.tab <- "Summary of PERMANOVA test results for multivariate differences among species of *Iris* (Anderson's *Iris* data, [@Fisher1936, @Anderson1935])."
+
+irisPERMANOVA$`Pr(>F)` <- format.pval(irisPERMANOVA$`Pr(>F)`,
+                                 eps = 0.0001,
+                                 digits = 4,
+                                 na.form = ""
+                                 )
+
+kbl(irisPERMANOVA,
+    caption = irisPERMANOVA.tab,
+    col.names = c(
+      "df",
+      "SS",
+      "$R^2$",
+      "F",
+      "P"
+      ),
+    align = "r",
+    digits = c(0, 1, 2, 2, 4)
+    ) |>
+  column_spec(1:5, width = "5em") |>
+  kable_classic(full = FALSE)
+```
+
+I would reject the null hypothesis of no difference among the three species (Table \@ref(tab:irisPERMANOVA)). Note that the "partial $R^2$" represents the proportion of the sums-of-squares out of the total. For more complicated models, it may not sum to 1.
+
+## Nonmetric Multidimensional Scaling (NMDS)
+
+NMDS is one of several approaches to multidimensional scaling. @Quinn.Keough2002 spend considerable space in discussing Principal Coordinates Analysis (PCoA) as an example of MDS.
+
+Here, I'll focus on Nonmetric Multidimensional Scaling (NMDS) - The most widely used distance-based ordination method. NMDS maximizes rank-order correlation between distance measures and distance in ordination space. Points are iteratively moved to minimize "stress". Stress is a measure of the mismatch between the two kinds of distance. Final stress values should ideally be smaller than 10% and not larger than 30% to represent species abundance data accurately. *Note that the value of stress depends to a degree on the random number seed, so if you get non-convergence, try changing set.seed().* Another HUGE difference between metric methods and non-metric methods is that we choose the number of dimensions rather than inspecting the output to look for the best number.
+
+The "distance" used in NDMS is typically ecological distance. I won't take time to provide a full discussion of ecological distance and the various methods that have been used to calculate it, but have a look at the figure below for a very brief summary:
+
+```{r NMDSdiag}
+#| out.width = "80%",
+#| fig.align = "center",
+#| fig.cap = "Figure from [Tree Diversity Analysis](https://www.worldagroforestry.org/downloads/Publications/PDFS/b13695.pdf) [@Kindt.Coe2005]."
+
+knitr::include_graphics("NMDS1.jpeg")
+```
+
+One desirable characteristic of an ecological distance could be that sites that do not share any species are all given the same maximum distance. The distances that we described here that have this property are the Bray-Curtis and the Kulczynski distances. They should thus be preferred for analyzing differences in species composition according to this criterion.
+
+#### Info from the R helpfile for **metaMDS()** [@R-vegan], the function we will use:
+
+Non-metric Multidimensional Scaling (NMDS) is commonly regarded as the most robust unconstrained ordination method in community ecology [@Minchin1987]. In R [@R-base], the vegan package [@R-vegan] provides the metaMDS() function which serves as a convenience wrapper to the algorithms that actually do the iterative ranking and provides various outputs. While the dimensions for NMDS are not based on variance and may be arbitrarily ordered (i.e. dimension 1 is not necessarily of greater importance than dimension 2), metaMDS() also does a principal components rotation on the NMDS dimensions so that we can assume that dimension 1 describes more of the differences among sites and species than does dimension 2. Function metaMDS() carries out several operations typically conducted for NMDS. The complete steps in metaMDS() are:
+
+1.  Transformation: If the data values are larger than common class scales, the function performs a Wisconsin double standardization using wisconsin. If the values look very large, the function also performs sqrt transformation. Both of these standardization are generally found to improve the results. However, the limits are completely arbitrary (at present, data maximum 50 triggers sqrt and \>9 triggers wisconsin). If you want to have a full control of the analysis, you should set autotransform = FALSE and make explicit standardization in the command.
+
+2.  Choice of dissimilarity: For a good result, you should use dissimilarity indices that have a good rank order relation to ordering sites along gradients [@Faith1987]. The default is Bray dissimilarity, because it often is the test winner. However, any other dissimilarity index in vegdist can be used. Function rankindex can be used for finding the test winner for you data and gradients.
+
+3.  Step-across dissimilarities: Ordination may be very difficult if a large proportion of sites have no shared species. In this case, the results may be improved with stepacross dissimilarities, or flexible shortest paths among all sites. The stepacross is triggered by option noshare. If you do not like manipulation of original distances, you should set noshare = 1.
+
+4.  NMDS with random starts: NMDS easily gets trapped into local optima, and you must start NMDS several times from random start to be confident that you have found the global solution. The default in isoMDS is to start from metric scaling (with cmdscale) which typically is close to a local optimum. The strategy in metaMDS is to first run a default isoMDS, or use the previous.best solution if supplied, and take its solution as the standard (Run 0). Then metaMDS starts isoMDS from several random starts (maximum number is given by trymax). If a solution is better (has a lower stress) than the previous standard, it is taken as the new standard. If the solution is better or close to a standard, metaMDS compares two solutions using Procrustes analysis using function procrustes with option symmetric = TRUE. If the two solutions are very similar in their Procrustes rmse and the largest residual is very small, the solutions are regarded as convergent and the best one is saved. Please note that the conditions are stringent, and you may have found good and relatively stable solutions although the function is not yet satisfied. Setting trace = TRUE will monitor the final stresses, and plot = TRUE will display Procrustes overlay plots from each comparison. This is the only step performed if input data (comm) were dissimilarities.
+
+5.  Scaling of the results: metaMDS will run postMDS for the final result. Function postMDS provides the following ways of \`\`fixing'' the indeterminacy of scaling and orientation of axes in NMDS: Centring moves the origin to the average of the axes. Principal components rotate the configuration so that the variance of points is maximized on first dimension (with function metaMDSrotate you can alternatively rotate the configuration so that the first axis is parallel to an environmental variable). Half-change scaling scales the configuration so that one unit means halving of community similarity from replicate similarity. Half-change scaling is based on closer dissimilarities where the relation between ordination distance and community dissimilarity is rather linear; the limit is controlled by parameter threshold. If there are enough points below this threshold (controlled by the parameter nthreshold), dissimilarities are regressed on distances. The intercept of this regression is taken as the replicate dissimilarity, and half-change is the distance where similarity halves according to linear regression. Obviously the method is applicable only for dissimilarity indices scaled to 0 ... 1, such as Kulczynski, Bray-Curtis and Canberra indices. If half-change scaling is not used, the ordination is scaled to the same range as the original dissimilarities.
+
+6.  Species scores: Function adds the species scores to the final solution as weighted averages using function wascores with given value of parameter expand. The expansion of weighted averages can be undone with shrink = TRUE in plot or scores functions, and the calculation of species scores can be suppressed with wascores = FALSE.
+
+### Vegetation and Environment in Dutch Dune Meadows
+
+I'm using the `dune` and `dune.env` data included in the vegan package [@R-vegan] to provide an example. From the help file: "dune is a data frame of observations of 30 species at 20 sites. The species names are abbreviated to 4+4 letters (see make.cepnames() in vegan). The following names are changed from the original source [@Jongman.etal1987]: *Leontodon autumnalis* to *Scorzoneroides*, and *Potentilla palustris* to *Comarum*." The dune.env file contains environmental data for the same 20 sites:
+
+-   A1: thickness of the A1 soil horizon
+-   Moisture: a ranked (ordered) factor with levels 1\<2\<3\<4\<5
+-   Management:
+    -   BF - Biological Farming
+    -   HF - Hobby Farming
+    -   NM - Nature Conservation Managment
+    -   SF - Standard Farming
+-   Use: a ranked (ordered) factore with levels Hayfield \< Haypastu \< Pasture
+-   Manure: n ordered factor with levels: 0 \< 1 \< 2 \< 3 \< 4.
+
+```{r NMDS }
+#| results = 'hide' 
+# The code-chunk option above "hides" the iterative reporting from the published
+# output.
+
+data(dune, dune.env)
+
+dune_out <- metaMDS(comm = dune, 
+                    distance = "bray", 
+                    k = 2, 
+                    autotransform = TRUE
+                    )
+
+```
+
+We can use the ***stress*** value to check on whether we've used a sufficient number of dimensions: **stress =** **`r round(dune_out$stress, 3)`**. The rule of thumb is:
+
+$$good < 0.05 \leq fair \leq 0.10 \leq suspect < 0.20$$
+
+Two dimensions gives a *fair* ordination and it's much easier to interpret a 2-D graph than it is 3-D, so I will stick with this ordination.
+
+It is possible to generate plots using the vegan package, but they are in base R graphics and not really suitable for publication. The plotting functions provided by the factoextra package [@R-factoextra] do not work with NMDS, so we have to extract the information from the analysis to use ggplot2 [@R-ggplot2].
+
+```{r NMDSout }
+
+
+dune_scores <- as_tibble(dune_out$points, rownames = "site")
+dune_scores$Management <- dune.env$Management
+dune_species <- as_tibble(dune_out$species, rownames = "species")
+
+ggplot() +
+  geom_segment(aes(x = 0, y = 0, xend = MDS1, yend = MDS2), 
+               data = dune_species, 
+               arrow = arrow(length = unit(0.03, "npc")), alpha = 0.5) +
+  geom_text_repel(aes(x = MDS1, y = MDS2, label = species), 
+                  data = dune_species, 
+                  max.overlaps = 15,
+                  alpha = 0.5, 
+                  size = 3) +
+  geom_point(aes(x = MDS1, y = MDS2, color = Management), 
+             data = dune_scores) +
+  scale_y_continuous(name = 'NMDS 2', limits = c(-2,2)) +
+  scale_x_continuous(name = 'NMDS 1', limits = c(-2,2)) +
+  theme_minimal()
+
+```
+
+We can also use adonis2() to do analyses similar to ANCOVA. Note that A1, thickness of the A1 soil horizon is a continuous variable, while Management is a factor that is under more direct control. If we wish to test for differences among Management types in our matrix of dependent variables while "correcting" for the variation potentially introduced by soil depth, we would first test the interaction, then if it is non-significant, drop it from the model.
+
+```{r dunePERM1}
+#| results = 'hide'
+
+# As we did with a regular ANCOVA, we first include the interaction. The big
+# difference is that adonis2() doesn't even give us tests of the main effects
+# when the interaction is included.
+
+dune1.mod <- adonis2(dune ~ Management * A1,
+                    method = "bray", 
+# "method" => the name of the method used to calculate pairwise distances if the
+# left hand side of the formula was a data frame or a matrix.
+                    data = dune.env,
+                    by = "margin",
+# "by = terms" will assess significance for each term sequentially (~ Type I SS)
+
+# "by = margin" will assess each marginal term analysed in a model with all
+# other variables (~ Type II SS). Note that if you include an interaction, that
+# is the only term that will be tested. The expectation is that you will then
+# drop that term and re-run the analysis if the interaction is non-significant
+# in much the same way as we do for ANCOVA.
+
+# "by = NULL" will assess the overall significance of the model.
+
+                    permutations = 9999
+                    )
+
+dune1.mod
+
+```
+
+```{r dunePERM2}
+
+# The interaction between the continuous covariate, A1, and the factor of
+# interest, Management, is not significant, so we drop it from the model.
+
+dune.mod <- adonis2(dune ~ Management + A1,
+                    method = "bray",
+                    data = dune.env,
+                    by = "margin",
+                    permutations = 9999
+                    )
+
+
+dune.mod$`Pr(>F)` <- format.pval(dune.mod$`Pr(>F)`,
+                                 eps = 0.0001,
+                                 digits = 4,
+                                 na.form = ""
+                                 )
+
+kbl(dune.mod,
+    caption = "Summary of PERMANOVA test results for differences in land 
+               management practices, adjusted for soil depth.",
+    col.names = c(
+      "df",
+      "SS",
+      "$R^2$",
+      "F",
+      "P"
+      ),
+    align = "r",
+    digits = c(0, 3, 3, 3, 4)
+    ) |>
+  column_spec(1:6, width = "5em") |>
+  kable_classic(full = FALSE)
+
+```
+
+# Box 17.2: Habitat fragmentation and rodents.
+
+@Bolger.etal1997 surveyed the abundance of seven native and two exotic species of rodents in 25 urban habitat fragments and three mainland control sites in coastal southern California. Our aim is to reduce the nine species variables to fewer principal components and examine the relationships between the sites in terms of these components.
+
+```{r BolgerImport, message=FALSE}
+bolger <- read_csv("bolger.csv", show_col_types = FALSE)
+```
+
+We can have a look at the variances associated with each component, the eigenvalues, and the cumulative percentage of total variance to make choices of how many components to attempt to interpret.
+
+```{r BolgerPCAcumPerc }
+
+bolger.pca <- PCA(
+  bolger, 
+  scale.unit = TRUE, 
+  quali.sup = c(1,2), 
+  graph = FALSE
+  )
+
+kbl(bolger.pca$eig, 
+    digits = 3, 
+    caption = "Eigenvalues, variances, and cumulative variances for Bolger's 
+    rodent assemblage data.") |>
+  kable_classic(full = FALSE)
+
+```
+
+We see that the first three principle components describe almost 80% of the variation (Table \@ref(tab:BolgerPCAcumPerc)).
+
+If we want, we can look at a tabular representation of the "factor loadings," the correlations of the component scores and the original variables for interpretation. 
+
+```{r BolgerPCAloadings}
+
+kbl(bolger.pca$var$cor, 
+    digits = 3, 
+    caption = "Factor loadings for Bolger's rodent assemblage data."
+    ) |>
+  kable_classic(full = FALSE)
+
+```
+
+We see that the strongest correlations (Table \@ref(tab:BolgerPCAloadings)) with component one are MCALIFO (r = 0.84) and PCALIFO (r = 0.84), the strongest correlations with component two are PFALLAX (-0.68) and NLEPIDA (0.63), and the dominant correlation with component three is MMUSCUL (0.80).
+
+We can also inspect the biplot to make similar inferences.
+
+```{r bolgerBiPlot}
+#| fig.cap = "Biplot of the @Bolger.etal1997 rodent data on the first three principle components.",
+#| fig.height = 8,
+#| fig.width = 6
+
+bolger1 <- fviz_pca_biplot(bolger.pca,
+                axes = c(1,2),
+                label = 'var', 
+                repel = TRUE,
+                title = "Biplot for Bolger's rodent data.",
+                habillage = 2) +
+  theme_minimal(base_size = 10)
+
+bolger2 <- fviz_pca_biplot(bolger.pca,
+                axes = c(1,3),
+                label = 'var', 
+                repel = TRUE,
+                title = "",
+                habillage = 2) +
+  theme_minimal(base_size = 10)
+
+bolger1 + bolger2 + plot_layout(ncol = 1)
+
+```
+
+While there appears to be good separation of invasive versus native rodents along the first principle component, there does not appear to be any obvious grouping with contiguous versus fragmented habitat on any of the first three components (Figure \@ref(fig:bolgerBiPlot)).
+
+#### NMDS approach:
+
+If we prefer to take a non-parametric approach, we can use metaMDS():
+
+```{r bolgerMDS }
+#| results = 'hide'
+
+bolger_out <- metaMDS(comm = bolger[,-c(1,2)], 
+                      distance = "bray", 
+                      k = 2, 
+                      autotransform = TRUE
+                      )
+
+```
+
+```{r bolgerPlot}
+#| fig.cap = "Non-metric multidimensional scaling biplot on two dimensions for 
+#|            the rodent data from @Bolger.etal1997"
+
+bolger.scores <- as_tibble(bolger_out$points, rownames = "site")
+bolger.species <- as_tibble(bolger_out$species, rownames = "species")
+bolger.scores$type <- bolger$TYPE
+
+ggplot() +
+   geom_point(aes(x = MDS1, y = MDS2, color = type), 
+              data = bolger.scores, 
+              size = 3, alpha = 0.5) +
+   geom_segment(aes(x = 0, y = 0, xend = MDS1, yend = MDS2),
+                arrow = arrow(length = unit(0.2,"cm")), 
+                data = bolger.species) +
+   geom_text_repel(aes(x = MDS1, y = MDS2, 
+                       label = species), 
+                   data = bolger.species) +
+   scale_x_continuous(limits = c(-1.7,1.7), expand = c(0,0)) +
+   scale_y_continuous(limits = c(-1.7,1.7), expand = c(0,0)) +
+   theme_minimal() +
+   theme(legend.position = c(0.5, 0.1), legend.direction = "horizontal")
+
+```
+
+We see that dimension one of the NMDS appears to capture much the same variation as the first principle component, while the second dimension is more similar to the third principle component (Figure \@ref(fig:bolgerPlot)).
+
+# Literature Cited

@@ -1,0 +1,73 @@
+---
+title: "Thesis-Schmesis"
+author: "J. Hillert"
+date: "4/3/2022"
+output:
+  bookdown::word_document2:
+    number_sections: false
+    toc: yes
+    always_allow_html: true
+    
+    
+bibliography:
+- R-packages.bib
+- aRticles.bib
+
+csl: ecology.csl
+---
+
+
+```{r setup, include=FALSE}
+
+knitr::opts_chunk$set(echo=FALSE,
+                      message=FALSE,
+                      warning=FALSE)
+
+library(lme4)      # For linear mixed effects modelling
+library(lmerTest)  # To provide P-values for lme4
+library(lattice)   # For diagnotsic plots of linear models in LME4
+library(car)       # Primarily for the Anova() function
+library(emmeans)
+library(latex2exp)
+library(kableExtra)
+library(ggfortify)
+library(broom)
+library(tidyverse)
+library(redres)
+
+papaja::r_refs(file = "thesisschmesis.bib")
+
+options(knitr.kable.NA = "")
+
+# Needed if we decide to use Type III SS
+# options(contrasts=c('contr.sum','contr.poly'))
+
+```
+
+
+# Abstract
+
+
+# Introduction
+
+
+# Methods
+
+
+## Statistical Methods
+
+
+Data sets were imported to the statistical program R studio for analysis [@R-base].
+
+
+# Results
+
+
+# Discussion
+
+
+# Acknowledgements
+
+
+# References
+
