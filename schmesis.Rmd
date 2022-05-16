@@ -51,6 +51,13 @@ options(knitr.kable.NA = "")
 # Introduction
 
 
+Montane treeless areas, grassy and heath balds, exist globally and are characterized as being dominated by herbaceous vegetation or woody ericaceous species, respectively. It is theorized that balds originated over ten thousand years ago and are hypothesized to be maintained by grazing of large herbivores and some deliberate burning [@Murdock.1986; @Lenze.2015; @Gersmehl.1970]. According to @Gersmehl.1970, true balds occur above 4,600 feet in elevation and can be characterized as follows; gently sloping but rarely greater than 20-degrees, often dominated by *Danthonia compressa*, forest encroachment is evident at the margins, relict trees are scattered in most areas, most are often sheltered on two or more sides by taller forest growth, soils are between 2 and 4 feet deep with high moisture content and organic matter, and at least one perennial spring is evident on the margin. Round Bald is a part of the Roan Mountain Massif and is located along the Appalachian Trail about 16 miles North of Bakersville, North Carolina and 14 miles South of Roan Mountain, Tennessee. The Balds of the Roan Massif host many rare and endemic species recognized as rare on national and regional levels.  
+
+Roan Mountain has been considered one of the most beautiful mountains east of the Rockies is located within the Unaka Range of the southern Appalachian Mountains. 
+
+In February of 2022, there was a low-intensity surface fire that burned approximately 4.5 arces of land on the south-facing slope of Round Bald. 
+
+
 # Methods
 
 
@@ -70,4 +77,24 @@ Data sets were imported to the statistical program R studio for analysis [@R-bas
 
 
 # References
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
