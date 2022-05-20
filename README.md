@@ -1,6 +1,11 @@
 # thesis
 
-#5.16.22
+# 5.20.22
+
+Turned crappy introduction in thesis.rmd into crappy introduction of proposal.rmd. Started writing the methods section, mostly satisfied with the intro. Need to find good soil seed bank method that doesn't take a lot of soil.
+Need at least 3 samples per transect per burned v unburned.
+
+# 5.16.22
 
 Set-up git repository. Created .bib files. Ensured that R will knit into a word document.
 
