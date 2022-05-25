@@ -1,5 +1,9 @@
 # thesis
 
+# 5.25.22
+
+Between the last time an now I punched up the methods and otherwise completed the methods section. Nixed the bits about management plans, not important. Transferred the knitted .docx to PC for formatting edits.
+
 # 5.20.22
 
 Turned crappy introduction in thesis.rmd into crappy introduction of proposal.rmd. Started writing the methods section, mostly satisfied with the intro. Need to find good soil seed bank method that doesn't take a lot of soil.
