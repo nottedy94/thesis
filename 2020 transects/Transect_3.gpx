@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<gpx xmlns="http://www.topografix.com/GPX/1/1" creator="GaiaGPS" version="1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd">
+  <wpt lat="36.108109" lon="-82.105314">
+    <ele>1760.5</ele>
+    <time>2020-06-25T19:17:05Z</time>
+    <name>Transect 3, Plot 2, 21m N </name>
+  </wpt>
+  <wpt lat="36.107287" lon="-82.105695">
+    <ele>1758.2</ele>
+    <time>2020-06-26T16:43:45Z</time>
+    <name>Transect 3, Plot 10, 72m S</name>
+  </wpt>
+  <wpt lat="36.106995" lon="-82.105837">
+    <ele>1753.5</ele>
+    <time>2020-06-26T17:43:55Z</time>
+    <name>Transect 3, Plot 14, 108m S</name>
+  </wpt>
+  <wpt lat="36.106754" lon="-82.105918">
+    <ele>1747.8</ele>
+    <time>2020-07-02T14:39:32Z</time>
+    <name>Transect 3, Plot 17, 139m S</name>
+  </wpt>
+  <wpt lat="36.106515" lon="-82.105983">
+    <ele>1745.0</ele>
+    <time>2020-07-02T15:04:56Z</time>
+    <name>Transect 3, Plot 20, 167m S</name>
+  </wpt>
+  <wpt lat="36.106308" lon="-82.106121">
+    <ele>1742.8</ele>
+    <time>2020-07-02T15:28:34Z</time>
+    <name>Transect 3, Plot 23, 191m S</name>
+  </wpt>
+  <wpt lat="36.108140" lon="-82.103169">
+    <ele>1752.3</ele>
+    <time>2020-07-03T15:39:33Z</time>
+    <name>Transect 3, Plot 15, 151m N </name>
+  </wpt>
+  <wpt lat="36.107827" lon="-82.105531">
+    <ele>1760.6</ele>
+    <time>2020-06-26T15:09:53Z</time>
+    <name>Transect 3, Plot 4, 8m S</name>
+  </wpt>
+  <wpt lat="36.107584" lon="-82.105605">
+    <ele>1758.0</ele>
+    <time>2020-06-26T15:45:41Z</time>
+    <name>Transect 3, Plot 7, 40m S</name>
+  </wpt>
+  <wpt lat="36.108210" lon="-82.105264">
+    <ele>1762.6</ele>
+    <time>2020-06-25T19:25:59Z</time>
+    <name>Transect 3, Plot 3, 33m N </name>
+  </wpt>
+  <wpt lat="36.107760" lon="-82.105525">
+    <ele>1757.0</ele>
+    <time>2020-06-26T15:24:36Z</time>
+    <name>Transect 3, Plot 5, 19m S</name>
+  </wpt>
+  <wpt lat="36.107189" lon="-82.105789">
+    <ele>1756.4</ele>
+    <time>2020-06-26T17:05:51Z</time>
+    <name>Transect 3, Plot 12, 89m S</name>
+  </wpt>
+  <wpt lat="36.106918" lon="-82.105878">
+    <ele>1752.0</ele>
+    <time>2020-06-26T17:55:50Z</time>
+    <name>Transect 3, Plot 15, 119m S</name>
+  </wpt>
+  <wpt lat="36.106660" lon="-82.105964">
+    <ele>1745.5</ele>
+    <time>2020-07-02T14:47:49Z</time>
+    <name>Transect 3, Plot 18, 149m S</name>
+  </wpt>
+  <wpt lat="36.106456" lon="-82.106002">
+    <ele>1744.8</ele>
+    <time>2020-07-02T15:13:20Z</time>
+    <name>Transect 3, Plot 21, 175m S</name>
+  </wpt>
+  <wpt lat="36.106233" lon="-82.106077">
+    <ele>1741.2</ele>
+    <time>2020-07-02T15:37:27Z</time>
+    <name>Transect 3, Plot 25, 200m S</name>
+  </wpt>
+  <wpt lat="36.107953" lon="-82.105388">
+    <ele>1763.4</ele>
+    <time>2020-06-25T18:54:24Z</time>
+    <name>Transect 3 Marker (new AT) </name>
+  </wpt>
+  <wpt lat="36.107621" lon="-82.105584">
+    <ele>1757.9</ele>
+    <time>2020-06-25T18:44:28Z</time>
+    <name>Transect 3 New Marker (old AT)</name>
+  </wpt>
+  <wpt lat="36.107379" lon="-82.105625">
+    <ele>1759.2</ele>
+    <time>2020-06-26T16:27:14Z</time>
+    <name>Transect 3, Plot 9, 63m S</name>
+  </wpt>
+  <wpt lat="36.108018" lon="-82.105388">
+    <ele>1762.6</ele>
+    <time>2020-06-25T19:02:28Z</time>
+    <name>Transect 3, Plot 1, 9m N </name>
+  </wpt>
+  <wpt lat="36.107248" lon="-82.105727">
+    <ele>1757.8</ele>
+    <time>2020-06-26T16:57:16Z</time>
+    <name>Transect 3, Plot 11, 81m S</name>
+  </wpt>
+  <wpt lat="36.107065" lon="-82.105828">
+    <ele>1754.4</ele>
+    <time>2020-06-26T17:17:23Z</time>
+    <name>Transect 3, Plot 13, 100m S</name>
+  </wpt>
+  <wpt lat="36.106825" lon="-82.105917">
+    <ele>1749.5</ele>
+    <time>2020-06-26T18:10:24Z</time>
+    <name>Transect 3, Plot 16, 128m S</name>
+  </wpt>
+  <wpt lat="36.106587" lon="-82.105972">
+    <ele>1745.2</ele>
+    <time>2020-07-02T14:55:42Z</time>
+    <name>Transect 3, Plot 19, 157m S</name>
+  </wpt>
+  <wpt lat="36.106385" lon="-82.106028">
+    <ele>1744.6</ele>
+    <time>2020-07-02T15:21:15Z</time>
+    <name>Transect 3, Plot 22, 183m S</name>
+  </wpt>
+  <wpt lat="36.106195" lon="-82.106127">
+    <ele>1739.7</ele>
+    <time>2020-07-02T15:45:51Z</time>
+    <name>Transect 3, Plot 25, 209m S</name>
+  </wpt>
+  <wpt lat="36.107688" lon="-82.105555">
+    <ele>1757.3</ele>
+    <time>2020-06-26T15:34:36Z</time>
+    <name>Transect 3, Plot 6, 28m S</name>
+  </wpt>
+  <wpt lat="36.107454" lon="-82.105640">
+    <ele>1760.3</ele>
+    <time>2020-06-26T15:55:56Z</time>
+    <name>Transect 3, Plot 8, 52m S</name>
+  </wpt>
+</gpx>
