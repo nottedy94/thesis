@@ -1,5 +1,11 @@
 # thesis
 
+# 6.27.22
+
+So much has happened.
+I finished the proposal, got approved to take samples, took all my sample, and even made an excel file of the data. There are also arcGIS shapefiles of the fire, 2020 plots, and 2022 plots. 
+I'm going at stience. 
+
 # 5.25.22
 
 Between the last time an now I punched up the methods and otherwise completed the methods section. Nixed the bits about management plans, not important. Transferred the knitted .docx to PC for formatting edits.
