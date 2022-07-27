@@ -1,10 +1,18 @@
 # thesis
 
+# 7.10.22
+
+Research season is over. Data is entered. Soil samples were taken, just need to be put into soil. I need >4.5 cubic feet of soil to cover all 30 trays; 12 in fire, 12 out fire, 6 controls.
+
+Upon taking soil samples it would be a good idea to discount plots with greater than 50% bare ground. I do not expect that samples 1.6 and 1.7 to grow anything because of the previous reason. 
+
+I should start writing my methods while it's fresh.
+
 # 6.27.22
 
 So much has happened.
 I finished the proposal, got approved to take samples, took all my sample, and even made an excel file of the data. There are also arcGIS shapefiles of the fire, 2020 plots, and 2022 plots. 
-I'm going at stience. 
+I'm good at stience. 
 
 # 5.25.22
 

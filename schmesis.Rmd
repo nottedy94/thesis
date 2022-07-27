@@ -19,23 +19,27 @@ csl: ecology.csl
 
 ```{r setup, include=FALSE}
 
-knitr::opts_chunk$set(echo=FALSE,
+knitr::opts_chunk$set(include=FALSE,
+                      echo=FALSE,
                       message=FALSE,
                       warning=FALSE)
-
-library(lme4)      # For linear mixed effects modelling
-library(lmerTest)  # To provide P-values for lme4
-library(lattice)   # For diagnotsic plots of linear models in LME4
+library(broom)
 library(car)       # Primarily for the Anova() function
 library(emmeans)
-library(latex2exp)
-library(kableExtra)
+library(FactoMineR)  # provides exploratory mutlivariate methods
+library(factoextra)  # Visualize the Results of Multivariate Data Analyses
+library(ggplot2)
 library(ggfortify)
-library(broom)
+library(kableExtra)
+library(lattice)   # For diagnotsic plots of linear models in LME4
+library(latex2exp)
+library(lme4)      # For linear mixed effects modelling
+library(lmerTest)  # To provide P-values for lme4
+library(patchwork)
 library(tidyverse)
-library(redres)
 
-papaja::r_refs(file = "thesisschmesis.bib")
+
+papaja::r_refs(file = "schmesis.bib")
 
 options(knitr.kable.NA = "")
 
@@ -60,6 +64,18 @@ In February of 2022, there was a low-intensity surface fire that burned approxim
 
 # Methods
 
+Round Bald is located in the Roan Mountain Massif of the Unaka Range of the Southern Appalachian Mountains, between Carver's gap and Engine gap. The Appalachian Trail (AT) bisects the study site into North of the trail and South of the trail. The site itself is spread across parts of Pisgah National Forest in North Carolina and Cherokee National Forest in Tennessee, at approximately 36o 06'N and 82o60'W. 
+
+In this study we will be sampling transects reestablished by @Stokes.2020, who used the historic AT as the central line until it converged with the new AT. Their transects were laid out perpendicular to the AT and a GPS point was logged where the two met and the distance from the Carver's Gap trail head was measured and recorded. Transects were separated 150 meters from each other and extended from the northernmost edge of the bald to the southernmost with vegetation plots established every 8-12 meters. Vegetation plots that overlapped with plots from @HamelSomers.1990, distances were adjusted to resample those plots. 
+
+In this instance we will measure the percent coverage and presence of vegetation using a 1-m x 0.5-m PVC quadrat divided into 50 equal sized squares. Plots will total 1 m^2, and sample the northern half followed by the southern half. Each square will be visually assigned by dominant vegetation type to equal 100% coverage per plot. Ground layer (<1m in height), shrub layer (>1m in height), and overstory (if present) vegetation will be determined and categorized accordingly per recommendation @Stokes.2020 developed by USFS botanist Gary Kauffman. In total 226 plots along 12 transects were sampled in 2020, of these about 54 plots along the first four transects were in the 2022 fire and another 49 plots along the same transects were out of the fire. This will provide us with clear borders to examine plant community changes as a result of fire following two sampling seasons in June through August of 2022 and 2023.
+
+To examine the effects of fire on the seed bank, soil samples will be collected at three plots along each transect for both burned and unburned areas. This will provide 12 soil seed bank samples for either treatment that will be further split into three depth categories following @Price.2010. Soil seed bank samples will be taken with a 5-cm diameter tube at a depth of 20-cm and carefully fractionated into depth categories of 0–5, 5–10 and 10–20 cm. Samples will then be placed in tins before being transferred to the greenhouse, air dried, and stored at room temperature until use. 
+
+Soil seed bank samples will be examined following the seedling emergence method, in which, 100g fractions of soil samples are mixed with sterilized potting mix to a 2-cm depth in 11- x 8.5- x 5-cm seedling trays. Six control trays will be prepared with sterile potting mix to check for contamination. Trays will then be placed in the greenhouse at ambient temperature. Watering will occur daily until soil is saturated. As seedlings emerge they will be identified, counted, and removed on a weekly basis. The species that cannot be identified will be repotted until identifiable [@Price.2010].
+
+
+
 
 ## Statistical Methods
 
@@ -68,6 +84,91 @@ Data sets were imported to the statistical program R studio for analysis [@R-bas
 
 
 # Results
+```{r import}
+
+soil<-read_excel("round bald data.xlsx", 
+    sheet="Soil Samples"
+)
+
+g<-read_excel("round bald data.xlsx", 
+    sheet="Ground Cover",
+)
+gr<-g[-c(1,4,5,18)]
+
+
+
+loc<-read_excel("round bald data.xlsx", 
+    sheet="Location"
+)
+
+```
+
+```{r locplot}
+
+loc$Fire<-factor(
+  loc$Fire,
+  levels=c(
+    "N",
+    "Y"
+    ),
+  labels=c(
+    "Out Fire",
+    "In Fire"
+    )
+  )
+
+locplot<-ggplot(loc,aes(x=Fire,y=Rubus)) +
+  geom_boxplot(outlier.alpha=0) +
+  geom_jitter(width=0.35, 
+              height=0, 
+              size=3,
+              alpha=0.7,
+              shape=21,
+              color="darkgreen",
+              fill="#99cc33") +
+  scale_x_discrete(
+    name="",
+    labels=c(
+      "Out Fire",
+      "In Fire"
+      )
+    )+
+  scale_y_continuous(name="Percent cover of Rubus",
+                     expand=c(0,0),
+                     limits=c(0,100))+
+  theme_classic(base_size=16)
+
+locplot
+
+```
+
+
+```{r PCA}
+
+pca.gr<-PCA(gr,
+             quanti.sup=c(3:12),
+             graph=FALSE,
+             quali.sup=1,
+             scale.unit=TRUE
+             )
+
+#using @R-factoextra
+fviz_pca_biplot(pca.gr,
+                habillage=1,      #habillage=grouping
+                repel=TRUE
+                )
+
+gr[is.na(gr)]<-0
+gr.pca<-princomp(gr)
+biplot(gr.pca)
+
+ground<-prcomp(gr,
+               scale=TRUE)
+summary(ground)
+biplot(ground)
+
+```
+
 
 
 # Discussion
