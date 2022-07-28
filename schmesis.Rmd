@@ -94,7 +94,7 @@ g<-read_excel("round bald data.xlsx",
     sheet="Ground Cover",
 )
 gr<-g[-c(1,4,5,18)]
-
+gro<-g[-c(1:3,5,18)]
 
 
 loc<-read_excel("round bald data.xlsx", 
@@ -105,40 +105,13 @@ loc<-read_excel("round bald data.xlsx",
 
 ```{r locplot}
 
-loc$Fire<-factor(
-  loc$Fire,
-  levels=c(
-    "N",
-    "Y"
-    ),
-  labels=c(
-    "Out Fire",
-    "In Fire"
-    )
-  )
+gro$Fire<-as.numeric(gro$Fire)
 
-locplot<-ggplot(loc,aes(x=Fire,y=Rubus)) +
-  geom_boxplot(outlier.alpha=0) +
-  geom_jitter(width=0.35, 
-              height=0, 
-              size=3,
-              alpha=0.7,
-              shape=21,
-              color="darkgreen",
-              fill="#99cc33") +
-  scale_x_discrete(
-    name="",
-    labels=c(
-      "Out Fire",
-      "In Fire"
-      )
-    )+
-  scale_y_continuous(name="Percent cover of Rubus",
-                     expand=c(0,0),
-                     limits=c(0,100))+
-  theme_classic(base_size=16)
-
-locplot
+pca.gro<-PCA(gro,
+             quanti.sup=c(1:13),
+             graph=FALSE,
+             scale.unit=TRUE
+             )
 
 ```
 
@@ -155,17 +128,20 @@ pca.gr<-PCA(gr,
 #using @R-factoextra
 fviz_pca_biplot(pca.gr,
                 habillage=1,      #habillage=grouping
-                repel=TRUE
+                repel=TRUE,
+                jitter=list(what="label",
+                        width=NULL,
+                        height=NULL
+                        )
                 )
 
-gr[is.na(gr)]<-0
-gr.pca<-princomp(gr)
-biplot(gr.pca)
+gr.zoom<-fviz_pca_biplot(pca.gr,
+                habillage=1,      #habillage=grouping
+                repel=TRUE,
+                ylim=c(-1,1)
+                )
 
-ground<-prcomp(gr,
-               scale=TRUE)
-summary(ground)
-biplot(ground)
+gr.zoom
 
 ```
 
