@@ -1,5 +1,9 @@
 # thesis
 
+# 8.3.22
+
+Soil samples are in dirt and 12 of 30 have growth, so half not including the control trays. Four trays had samples from out of the range of the fire while the other 8 were within the fire. I've taken to watering the dirt every 2-3 days, 2 on the regular, 3 if I forgot. I need to decide whether to rotate the trays monthly or bi-weekly.
+
 # 7.10.22
 
 Research season is over. Data is entered. Soil samples were taken, just need to be put into soil. I need >4.5 cubic feet of soil to cover all 30 trays; 12 in fire, 12 out fire, 6 controls.
