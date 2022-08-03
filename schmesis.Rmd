@@ -31,11 +31,12 @@ library(factoextra)  # Visualize the Results of Multivariate Data Analyses
 library(ggplot2)
 library(ggfortify)
 library(kableExtra)
-library(lattice)   # For diagnotsic plots of linear models in LME4
+library(lattice)   # For diagnostic plots of linear models in LME4
 library(latex2exp)
 library(lme4)      # For linear mixed effects modelling
 library(lmerTest)  # To provide P-values for lme4
 library(patchwork)
+library(readxl)
 library(tidyverse)
 
 
@@ -43,8 +44,8 @@ papaja::r_refs(file = "schmesis.bib")
 
 options(knitr.kable.NA = "")
 
-# Needed if we decide to use Type III SS
-# options(contrasts=c('contr.sum','contr.poly'))
+set.seed(42)
+
 
 ```
 
@@ -57,20 +58,20 @@ options(knitr.kable.NA = "")
 
 Montane treeless areas, grassy and heath balds, exist globally and are characterized as being dominated by herbaceous vegetation or woody ericaceous species, respectively. It is theorized that balds originated over ten thousand years ago and are hypothesized to be maintained by grazing of large herbivores and some deliberate burning [@Murdock.1986; @Lenze.2015; @Gersmehl.1970]. According to @Gersmehl.1970, true balds occur above 4,600 feet in elevation and can be characterized as follows; gently sloping but rarely greater than 20-degrees, often dominated by *Danthonia compressa*, forest encroachment is evident at the margins, relict trees are scattered in most areas, most are often sheltered on two or more sides by taller forest growth, soils are between 2 and 4 feet deep with high moisture content and organic matter, and at least one perennial spring is evident on the margin. Round Bald is a part of the Roan Mountain Massif and is located along the Appalachian Trail about 16 miles North of Bakersville, North Carolina and 14 miles South of Roan Mountain, Tennessee. The Balds of the Roan Massif host many rare and endemic species recognized as rare on national and regional levels.  
 
-Roan Mountain has been considered one of the most beautiful mountains east of the Rockies is located within the Unaka Range of the southern Appalachian Mountains. 
-
 In February of 2022, there was a low-intensity surface fire that burned approximately 4.5 arces of land on the south-facing slope of Round Bald. 
 
 
 # Methods
 
-Round Bald is located in the Roan Mountain Massif of the Unaka Range of the Southern Appalachian Mountains, between Carver's gap and Engine gap. The Appalachian Trail (AT) bisects the study site into North of the trail and South of the trail. The site itself is spread across parts of Pisgah National Forest in North Carolina and Cherokee National Forest in Tennessee, at approximately 36o 06'N and 82o60'W. 
+## Study Site
 
-In this study we will be sampling transects reestablished by @Stokes.2020, who used the historic AT as the central line until it converged with the new AT. Their transects were laid out perpendicular to the AT and a GPS point was logged where the two met and the distance from the Carver's Gap trail head was measured and recorded. Transects were separated 150 meters from each other and extended from the northernmost edge of the bald to the southernmost with vegetation plots established every 8-12 meters. Vegetation plots that overlapped with plots from @HamelSomers.1990, distances were adjusted to resample those plots. 
+Round Bald is located in the Roan Mountain Massif of the Unaka mountain range of the Southern Appalachian Mountains, at an elevation of 1,775 m and approximately 36°06'N and 82°60'W. The Appalachian Trail (AT) runs along the study site and acts as the center line for the plant community transects. Round Bald is located about 12.8 miles north of Bakersville, North Carolina in the Pisgah National Forest and 12.4 miles south of Roan Mountain, Tennessee in Cherokee National Forest. The first four transects established by @Stokes.2022 were relocated and used in this study, as the fire did not extend to the subsequent transects. Here we are looking at differences in plant community composition and soil seed bank following low-intensity ground fire. 
 
-In this instance we will measure the percent coverage and presence of vegetation using a 1-m x 0.5-m PVC quadrat divided into 50 equal sized squares. Plots will total 1 m^2, and sample the northern half followed by the southern half. Each square will be visually assigned by dominant vegetation type to equal 100% coverage per plot. Ground layer (<1m in height), shrub layer (>1m in height), and overstory (if present) vegetation will be determined and categorized accordingly per recommendation @Stokes.2020 developed by USFS botanist Gary Kauffman. In total 226 plots along 12 transects were sampled in 2020, of these about 54 plots along the first four transects were in the 2022 fire and another 49 plots along the same transects were out of the fire. This will provide us with clear borders to examine plant community changes as a result of fire following two sampling seasons in June through August of 2022 and 2023.
+In this study we sampled the first four transects established by @Stokes.2022 using the new AT as the central line. Individual plots were relocated from Gaia GPS data [@Gaia] and then marked again to reflect current plot location. Distance north and south was measured from each plot to the AT. Plots were laid out as perpendicular to the new AT as previous waypoints indicated. Transects were separated by 150 meters, as established by @Stokes.2022, and plots were 8-12 meters from each other. Historic plots described by @HamelSomers.1990 were not sampled. Plant Community percent covers data were collected for the first growing season in June 2022 and the second season *in June 2023*. 
 
-To examine the effects of fire on the seed bank, soil samples will be collected at three plots along each transect for both burned and unburned areas. This will provide 12 soil seed bank samples for either treatment that will be further split into three depth categories following @Price.2010. Soil seed bank samples will be taken with a 5-cm diameter tube at a depth of 20-cm and carefully fractionated into depth categories of 0–5, 5–10 and 10–20 cm. Samples will then be placed in tins before being transferred to the greenhouse, air dried, and stored at room temperature until use. 
+Plant community percent cover was measured using a 1 x 1 square meter PVC quadrat divided into 100 equal sized squares. Quadrat was placed about 2 feet above the ground and was photographed at each plot. Digital photographs were marked to indicate dominant vegetation type determined by visual estimation of each square, plot coverage totals were tallied at the end of the sampling day. Vegetation types were categorized following recommendations from USFS botanist Gary Kauffman and used previously by @Stokes.2022. At the time of sampling little to no vegetation was greater than one meter in height so vegetation was recorded as ground layer (<1 m). Four soil probes were depressed until they met resistance at each quadrat corner to measure average soil depth. In total, 99 plots were sampled along four transects, 47 of which were out of the fire and the other 52 plots were in the fire.
+
+Following plant community sampling, data was input into excel to determine soil seed bank samples from the existing plant community plots. Plots were pooled in either of two categories; greater than 50% blackberry or less than 25% blackberry. Those categories were divided into plots within the fire and those outside of the fire. Six soil seed bank samples were individually picked at random from each of the four pools. Soil collections followed a method from @Price.2010 and modified for this study. Approximately 225 grams of soil was collected from each plot and placed into 8-oz deli containers marked with plot number, blackberry percent category, and whether or not fire occurred. This approach was modified following @Price.2010 and the samples were placed into growing trays (36.8 x 22.9 x 5.6 cm³) with enough soil (Miracle-Gro Moisture Control Potting Mix) to reach a depth of 5 cm. All seed bank samples were collected on July 9th and transferred to growth trays on July 13th, 2022. In total there were 30 seed bank trays in five categories each with six samples; >50% blackberry - in fire, >50% blackberry out of fire, <25% in fire, <25% out of fire, and control 
 
 Soil seed bank samples will be examined following the seedling emergence method, in which, 100g fractions of soil samples are mixed with sterilized potting mix to a 2-cm depth in 11- x 8.5- x 5-cm seedling trays. Six control trays will be prepared with sterile potting mix to check for contamination. Trays will then be placed in the greenhouse at ambient temperature. Watering will occur daily until soil is saturated. As seedlings emerge they will be identified, counted, and removed on a weekly basis. The species that cannot be identified will be repotted until identifiable [@Price.2010].
 
@@ -88,60 +89,27 @@ Data sets were imported to the statistical program R studio for analysis [@R-bas
 
 soil<-read_excel("round bald data.xlsx", 
     sheet="Soil Samples"
-)
+    )
 
 g<-read_excel("round bald data.xlsx", 
-    sheet="Ground Cover",
-)
-gr<-g[-c(1,4,5,18)]
-gro<-g[-c(1:3,5,18)]
-
+    sheet="Ground Cover"
+    )
 
 loc<-read_excel("round bald data.xlsx", 
     sheet="Location"
-)
+    )
 
 ```
-
-```{r locplot}
-
-gro$Fire<-as.numeric(gro$Fire)
-
-pca.gro<-PCA(gro,
-             quanti.sup=c(1:13),
-             graph=FALSE,
-             scale.unit=TRUE
-             )
-
-```
-
 
 ```{r PCA}
 
-pca.gr<-PCA(gr,
-             quanti.sup=c(3:12),
-             graph=FALSE,
-             quali.sup=1,
-             scale.unit=TRUE
-             )
+#pca.gro<-PCA(gro,
+#            quanti.sup=c(3:15),
+#            graph=FALSE,
+#            quali.sup=1,
+#            scale.unit=TRUE
+#            )
 
-#using @R-factoextra
-fviz_pca_biplot(pca.gr,
-                habillage=1,      #habillage=grouping
-                repel=TRUE,
-                jitter=list(what="label",
-                        width=NULL,
-                        height=NULL
-                        )
-                )
-
-gr.zoom<-fviz_pca_biplot(pca.gr,
-                habillage=1,      #habillage=grouping
-                repel=TRUE,
-                ylim=c(-1,1)
-                )
-
-gr.zoom
 
 ```
 
