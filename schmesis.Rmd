@@ -98,6 +98,23 @@ loc<-read_excel("round bald data.xlsx",
 
 ```
 
+```{r soilplot, echo=FALSE}
+#| fig.cap = "Fine root growth of four native monoculture rain forest tree stands and the natural growth control treatment per block."
+
+ggplot(soil) +
+  geom_boxplot(aes(T,Growth))+
+  geom_jitter(aes(x=T, 
+                  y=Growth, 
+                  color=Block
+                  ),
+              width=0.3, 
+              alpha=0.5, 
+              size=4, 
+              shape=16)+
+  xlab("")+
+  theme_classic()
+```
+
 ```{r PCA}
 
 #pca.gro<-PCA(gro,
