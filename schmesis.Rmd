@@ -23,19 +23,23 @@ knitr::opts_chunk$set(include=FALSE,
                       echo=FALSE,
                       message=FALSE,
                       warning=FALSE)
+
 library(broom)
 library(car)       # Primarily for the Anova() function
 library(emmeans)
 library(FactoMineR)  # provides exploratory mutlivariate methods
 library(factoextra)  # Visualize the Results of Multivariate Data Analyses
-library(ggplot2)
 library(ggfortify)
+library(ggplot2)
+library(ggpubr)
+library(ggrepel)
 library(kableExtra)
 library(lattice)   # For diagnostic plots of linear models in LME4
 library(latex2exp)
 library(lme4)      # For linear mixed effects modelling
 library(lmerTest)  # To provide P-values for lme4
 library(patchwork)
+library(purrr)
 library(readxl)
 library(tidyverse)
 
@@ -98,21 +102,64 @@ loc<-read_excel("round bald data.xlsx",
 
 ```
 
-```{r soilplot, echo=FALSE}
-#| fig.cap = "Fine root growth of four native monoculture rain forest tree stands and the natural growth control treatment per block."
+```{r soilcon, echo=FALSE}
 
-ggplot(soil) +
-  geom_boxplot(aes(T,Growth))+
-  geom_jitter(aes(x=T, 
-                  y=Growth, 
-                  color=Block
-                  ),
-              width=0.3, 
-              alpha=0.5, 
-              size=4, 
-              shape=16)+
-  xlab("")+
-  theme_classic()
+#using @R-kableExtra package
+contintab<-xtabs(Growth~Fire+Rubus,
+                  data=soil)
+
+#using @R-kableExtra package
+kbl(contintab,
+    caption="Contingency table of occurrence of individuals infected or not infected with Toxoplasmosis and whether or not they were in an automobile accident.")|>
+  kable_classic(full=FALSE)
+
+#Observed values contingency table of whether or not those infected and those uninfected  with toxoplasmosis are likely to be in an auto accident
+
+```
+
+```{r expectedsoil, include=FALSE}
+
+chi.out<-chisq.test(contintab)
+chi.out
+
+#using @R-kableExtra package
+kbl(chi.out$expected,
+    caption="Expected Values")|>
+  column_spec(3,width="3em")|>
+  kable_classic(full=FALSE)
+
+#Creating a expected values contingency table with equal likelihood of being in an accident or not
+
+```
+
+```{r soilchi, echo=FALSE}
+
+#G-test
+gtest.out<-tidy(GTest(contintab))
+
+#transforms the p-value from .0000003489 into <0.0001
+gtest.out$p.value<-format.pval(gtest.out$p.value,
+                               eps=0.0001,
+                               digits=4,
+                               na.form=""
+                               )
+#using @R-kableExtra package
+kbl(gtest.out[,1:2],
+    caption=gtest.out[1,4],
+    col.names=c("$\\chi^2$",
+                "P-value"),
+    align="r",
+    digits=c(3,4)
+    )|>
+  column_spec(2,width="12em")|>
+  kable_classic(full=FALSE)
+
+#chi-sq compares the expected values contingency table against the measured values contingency table.
+#if sig. reject null hypothesis, there is an interaction
+#if non-sig. fail to reject null hypothesis
+
+#Here, we have sufficient evidence to reject the null hypothesis. Our results indicate there is an interaction between Toxoplasmosis infection and likelihood of being in an auto accident. 
+
 ```
 
 ```{r PCA}
