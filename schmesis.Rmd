@@ -2,12 +2,15 @@
 title: "Thesis-Schmesis"
 author: "J. Hillert"
 date: "`r Sys.Date()`"
+#output:
+#  bookdown::word_document2:
+#    number_sections: false
+#    toc: yes
+#    always_allow_html: true
 output:
-  bookdown::word_document2:
+  bookdown::html_document2:
     number_sections: false
     toc: yes
-    always_allow_html: true
-    
     
 bibliography:
 - R-packages.bib
@@ -19,13 +22,13 @@ csl: ecology.csl
 
 ```{r setup, include=FALSE}
 
-knitr::opts_chunk$set(include=FALSE,
+knitr::opts_chunk$set(message=FALSE,
                       echo=FALSE,
-                      message=FALSE,
                       warning=FALSE)
 
 library(broom)
 library(car)       # Primarily for the Anova() function
+library(DescTools) # For the GTest
 library(emmeans)
 library(FactoMineR)  # provides exploratory mutlivariate methods
 library(factoextra)  # Visualize the Results of Multivariate Data Analyses
@@ -86,7 +89,13 @@ Data sets were imported to the statistical program R studio for analysis [@R].
 
 
 # Results
-```{r import}
+
+
+# Discussion
+
+
+
+```{r import, include=FALSE}
 
 soil<-read_excel("round bald data.xlsx", 
     sheet="Soil Samples"
@@ -102,37 +111,43 @@ loc<-read_excel("round bald data.xlsx",
 
 ```
 
-```{r soilcon, echo=FALSE}
+
+# Tables
+
+
+```{r soilcon}
 
 #using @R-kableExtra package
 contintab<-xtabs(Growth~Fire+Rubus,
                   data=soil)
-
 #using @R-kableExtra package
 kbl(contintab,
-    caption="Contingency table of occurrence of individuals infected or not infected with Toxoplasmosis and whether or not they were in an automobile accident.")|>
+    caption="Observed values contingency table of occurrence of growth in soil seed bank samples less than 25% or greater than 50% percent coverage of Blackberry and whether the sample was inside or outside of the fire boundary.",
+    col.names = c("<25% Coverage Blackberry",">50% Coverage Blackberry")
+    )|>
   kable_classic(full=FALSE)
 
-#Observed values contingency table of whether or not those infected and those uninfected  with toxoplasmosis are likely to be in an auto accident
+#Observed values contingency table of growth occurrence
 
 ```
 
-```{r expectedsoil, include=FALSE}
+```{r expectedsoil}
 
 chi.out<-chisq.test(contintab)
-chi.out
 
 #using @R-kableExtra package
 kbl(chi.out$expected,
-    caption="Expected Values")|>
-  column_spec(3,width="3em")|>
+    caption="Expected values contingency table of occurrence of growth in soil seed bank samples less than 25% or greater than 50% percent coverage of Blackberry and whether the sample was inside or outside of the fire boundary.",
+    col.names = c("<25% Coverage Blackberry",">50% Coverage Blackberry"),
+    digits=2
+    )|>
   kable_classic(full=FALSE)
 
-#Creating a expected values contingency table with equal likelihood of being in an accident or not
+#Expected values contingency table with likelihoods of growth occurrence
 
 ```
 
-```{r soilchi, echo=FALSE}
+```{r soilchi}
 
 #G-test
 gtest.out<-tidy(GTest(contintab))
@@ -158,37 +173,27 @@ kbl(gtest.out[,1:2],
 #if sig. reject null hypothesis, there is an interaction
 #if non-sig. fail to reject null hypothesis
 
-#Here, we have sufficient evidence to reject the null hypothesis. Our results indicate there is an interaction between Toxoplasmosis infection and likelihood of being in an auto accident. 
-
-```
-
-```{r PCA}
-
-#pca.gro<-PCA(gro,
-#            quanti.sup=c(3:15),
-#            graph=FALSE,
-#            quali.sup=1,
-#            scale.unit=TRUE
-#            )
-
 
 ```
 
 
+# Figures
 
-# Discussion
+
+```{r PCA, eval=FALSE, include=FALSE}
+
+pca.gro<-PCA(gro,
+            quanti.sup=c(3:15),
+            graph=FALSE,
+            quali.sup=1,
+            scale.unit=TRUE
+            )
 
 
-# Acknowledgements
+```
 
 
 # References
-
-
-
-
-
-
 
 
 
