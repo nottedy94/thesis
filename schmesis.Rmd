@@ -115,79 +115,33 @@ loc<-read_excel("round bald data.xlsx",
 # Tables
 
 
-```{r soilcon}
-
-#using @R-kableExtra package
-contintab<-xtabs(Growth~Fire+Rubus,
-                  data=soil)
-#using @R-kableExtra package
-kbl(contintab,
-    caption="Observed values contingency table of occurrence of growth in soil seed bank samples less than 25% or greater than 50% percent coverage of Blackberry and whether the sample was inside or outside of the fire boundary.",
-    col.names = c("<25% Coverage Blackberry",">50% Coverage Blackberry")
-    )|>
-  kable_classic(full=FALSE)
-
-#Observed values contingency table of growth occurrence
-
-```
-
-```{r expectedsoil}
-
-chi.out<-chisq.test(contintab)
-
-#using @R-kableExtra package
-kbl(chi.out$expected,
-    caption="Expected values contingency table of occurrence of growth in soil seed bank samples less than 25% or greater than 50% percent coverage of Blackberry and whether the sample was inside or outside of the fire boundary.",
-    col.names = c("<25% Coverage Blackberry",">50% Coverage Blackberry"),
-    digits=2
-    )|>
-  kable_classic(full=FALSE)
-
-#Expected values contingency table with likelihoods of growth occurrence
-
-```
-
-```{r soilchi}
-
-#G-test
-gtest.out<-tidy(GTest(contintab))
-
-#transforms the p-value from .0000003489 into <0.0001
-gtest.out$p.value<-format.pval(gtest.out$p.value,
-                               eps=0.0001,
-                               digits=4,
-                               na.form=""
-                               )
-#using @R-kableExtra package
-kbl(gtest.out[,1:2],
-    caption=gtest.out[1,4],
-    col.names=c("$\\chi^2$",
-                "P-value"),
-    align="r",
-    digits=c(3,4)
-    )|>
-  column_spec(2,width="12em")|>
-  kable_classic(full=FALSE)
-
-#chi-sq compares the expected values contingency table against the measured values contingency table.
-#if sig. reject null hypothesis, there is an interaction
-#if non-sig. fail to reject null hypothesis
-
-
-```
-
-
 # Figures
 
 
-```{r PCA, eval=FALSE, include=FALSE}
+```{r PCA, echo=FALSE, include=FALSE}
+
+gro<-g[-c(1,4,5,18)]
+gro[is.na(gro)]<-0
 
 pca.gro<-PCA(gro,
-            quanti.sup=c(3:15),
+            quanti.sup=c(3:12),
             graph=FALSE,
             quali.sup=1,
             scale.unit=TRUE
             )
+
+#using @R-factoextra
+fviz_pca_biplot(pca.gro,
+                habillage=1,
+                repel=TRUE
+                )
+
+gro.zoom<-fviz_pca_biplot(pca.gro,
+                         habillage=1,
+                         repel=TRUE,
+                         ylim=c(-1,1)
+                         )
+gro.zoom
 
 
 ```
