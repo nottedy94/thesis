@@ -2,15 +2,15 @@
 title: "Thesis-Schmesis"
 author: "J. Hillert"
 date: "`r Sys.Date()`"
-#output:
-#  bookdown::word_document2:
-#    number_sections: false
-#    toc: yes
-#    always_allow_html: true
 output:
-  bookdown::html_document2:
+  bookdown::word_document2:
     number_sections: false
     toc: yes
+    always_allow_html: yes
+#output:
+#  bookdown::html_document2:
+#    number_sections: false
+#    toc: yes
     
 bibliography:
 - R-packages.bib
@@ -118,7 +118,7 @@ loc<-read_excel("round bald data.xlsx",
 # Figures
 
 
-```{r PCA, echo=FALSE, include=FALSE}
+```{r PCA, eval=FALSE, include=FALSE}
 
 gro<-g[-c(1,4,5,18)]
 gro[is.na(gro)]<-0
