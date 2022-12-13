@@ -6,11 +6,7 @@ output:
   bookdown::word_document2:
     number_sections: false
     toc: yes
-    always_allow_html: yes
-#output:
-#  bookdown::html_document2:
-#    number_sections: false
-#    toc: yes
+    always_allow_html: true
     
 bibliography:
 - R-packages.bib
