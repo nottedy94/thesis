@@ -2,7 +2,8 @@
 title: "Plant community composition following low-intesity fire on Round Bald"
 author: "J. Hillert"
 output:
-  bookdown::word_document2:
+  bookdown::html_document2:
+  #bookdown::word_document2:
     number_sections: false
     toc: no
     always_allow_html: true
@@ -29,15 +30,39 @@ options(knitr.kable.NA="")
 
 ```
 
-# Introduction
+## Abstract
 
-Upper montane treeless meadows - balds - host high floral diversity, panoramic views of the landscape, and origins shrouded in mystery [@Murd1986; @Gers1970]. Balds exist above 4,000 feet in elevation, while true balds occur above 4,600 feet elevation. According to @Murd1986, true balds only occur in the Southern Blue Ridge Physiographic Province. Two types of balds have been identified; heath balds which are dominated by woody ericaceous species such as blackberry and grassy balds which are dominated by herbaceous vegetation such as, grasses and sedges [@Murd1986].
+## Introduction
 
-# Methods
+### History
 
-Round Bald is located in the Roan Mountain Massif of the Unaka Mountain range of the Southern Appalachian Mountains, between Carver's gap and Engine gap. The Appalachian Trail (AT) bisects the study site into North of the trail and South of the trail. The site itself is spread across Pisgah National Forest in North Carolina and Cherokee National Forest in Tennessee, at approximately 36° 06'N and 82° 60'W. In this study we sampled transects reestablished by @Stok2022. We measured the percent coverage of vegetation using a 1-m2 PVC quadrat divided into 100 equal sized squares. Each square was visually assigned by dominant vegetation type to equal 100% coverage per plot. Using the data collection tool from @Stok2022 and USFS botanist Gary Kauffman, a total of 226 plots along 12 transects were sampled in 2020, of these, 52 plots along the first four transects were in the February 2022 fire and another 47 plots along the same transects were untouched by the fire. This provided an opportunity to examine the changes in plant community composition following low-intensity ground fire over two sampling seasons in June of 2022 and 2023.
+Upper montane treeless meadows - balds - host high floral diversity, panoramic views of the landscape, and origins shrouded in mystery [@murd1986; @gers1970]. Balds exist above 4,000 feet in elevation, while true balds occur above 4,600 feet elevation. According to @murd1986, true balds only occur in the Southern Blue Ridge Physiographic Province. Two types of balds have been identified; heath balds which are dominated by woody ericaceous species such as blackberry and grassy balds which are dominated by herbaceous vegetation such as, grasses and sedges [@murd1986].
 
-To examine the effects of the fire on the seed bank, seed bank samples were collected in July 2022. Approximately X grams of soil was obtained from the top 5 cm of soil at six random sites in one of four treatments; over 50% *Rubus*-in fire, over 50% *Rubus*-out fire, under 25% *Rubus*-in fire, under 25% *Rubus*-out fire. A total of 24 soil seed banks samples were taken, placed in tins, transferred to the greenhouse, and placed in 11x8.5 inch seedling trays filled with potting mix to 5 cm depth. An additional six trays only filled with potting mix will act as greenhouse controls to rule out contamination. Trays were randomly set in the greenhouse at ambient temperature and humidity and measured continuously with a Govee probe. As seedlings emerge they will be identified, recorded, and removed; while the species that cannot be identified will be repotted until identifiable following @Pric2010. Each month the trays were rotated in random order to rule out growth condition bias. In December of 2022, soil sample trays were placed outside to simulate winter conditions and potentially germinate seeds in the seed bank. A second soil sample following the same protocol will be conducted in March of 2023. These samples will examine what is readily germinable following natural winter weathering. These samples will be compared to the first set to examine post burn germinable seeds versus post winter germinable seeds.
+### Managment Practices
+
+
+
+### Woody Encroahment
+
+
+
+### Round Bald
+
+\newpage
+
+## Methods
+
+### Field - Season 1 (2022)
+
+Round Bald is located in the Roan Mountain Massif of the Unaka Mountain range of the Southern Appalachian Mountains, between Carver's gap and Engine gap. The Appalachian Trail (AT) bisects the study site into North of the trail and South of the trail. The site itself is spread across Pisgah National Forest in North Carolina and Cherokee National Forest in Tennessee, at approximately 36° 06'N and 82° 60'W. In this study we sampled transects reestablished by @stok2022. We measured the percent coverage of vegetation using a 1-m2 PVC quadrat divided into 100 equal sized squares. Each square was visually assigned by dominant vegetation type to equal 100% coverage per plot. Using the data collection tool from @stok2022 and USFS botanist Gary Kauffman, a total of 226 plots along 12 transects were sampled in 2020, of these, 52 plots along the first four transects were in the February 2022 fire and another 47 plots along the same transects were untouched by the fire. This provided an opportunity to examine the changes in plant community composition following low-intensity ground fire over two sampling seasons in June of 2022 and 2023.
+
+### Greenhouse - Season 1
+
+To examine the effects of the fire on the seed bank, seed bank samples were collected in July 2022. Approximately X grams of soil was obtained from the top 5 cm of soil at six random sites in one of four treatments; over 50% *Rubus*-in fire, over 50% *Rubus*-out fire, under 25% *Rubus*-in fire, under 25% *Rubus*-out fire. A total of 24 soil seed banks samples were taken, placed in tins, transferred to the greenhouse, and placed in 11x8.5 inch seedling trays filled with potting mix to 5 cm depth. An additional six trays only filled with potting mix will act as greenhouse controls to rule out contamination. Trays were randomly set in the greenhouse at ambient temperature and humidity and measured continuously with a Govee probe. As seedlings emerge they will be identified, recorded, and removed; while the species that cannot be identified will be repotted until identifiable following @pric2010. Each month the trays were rotated in random order to rule out growth condition bias. In December of 2022, soil sample trays were placed outside to simulate winter conditions and potentially germinate seeds in the seed bank. A second soil sample following the same protocol will be conducted in March of 2023. These samples will examine what is readily germinable following natural winter weathering. These samples will be compared to the first set to examine post burn germinable seeds versus post winter germinable seeds.
+
+### Statistical Analysis - Season 1
+
+## Objectives & Expected results
 
 \newpage
 
