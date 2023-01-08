@@ -63,8 +63,6 @@ Round Bald is located in the Roan Mountain Massif of the Unaka Mountain range of
 
 To examine the effects of the fire on the seed bank, seed bank samples were collected in July 2022. Approximately X grams of soil was obtained from the top 5 cm of soil at six random sites in one of four treatments; over 50% *Rubus*-in fire, over 50% *Rubus*-out fire, under 25% *Rubus*-in fire, under 25% *Rubus*-out fire. A total of 24 soil seed banks samples were taken, placed in tins, transferred to the greenhouse, and placed in 11x8.5 inch seedling trays filled with potting mix to 5 cm depth. An additional six trays only filled with potting mix will act as greenhouse controls to rule out contamination. Trays were randomly set in the greenhouse at ambient temperature and humidity and measured continuously with a Govee probe. As seedlings emerge they will be identified, recorded, and removed; while the species that cannot be identified will be repotted until identifiable following @pric2010. Each month the trays were rotated in random order to rule out growth condition bias. In December of 2022, soil sample trays were placed outside to simulate winter conditions and potentially germinate seeds in the seed bank. A second soil sample following the same protocol will be conducted in March of 2023. These samples will examine what is readily germinable following natural winter weathering. These samples will be compared to the first set to examine post burn germinable seeds versus post winter germinable seeds.
 
-### Statistical Analysis - Season 1
-
 \newpage
 
 ## Objectives & Expected results
