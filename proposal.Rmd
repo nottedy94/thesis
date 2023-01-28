@@ -1,5 +1,5 @@
 ---
-title: "Vegetation dynamics following low-intensity ground fire disturbance in a rare ecosystem subtype - grassy balds - and management implications for conservation of Round Bald"
+title: "Vegetation dynamics following disturbance in a rare ecosystem subtype - grassy bald - and implications for conservation of Round Bald"
 subtitle: "Master's student thesis proposal for Western Carolina Universtiy"
 author: "J. Ted Hillert"
 output:
@@ -30,6 +30,8 @@ papaja::r_refs(file="proposal.bib")
 options(knitr.kable.NA="")
 
 ```
+
+# Disclaimer: This is a draft proposal. So long as the ducks lie, I plan to have a draft with preliminary analysis by March
 
 # INTRODUCTION
 
