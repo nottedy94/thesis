@@ -4,7 +4,7 @@ subtitle: "Master's student thesis proposal for Western Carolina Universtiy"
 author: "J. Ted Hillert"
 output:
   bookdown::html_document2:
-  #bookdown::pdf_document2:
+  #bookdown::word_document2:
     number_sections: false
     toc: no
     always_allow_html: true
@@ -31,6 +31,9 @@ options(knitr.kable.NA="")
 
 
 ```
+
+# Disclaimer: This is a draft proposal. So long as the ducks lie, I plan to have a draft with preliminary analysis by March
+
 # INTRODUCTION
 
 ### History
