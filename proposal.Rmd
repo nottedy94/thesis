@@ -1,5 +1,5 @@
 ---
-title: "Vegetation dynamics following disturbance in a rare ecosystem subtype - grassy bald - and implications for conservation of Round Bald"
+title: "Vegetation dynamics following disturbance in a rare ecosystem subtype - grass bald - and implications for conservation of Round Bald"
 subtitle: "Master's student thesis proposal for Western Carolina Universtiy"
 author: "J. Ted Hillert"
 output:
@@ -39,7 +39,9 @@ Upper montane treeless meadows - balds - host high floral diversity, panoramic v
 
 ### Soil Seed bank
 
-
+The soil seed bank is an ecologist's term for the "advanced regeneration layer", in this sense, ecologists look at what can grow in the next few years. Any estimate of vegetation types within the seed bank results in
+"What can grow here in the next few years, or growing seasons?"
+I took 24 samples of the seed bank following the February 2022 ground fire that occurred on Round Bald, in July of 2022. I also took a second set of seed bank samples in January of 2023 to use as a second sample set to compare with the previous sample set (i.e. to examine the advanced regeneration layer). As such, I plan to continue growing the first seed bank sample set as a base to ask our questions on our measured answer. The measured answer being our first and second seed bank samples in July of 2022 and January of 2023, respectively. Recently, the second seed bank set was acquired and set in the refrigerator until mid-April. At that point, I plan to fractionate the samples into four categories; burned, unburned, control, and greenhouse control. In which, I will examine vegetation types among each category. Initially these samples will be propagated with seltzer water to increase germination by providing extra carbon to the seeds, followed by tap water. This is because of a STEM student science project, which showed that carbonated water helps jump start germination and tap water supplies micronutrients to the growing plants. Mututalisms between germination requirements and invasive species can be secondary analysis to the measured states in 2020, 2022, and 2023.
 
 ### Woody Encroachment
 
@@ -53,9 +55,8 @@ Bald management within the Southern Appalachian Mountains varies by managing age
 
 Round bald - located on the borders of North Carolina and Tennessee along the Appalachian Trail about 20 miles North of Bakersville, NC - is experiencing woody encroachment from invasive species like *Rubus allegheniensis*, *Rubus canadensis*, *Vaccinium spp.*, *Rhododendrom spp.* and saplings from the surrounding spruce-fir forest. These species alter the bald by converting it from a grass bald into an ericaceous-heath bald and potentially extirpating a rare ecosystem subtype that provides panoramic vista views of the adjacent mountaintops and a number of rare and endemic species, such as - "Roan Lily" *Lilium grayi*. Nearly 40 years ago, @murd1986 and @hame1990 examined the vegetation community of Roan Mountain balds when the decision to protect these landscapes started to change. In 2020, following 30 years of mowing management, @stok2022 re-surveyed plots from @murd1986 and @hame1990. In February of 2022, there was a low-intensity ground fire that burned for less than 6 hours *[according to the news article **need to contact NPS for more detail**]* and burned approximately 9.7 hectares of Round Bald. Roughly half of the plots that @stok2022 surveyed on Round Bald were within the fire and the other half was outside of the fire boundary.
 
-*In the January of 2023, we took a second soil seed bank sample and placed them in the fridge until Spring. In the Summer of 2023, we plan to do a repeat survey of the 95 plots from the previous season - 2022.[moove]*
 
-# OBJECTIVES
+# Objectives
 
 The objectives of this study are; 1. Quantify vegetation composition and the soil seed bank over the first and second growing seasons following the low intensity ground fire on Round Bald, and 2. Propose methods to improve management for conservation of these rare ecosystem subtypes. The general question is, how has the low-intensity ground fire affected vegetation dynamics and are there management practices that could be gleaned from this disturbance? I expect that there is little to no decrease in the cover of *Rubus spp.*, likely there will be a slight increase in blackberry cover following slight scarification from the ground fire. 
 
@@ -84,7 +85,12 @@ In the summer of 2023 I plan to repeat surveys of the first four transects and a
 
 ### Analysis
 
+For the time being, the data was recorded manually, then entered into excel to get a glimpse at the dynamics behind the low-intensity ground fire disturbance from January 2022. Based on cursory examination, blackberry is slightly increased in burned vs unburned. However, more analysis is needed. To do that I plan to follow the statistic tests that @stok2022 had conducted in 2020. Once I fully understand their analysis, then I will be able to connect the data in 2020 to the data in 2022 and 2023. Otherwise, I will also be using analysis conducted by @pric2010, @monar (*unpublished?* masters thesis), and @murd1986. Beyond that, I plan to construct a 3-dimensional model to get a semi-realistic perception of the dynamic state of Round Bald.
+
 ### Expected Outcomes
 
+I expect that Blackberry (Rubus) has slightly increased coverage following the February 2022 ground fire. I expect that grasses and sedges are little to not at all different after the same fire. If these statements are true, then implications for management are unchanged - fight fire as it arises and to not let the fire spread across the balds of Carver's Gap. More data will be gathered over March through August to better compare the dataset from @stok2022, with the data that has been gathered for this study.
+
+\newpage
 
 # References
