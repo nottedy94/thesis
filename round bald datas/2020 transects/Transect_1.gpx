@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<gpx xmlns="http://www.topografix.com/GPX/1/1" creator="GaiaGPS" version="1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd">
+  <wpt lat="36.107614" lon="-82.108913">
+    <ele>1708.4</ele>
+    <time>2020-06-11T14:39:15Z</time>
+    <name>Transect 1, Plot 1, 4m</name>
+  </wpt>
+  <wpt lat="36.106800" lon="-82.108714">
+    <ele>1706.6</ele>
+    <time>2020-06-11T17:35:10Z</time>
+    <name>Transect 1, Plot 10, 93m</name>
+  </wpt>
+  <wpt lat="36.107255" lon="-82.108781">
+    <ele>1709.0</ele>
+    <time>2020-06-11T16:01:39Z</time>
+    <name>Transect 1, Plot 6, 53m</name>
+  </wpt>
+  <wpt lat="36.107078" lon="-82.108768">
+    <ele>1708.4</ele>
+    <time>2020-06-11T17:01:49Z</time>
+    <name>Transect 1, Plot 8, 73m</name>
+  </wpt>
+  <wpt lat="36.106381" lon="-82.108682">
+    <ele>1700.5</ele>
+    <time>2020-06-19T14:54:30Z</time>
+    <name>Transect 1, Plot 16</name>
+  </wpt>
+  <wpt lat="36.106085" lon="-82.108644">
+    <ele>1693.8</ele>
+    <time>2020-06-19T16:22:43Z</time>
+    <name>Transect 1, Plot 19</name>
+  </wpt>
+  <wpt lat="36.105845" lon="-82.108597">
+    <ele>1686.7</ele>
+    <time>2020-06-19T16:59:55Z</time>
+    <name>Transect 1, Plot 22</name>
+  </wpt>
+  <wpt lat="36.107119" lon="-82.108796">
+    <ele>1707.9</ele>
+    <time>2020-06-11T16:28:19Z</time>
+    <name>Transect 1, Plot 7, 62m</name>
+  </wpt>
+  <wpt lat="36.106627" lon="-82.108734">
+    <ele>1703.6</ele>
+    <time>2020-06-19T14:10:19Z</time>
+    <name>Transect 1, Plot 13, </name>
+  </wpt>
+  <wpt lat="36.107298" lon="-82.108848">
+    <ele>1707.8</ele>
+    <time>2020-06-11T15:46:35Z</time>
+    <name>Transect 1, Plot 5, 43m</name>
+  </wpt>
+  <wpt lat="36.106488" lon="-82.108739">
+    <ele>1701.2</ele>
+    <time>2020-06-19T14:38:24Z</time>
+    <name>Transect 1, Plot 15</name>
+  </wpt>
+  <wpt lat="36.106295" lon="-82.108671">
+    <ele>1698.6</ele>
+    <time>2020-06-19T15:17:13Z</time>
+    <name>Transect 1, Plot 17</name>
+  </wpt>
+  <wpt lat="36.105972" lon="-82.108621">
+    <ele>1690.4</ele>
+    <time>2020-06-19T16:41:06Z</time>
+    <name>Transect 1, Plot 20</name>
+  </wpt>
+  <wpt lat="36.105745" lon="-82.108595">
+    <ele>1684.0</ele>
+    <time>2020-06-19T17:10:36Z</time>
+    <name>Transect 1, Plot 23</name>
+  </wpt>
+  <wpt lat="36.107457" lon="-82.108842">
+    <ele>1709.4</ele>
+    <time>2020-06-11T15:35:01Z</time>
+    <name>Transect 1, Plot 3, 24m</name>
+  </wpt>
+  <wpt lat="36.106963" lon="-82.108782">
+    <ele>1707.5</ele>
+    <time>2020-06-11T17:19:05Z</time>
+    <name>Transect 1, Plot 9, 83m</name>
+  </wpt>
+  <wpt lat="36.106789" lon="-82.108717">
+    <ele>1706.3</ele>
+    <time>2020-06-11T18:36:51Z</time>
+    <name>Transect 1, Plot 11, 8 m (from S tpost) </name>
+  </wpt>
+  <wpt lat="36.107379" lon="-82.108855">
+    <ele>1708.4</ele>
+    <time>2020-06-11T15:47:21Z</time>
+    <name>Transect 1, Plot 4, 32m</name>
+  </wpt>
+  <wpt lat="36.106574" lon="-82.108748">
+    <ele>1702.5</ele>
+    <time>2020-06-19T14:28:28Z</time>
+    <name>Transect 1, Plot 14</name>
+  </wpt>
+  <wpt lat="36.106203" lon="-82.108638">
+    <ele>1696.9</ele>
+    <time>2020-06-19T16:08:47Z</time>
+    <name>Transect 1, Plot 18</name>
+  </wpt>
+  <wpt lat="36.105886" lon="-82.108597">
+    <ele>1687.9</ele>
+    <time>2020-06-19T16:50:56Z</time>
+    <name>Transect 1, Plot 21</name>
+  </wpt>
+  <wpt lat="36.107812" lon="-82.108953">
+    <ele>1709.5</ele>
+    <time>2020-08-16T14:14:23Z</time>
+    <name>Transect 1, New AT</name>
+  </wpt>
+</gpx>

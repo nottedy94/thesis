@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<gpx xmlns="http://www.topografix.com/GPX/1/1" creator="GaiaGPS" version="1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd">
+  <metadata>
+    <name>Transect 2 - 2022</name>
+    <time>2022-06-17T22:05:59Z</time>
+  </metadata>
+  <wpt lat="36.107210" lon="-82.107030">
+    <ele>1739.8</ele>
+    <time>2022-06-19T16:00:19Z</time>
+    <name>2.8</name>
+    <sym>red-pin-down</sym>
+  </wpt>
+  <wpt lat="36.106960" lon="-82.106970">
+    <ele>1733.6</ele>
+    <time>2022-06-19T16:22:12Z</time>
+    <name>2.11</name>
+    <sym>red-pin-down</sym>
+  </wpt>
+  <wpt lat="36.106689" lon="-82.106860">
+    <ele>1731.2</ele>
+    <time>2022-06-19T16:46:57Z</time>
+    <name>2.14</name>
+    <sym>red-pin-down</sym>
+  </wpt>
+  <wpt lat="36.106370" lon="-82.106819">
+    <ele>1727.1</ele>
+    <time>2022-06-19T17:04:28Z</time>
+    <name>2.17</name>
+    <sym>red-pin-down</sym>
+  </wpt>
+  <wpt lat="36.106070" lon="-82.106700">
+    <ele>1723.2</ele>
+    <time>2022-06-19T17:30:57Z</time>
+    <name>2.20</name>
+    <sym>red-pin-down</sym>
+  </wpt>
+  <wpt lat="36.107920" lon="-82.107280">
+    <ele>1738.7</ele>
+    <time>2022-06-17T22:41:13Z</time>
+    <name>2.4</name>
+    <sym>red-pin-down</sym>
+  </wpt>
+  <wpt lat="36.107430" lon="-82.107120">
+    <ele>1733.7</ele>
+    <time>2022-06-19T15:36:04Z</time>
+    <name>2.6</name>
+    <sym>red-pin-down</sym>
+  </wpt>
+  <wpt lat="36.107150" lon="-82.107010">
+    <ele>1739.5</ele>
+    <time>2022-06-19T16:07:44Z</time>
+    <name>2.9</name>
+    <sym>red-pin-down</sym>
+  </wpt>
+  <wpt lat="36.106850" lon="-82.106911">
+    <ele>1734.0</ele>
+    <time>2022-06-19T16:31:38Z</time>
+    <name>2.12</name>
+    <sym>red-pin-down</sym>
+  </wpt>
+  <wpt lat="36.106580" lon="-82.106840">
+    <ele>1730.7</ele>
+    <time>2022-06-19T16:52:31Z</time>
+    <name>2.15</name>
+    <sym>red-pin-down</sym>
+  </wpt>
+  <wpt lat="36.106280" lon="-82.106750">
+    <ele>1727.4</ele>
+    <time>2022-06-19T17:13:59Z</time>
+    <name>2.18</name>
+    <sym>red-pin-down</sym>
+  </wpt>
+  <wpt lat="36.107520" lon="-82.107120">
+    <ele>1744.2</ele>
+    <time>2022-06-17T22:05:42Z</time>
+    <name>2.0</name>
+    <sym>red-pin-down</sym>
+  </wpt>
+  <wpt lat="36.107780" lon="-82.107310">
+    <ele>1739.5</ele>
+    <time>2022-06-17T22:34:07Z</time>
+    <name>2.3</name>
+    <sym>red-pin-down</sym>
+  </wpt>
+  <wpt lat="36.107650" lon="-82.107170">
+    <ele>1740.6</ele>
+    <time>2022-06-17T22:14:41Z</time>
+    <name>2.1</name>
+    <sym>red-pin-down</sym>
+  </wpt>
+  <wpt lat="36.107960" lon="-82.107350">
+    <ele>1737.9</ele>
+    <time>2022-06-17T22:49:35Z</time>
+    <name>2.5</name>
+    <sym>red-pin-down</sym>
+  </wpt>
+  <wpt lat="36.107320" lon="-82.107071">
+    <ele>1737.9</ele>
+    <time>2022-06-19T15:52:41Z</time>
+    <name>2.7</name>
+    <sym>red-pin-down</sym>
+  </wpt>
+  <wpt lat="36.107040" lon="-82.107010">
+    <ele>1736.5</ele>
+    <time>2022-06-19T16:15:02Z</time>
+    <name>2.10</name>
+    <sym>red-pin-down</sym>
+  </wpt>
+  <wpt lat="36.106739" lon="-82.106900">
+    <ele>1730.1</ele>
+    <time>2022-06-19T16:37:08Z</time>
+    <name>2.13</name>
+    <sym>red-pin-down</sym>
+  </wpt>
+  <wpt lat="36.106430" lon="-82.106819">
+    <ele>1727.4</ele>
+    <time>2022-06-19T16:58:48Z</time>
+    <name>2.16</name>
+    <sym>red-pin-down</sym>
+  </wpt>
+  <wpt lat="36.106171" lon="-82.106718">
+    <ele>1727.5</ele>
+    <time>2022-06-19T17:23:00Z</time>
+    <name>2.19</name>
+    <sym>red-pin-down</sym>
+  </wpt>
+  <wpt lat="36.107731" lon="-82.107240">
+    <ele>1741.6</ele>
+    <time>2022-06-17T22:24:34Z</time>
+    <name>2.2</name>
+    <sym>red-pin-down</sym>
+  </wpt>
+</gpx>
