@@ -3,13 +3,8 @@ title: "Vegetation dynamics following disturbance in a rare ecosystem subtype - 
 subtitle: "Master's student thesis proposal for Western Carolina Universtiy"
 author: "J. Ted Hillert"
 output:
-<<<<<<< HEAD
   bookdown::html_document2:
   #bookdown::pdf_document2:
-=======
-  #bookdown::html_document2:
-  bookdown::word_document2:
->>>>>>> 54b8e3ba3ea166eca81c337728ad9cc3ef1832d0
     number_sections: false
     toc: no
     always_allow_html: true
