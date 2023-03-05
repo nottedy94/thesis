@@ -1,36 +1,9 @@
----
-title: "Vegetation dynamics following low-intensity ground fire on a rare ecosystem subtype - Grass Bald"
-subtitle: "Masters student thesis proposal for Western Carolina University"
-author: "J. Ted Carter"
-date: "`r Sys.Date()`"
-output:
-  bookdown::html_document2:
-  #bookdown::word_document2:
-  #bookdown::pdf_document2:
-    number_sections: false
-    toc: yes
-#bibliography:
-#- aRticles.bib
-
-
- #^^ pandoc.exe: Cannot decode byte '\xe2': Data.Text.Internal.Encoding.decodeUtf8: Invalid UTF-8 stream 
- #Error: pandoc document conversion failed with error 1
- #Execution halted
-   
-csl: ecology.csl
-    
-  
----
 
 
 
 \newpage
 
 ```{r setup, include=FALSE}
-
-knitr::opts_chunk$set(echo=FALSE,
-                      message=FALSE,
-                      warning=FALSE)
 
 library(papaja)
 
@@ -73,7 +46,7 @@ The objectives of this study are; 1. Quantify vegetation composition and the soi
 
 ### Study Site
 
-Round bald is located in the Roan Mountain Massif of the Unaka Mountain range of the Southern Appalachian Mountains, between Carver's gap and Engine gap. The Appalachian Trail (AT) bisects the study site into North of the trail and South of the trail. The site itself is spread across Pisgah National Forest in North Carolina and Cherokee National Forest in Tennessee, at approximately 36Â° 06'N and 82Â° 60'W. In 2020, @Stok2022 surveyed the balds of Carver's Gap following a 30-year mowing management protocol from @Hame1990 and @Murd1986. They detailed the vegetation composition of the balds according to vegetation type. Their data was entered into PCORD and produced a schematic of the vegetation communities across the balds of Carver's Gap [@PCORD]. In February 2022, a low-intensity ground fire burned roughly 9.7 hectares of aboveground vegetation but was quickly expunged before it could spread further. This provided an opportunity to examine the changes in vegetation composition following low-intensity ground fire over two sampling seasons in June of 2022 and 2023.
+Round bald is located in the Roan Mountain Massif of the Unaka Mountain range of the Southern Appalachian Mountains, between Carver's gap and Engine gap. The Appalachian Trail (AT) bisects the study site into North of the trail and South of the trail. The site itself is spread across Pisgah National Forest in North Carolina and Cherokee National Forest in Tennessee, at approximately 36° 06'N and 82° 60'W. In 2020, @Stok2022 surveyed the balds of Carver's Gap following a 30-year mowing management protocol from @Hame1990 and @Murd1986. They detailed the vegetation composition of the balds according to vegetation type. Their data was entered into PCORD and produced a schematic of the vegetation communities across the balds of Carver's Gap [@PCORD]. In February 2022, a low-intensity ground fire burned roughly 9.7 hectares of aboveground vegetation but was quickly expunged before it could spread further. This provided an opportunity to examine the changes in vegetation composition following low-intensity ground fire over two sampling seasons in June of 2022 and 2023.
 
 ### Field Methods
 
