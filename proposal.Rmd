@@ -3,11 +3,8 @@ title: "Plant community composition following low-intesity fire on Round Bald"
 author: "J. Hillert"
 output:
   bookdown::html_document2:
-<<<<<<< HEAD
   #bookdown::pdf_document2:
-=======
   #bookdown::word_document2:
->>>>>>> eae2ae7ed236166281f3e3b8be6d454715d6d435
     number_sections: false
     toc: no
     always_allow_html: true
