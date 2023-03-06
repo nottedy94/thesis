@@ -1,0 +1,295 @@
+---
+title: "Box 10.2 | frogs in burned vs unburned catchments"
+subtitle: "Assumption checks for lmer models."
+author: "THM"
+date: 'Spring 2022'
+output:
+  bookdown::html_document2:
+    toc: yes
+    number_sections: FALSE
+    code_download: TRUE
+    
+bibliography:
+- Quinn_Keough2002.bib
+- R-rcbd.bib
+csl: ecology.csl
+---
+
+```{r setup, include=FALSE}
+
+knitr::opts_chunk$set(
+  echo = FALSE,
+  message = FALSE
+  )
+
+library(emmeans)
+library(lattice)
+library(redres)   # For diagnostic plots of lmer models
+library(lme4)           # For linear mixed effects modelling
+library(lmerTest)       # To provide P-values for lme4
+library(car)       
+library(latex2exp)
+library(kableExtra)
+library(ggfortify)
+library(broom)
+library(tidyverse)
+
+papaja::r_refs(file = "R-rcbd.bib")
+
+options(knitr.kable.NA = "")
+
+# Needed if we decide to use Type III SS
+options(contrasts = c('contr.sum','contr.poly'))
+
+```
+    
+# Box 10.2: Worked example of simple repeated measures analysis: frogs in burnt/unburnt catchments.
+
+@Driscoll.Roberts1997 examined the effects of fuel-reduction burning on the abundance of a species of frog in Western Australia. They used six drainages within a catchment, which represent the subjects or blocks. In each drainage, they had a matched burnt site and control (unburnt) site and the response variable for the experiment was the difference in the number of calling male frogs between the burnt and control site in each drainage. This variable was recorded three times (repeated measurements) – pre-burn (1992) and two times post-burn (1993, 1994). This is a classical repeated measures (subjects by trials) design.
+
+The main $H_0$ of interest was that there was no difference between years in the mean difference in the number of calling male frogs between burnt and unburnt catchments.
+
+## The data
+
+```{r dataImport}
+
+# data frame contents: * BLOCK - name of drainage * YEAR - represents when the
+# measurements were repeated (1=pre-burn - 1992, 2=post-burn - 1993 and
+# 3=post-burn - 1994) * CALLS - difference in the number of calling male frogs
+# between the burnt and control site in each drainage
+
+df1 <- read_csv("driscoll2.csv",
+                show_col_types = FALSE)
+
+df1$YEAR <- factor(df1$YEAR)
+
+df2 <- df1 |>
+  group_by(YEAR, BLOCK) |>
+  summarize(MeanDiff = mean(CALLS)) |>
+  pivot_wider(names_from = YEAR, values_from = MeanDiff)
+
+kbl(df2,
+    caption = "Mean difference in *Geocrinia lutea* calls between burned and                    unburned catchments"
+    ) |>
+  add_header_above(
+    header = c(" " = 1, "Years" = 3)
+    ) |>
+  kable_classic()
+```
+
+In Box 10.2, @Quinn.Keough2002 present results for this analysis as reported by @Driscoll.Roberts1997 where the years and catchments were treated as fixed effects. There is a missing value in the data (Year 2 for the Newpipe catchment) so in the original analysis there was an estimated value substituted to maintain the balance, with degrees-of-freedom adjusted.
+
+I haved used a linear mixed-effects model for the analysis and treated catchment as a random sample of available catchments. I have used lmer() from the lme4 package [@R-lme4] to estimate the model and the lmerTest package to estimate degree-of-freedom and p-values [@R-lmerTest].
+
+```{r mixedMod}
+
+mixedMod <- lmer(CALLS ~ YEAR + (1|BLOCK), 
+                 data = df1)
+
+```
+
+### Checking assumptions
+
+The assumptions for linear mixed effect modeling of a randomized complete block design are essentially those of the traditional analysis of any other factorial treatment design:
+
+  1. the model is linear,
+  2. residuals are normally distributed, 
+  3. residuals are independent, 
+  4. residuals are homoscedastic
+  5. fixed effects are in fact fixed
+  
+In addition, we also need to assume:
+
+  6. there are no interactions between fixed effects and random effects,
+  7. random effects normally distributed
+
+Unfortunately, the model objects produced by lmer() do not work with ggfortify::autoplot() [@R-ggfortify]. However, lme4 does provide some diagnostic plotting abilities for our usual diagnostics:
+
+#### Standardized residuals versus fitted values
+
+```{r resVfit}
+#| fig.cap = "Base R plot of standarized residuals versus fitted values, provided by lme4::plot() [@R-lme4]."
+
+plot(mixedMod, resid(., scaled = TRUE) ~ fitted(.),
+     abline = 0)
+```
+
+#### QQ Plots
+
+The lattice package [@R-lattice] provides the function qqmath() which can provide a quantile-quantile plot of standardized residuals and a theoretical distribution (the normal distribution is the default).
+
+```{r qqplot}
+#| fig.cap = "A base R quantile-quantile plot for the standardized residuals, provided by the lattice::qqmath() [@R-lattice]."
+
+lattice::qqmath(mixedMod, id=0.05)
+
+
+```
+
+#### Scale-Location Plot
+
+The authors of lme4 provide the code for a function to draw a base R scale-location plot *(note that there is an error in their code, fixed in this code chunk)*:
+
+```{r scaleLoc}
+#| fig.cap = "Base R scale-location plot."
+
+# Function provided by the help file for plot.merMod {lme4} with "fm1" replaced
+# by "m"
+scale_loc_plot <- function(m,
+                           line.col = "red", 
+                           line.lty = 1,
+                           line.lwd = 2
+                           ) {
+  plot(m, 
+       sqrt(abs(resid(.))) ~ fitted(.),
+       type = c("p", "smooth"),
+       par.settings = list(
+         plot.line = list(
+           alpha=1, 
+           col = line.col,
+           lty = line.lty, 
+           lwd = line.lwd
+           )
+         )
+      ) 
+    }
+
+scale_loc_plot(mixedMod)
+
+```
+
+#### Interactive Diagnostic Plots using redres [@R-redres]:
+
+Given that we don't usually publish our diagnostic plots, you may find it convenient to use redres::launch_redres() [@R-redres] which opens an interactive "Shiny" application [@R-shiny]. I would suggest including it in a code chunk, but commented out until needed.
+
+```{r}
+
+# launch_redres(mixedMod)
+
+```
+
+#### Remedies for violations of assumptions
+
+Data transformations often "solve" violations of assumptions, but @Schielzeth.etal2020 used simulations with known violations of assumptions and found that linear mixed effect models were surprisingly robust to violations of distributional assumptions. They conclude that linear mixed effect models are appropriate for a large variety of models and are more powerful than alternative analyses. They even encourage the use of linear mixed effect models for "slightly non-standard" data.
+
+## Results
+
+Once we are satisfied that our model meets assumptions, we can proceed to interpret our results. We have some options to consider with package lmerTest::anova() [@R-lmerTest]. The package uses type III SS, but type I and II SS are available. For the fixed effects in this model, the type of SS doesn't matter as there is only one fixed effect. Satterthwaite's degrees of freedom method for unbalanced data is used by default, but a Kenward-Roger method is also available. There seems to be little guidance for which approach should be preferred, with most authors concluding that the Kenward-Roger approach may be slightly more conservative.
+
+```{r output}
+
+Sat.type3 <- anova(mixedMod, type = 3)
+Ken.type3 <- anova(mixedMod, type = 3, ddf = "Kenward-Roger")
+
+output <- rbind(Sat.type3,
+                Ken.type3)
+
+rownames(output) <- c("Satterthwaite", "Kenward-Roger")
+
+output.caption <- "A comparison of the Satterthwaite and Kenward-Roger methods for estimating denomenator degrees-of-freedom."
+
+kbl(output,
+    digits = c(2,2,0,3,3,4),
+    caption = output.caption
+    ) |>
+  kable_classic()
+
+```
+
+The car::Anova() [@R-car] also provides the ability to estimate p-values for lmer models using two different approaches: the default is to use a Wald Chisq test, but the Kenward-Roger approach is available. These are two very different approaches and use different test statistics (chi-square versus F). For this example, the qualitative results are the same for the Wald test and the Kenward-Roger F-test, but most authors contend that the Wald test is "anti-conservative" for small sample sizes and our example would support this. 
+
+```{r carTest}
+
+Wald.car <- Anova(mixedMod)
+
+KR.car <- Anova(mixedMod, test.statistic = "F")
+names(KR.car) <- c("TS", "df", "df2", "P")
+
+Wald <- data.frame(
+  cbind(Wald.car$Chisq, 
+        Wald.car$Df, 
+        NA, 
+        Wald.car$`Pr(>Chisq)`)
+  )
+names(Wald) <- c("TS", "df", "df2", "P")
+
+carTest <- rbind(Wald, KR.car)
+rownames(carTest) <- c("Wald", "KR")
+
+kbl(carTest,
+    col.names = c(
+      "($\\chi^2$ or $F$)",
+      "df",
+      "den df",
+      "P"
+      ),
+    caption = "P-values estimated using car::Anova() [@R-car].",
+    digits = c(3,0,3,4)
+    ) |>
+  kable_classic()
+
+```
+
+### Comparisons among means
+
+The lmerTest package provides methods for both planned and unplanned comparisons, but the emmeans package [@R-emmeans] that you've already used will also work with lmer models, so in the interest of simplification, that is the approach I will use.
+
+In our example, year one observations were collected before catchments were burned and years two and three afterward, so a planned contrast for year one versus two and three would be appropriate as would a comparison of years two and three to look for increased or decreased differences.
+
+```{r cont}
+
+out.emml <- emmeans(mixedMod, "YEAR")
+
+out.contrasts <- contrast(out.emml,
+                          list("Pre-burn vs Post" = c(1, -1/2, -1/2),
+                               "Year 2 vs 3" = c(0, -1, 1)))
+
+kbl(out.contrasts,
+    digits = c(0,2,2,2,2,4),
+    caption = "Planned contrasts."
+) |>
+  kable_classic()
+
+```
+
+If we didn't have planned comparisons in mind, we can use emmeans::pairs() to get all possible pairwise tests with a Tukey adjustment to protect the experimentwise error rate.
+
+```{r pairTukey}
+kbl(pairs(out.emml),
+    digits = c(0,2,2,2,2,4),
+    caption = "Tukey-Kramer pairwise comparisons among means [@R-emmeans]."
+    ) |>
+  kable_classic()
+```
+
+```{r Plots}
+#| fig.cap = "The difference in number of *Geocrinia lutea* calls between burned               and unburned control plots.",
+#| warning = FALSE
+
+ggplot(df1, aes(x = YEAR, y = CALLS)) +
+  geom_boxplot(coef = 3) +
+  geom_jitter(width = 0.35, size = 3) +
+  ylab("Difference") +
+  theme_classic()
+
+```
+
+As expected, the difference in number of calls between burned plots and unburned control plots changed among years (Figure \@ref(fig:Plots), Tables \@ref(tab:output) & \@ref(tab:cont)).
+
+## Random Effect information
+
+While testing if the random effect contributes a significant amount of variation isn't a particularly interesting hypothesis $(H_0: \sigma_B^2 = 0)$ for a randomized complete block design, I am providing the test here to demonstrate the syntax. The lmerTest::ranova() provides a liklelihood ratio test (= Wilks test) based on the difference between the log-likelihoods of models with and without the parameter in question.
+
+```{r ranova}
+
+kbl(ranova(mixedMod),
+    digits = c(0,2,2,2,0,4),
+    caption = "A log-likelihood ratio test of the contribution of the blocks                   random effect to the model provided by lmerTest::ranova()
+               [@R-lmerTest]."
+    ) |>
+  kable_classic()
+
+```
+
+
+# References

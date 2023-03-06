@@ -1,0 +1,300 @@
+---
+title: "Randomized Complete Block Designs"
+output:
+  bookdown::html_document2:
+    toc: yes
+    number_sections: FALSE
+    code_download: TRUE
+    
+bibliography:
+- Quinn_Keough2002.bib
+- R-rcbd.bib
+csl: ecology.csl
+---
+
+```{r setup, include=FALSE}
+
+knitr::opts_chunk$set(echo = FALSE)
+
+library(asbio)     # For additivity test
+library(lme4)      # For linear mixed effects modelling
+library(lmerTest)  # To provide P-values for lme4
+library(car)       # Primarily for the Anova() function
+library(latex2exp)
+library(kableExtra)
+library(ggfortify)
+library(broom)
+library(tidyverse)
+
+papaja::r_refs(file = "R-rcbd.bib")
+
+options(knitr.kable.NA = "")
+
+# Needed if we decide to use Type III SS
+# options(contrasts = c('contr.sum','contr.poly'))
+
+```
+
+# Randomized Complete Block Design (RCBD)
+
+## Fish predation on dragonflies
+
+Back in the depths of time, I did dissertation research on the effects of fish predation on macroinvertebrates [@martin1990; @martin1991].  The experiment was a 2 X 2 factorial treatment design (large Redear Sunfish, *Lepomis microlophus*, present or absent, and small sunfish, *Lepomis spp.* present or absent) arrayed in a randomized complete block design with three blocks (Figure 1).  During the second summer of the experiment, I collected the exuviae of the common baskettail dragonfly, *Epitheca (=Tetragoneuria) cynosura* from the walls of the enclosures.  The exuviae represented individuals that had successfully survived and completed development to metamorphosis.
+
+```{r diagram }
+#| fig.cap="An aerial view of Bays Mountain Lake with the experimental layout and numbers of exuviae collected from enclosure walls."
+
+#knitr::include_graphics("RCBD.PNG")
+
+```
+
+I created the data frame in R [@R-base] by creating vectors of the independent factors, then I used the expand.grid() function to create a long vector that will match with the vector of dependent variable values. I've asked R to display the first six rows of the matrix of independent factors and the complete data.frame.
+
+```{r BML}
+
+Block <- c("A", "B", "C")
+
+LF <- c("L-", "L+")
+
+SF <- c("S-", "S+")
+
+df1 <- expand.grid(Block = Block, LF = LF, SF = SF)
+
+Exuvia <- c(219, 116, 169, 159, 73, 116, 89, 144, 32, 44, 78, 10)
+
+df2 <- data.frame(df1, Exuvia)
+
+kbl(
+  df2,
+  caption = "*Epitheca cynosura* exuviae recovered from enclosure walls, summer              1987."
+  ) |>
+  kable_classic(full = FALSE)
+
+```
+
+## Fixed Blocks
+
+In the original analysis, I treated the blocks as fixed effects and used this model:
+
+$$y_{ijk} = \mu + \tau_i + \gamma_j + (\tau \times \gamma)_{ij} + \beta_k + \epsilon_{ijk}$$
+$$\epsilon \rightarrow NID(0, \sigma^2)$$
+
+```{r ANOVA}
+bml.mod <- aov(Exuvia ~ LF * SF + Block, df2)
+
+kbl(
+  Anova(bml.mod),
+  caption = "ANOVA summary for test of differences in exuviae counts among                   treatments.",
+  col.names = c("SS", "df", "F", "P"),
+  digits = c(2, 0, 2, 4)
+  ) |>
+  kable_classic(full = FALSE)
+```
+
+Let's think about the residual (=error) term. Notice that there was no "true" replication in the model, so what exactly was being used to estimate $\sigma^2$? Take a look back at the model and note that I did not include any of the interactions between Block and the other fixed effects. I tacitly assumed that those interactions didn't exist and so the variation described was merely the underlying variation among experimental units. If we completely specify the model by including all of the interactions, we can see what "fell into" the residual estimate:
+
+```{r ANOVA_full, warning=FALSE}
+full.mod <- aov(Exuvia ~ LF*SF*Block, df2)
+
+kbl(
+  tidy(
+    anova(full.mod)
+    )[,1:3],
+    caption = "Degrees-of-freedom and sums-of-squares for the full model.",
+    col.names = c("Source", "df", "SS")
+  ) |>
+  kable_classic(full = FALSE)
+
+```
+
+
+```{r GraphResults}
+#| fig.cap = "Number of *Tetragoneuria cynosura* exuviae per enclosure for each treatment."
+
+ggplot(df1) +
+  geom_boxplot(aes(LF:SF, Exuvia)) +
+  geom_jitter(aes(x = LF:SF, 
+                  y = Exuvia, 
+                  color = Block), 
+              width = 0.3, 
+              alpha = 0.5, 
+              size = 4, 
+              shape = 16) +
+  xlab("") +
+  theme_classic()
+```
+
+### Efficiency of blocking:
+
+@Quinn.Keough2002 tell us how to calculate the relative efficiency of blocking:
+
+$$ERE = \frac{(q-1)MS_{Block} + q(p-1)MS_{Residual}}{(pq-1)MS_{Residual}}$$
+
+Where _p_ is the number of levels of the treatment (or treatment combinations for a factorial treatment design) and _q_ is the number of levels for block.
+
+So for the exuviae example:
+
+$$ERE = \frac{2 \times 2121 + 3 \times 3 \times 2224}{(4 \times 3 - 1) \times 2224}$$
+
+$$ERE = \frac{24258}{24464} = 0.99$$
+If the ERE > 1 then blocking improves the efficiency of the experiment.  If ERE < 1, future experiments should perhaps be done without blocking. In my case, the efficiency of blocking was approximately 1, suggesting that blocking didn't hurt (much), but didn't help either.
+
+
+## Random Blocks
+
+In the preceding analaysis, I treated the blocks as fixed. In the original analysis I did that also as the three locations I used were the only places in the reservoir where four $24 ~ m^2$ enclosures could be placed side-by-side without one end being under water.
+
+Many researchers have argued that blocks should be considered to be a random sample of all available blocks and many textbooks only recommend that approach (but see @Dixon2016). Let's see how analyzing the exuvia data with blocks as a random variable alters interpretation.
+
+$$y_{ijk} = \mu + \tau_i + \gamma_j + (\tau \times \gamma)_{ij} + B_k + \epsilon_{ijk}$$
+$$B \rightarrow NID(0, \sigma_B^2)$$
+$$\epsilon \rightarrow NID(0, \sigma^2)$$
+
+
+I have used linear mixed effects modeling [@R-lme4] with P-values estimated using the Satterthwaite approximation for degrees-of-freedom provided by the lmerTest package [@R-lmerTest].
+
+```{r BMLlmer}
+#| warning = FALSE
+
+bml.lmer <- lmer(Exuvia ~ LF * SF + (1|Block), df2)
+
+Table3 <- anova(bml.lmer, type = 2)
+
+kbl(
+  Table3, 
+  col.names = c("SS", "MS", "num df", "den df", "F", "P"),
+  digits = c(0,0,0,0,2,4), 
+  caption = "Mixed Effects ANOVA summary
+       for Martin's exuviae data [@martin1991] with Block treated as a random
+       variable. Analysis performed using lmer() [@R-lme4] and the Satterthwaite
+       approximation of degrees-of-freedom via the lmerTest package
+       [@R-lmerTest] in R [@R-base]."
+  ) |>
+  kable_classic(full = FALSE)
+
+
+```
+
+```{r tab4}
+Table4 <- ranova(bml.lmer)
+
+Table4[2,4] <- "$\\approx 0$"
+
+kbl(
+  Table4,
+  digits = c(0, 2, 2, 3, 1, 4),
+  col.names = c("Parameters", "Log-Likelihood", "AIC", "$\\chi^2$", "df", "P"),
+  caption = "Test of the random factor, Block, comparing the model with and                  without the random component (a likelihood ratio test). *Note*: the likelihood ratio test
+             statistic was approximately $1.4 \\times 10^{-14}$."
+  ) |>
+  kable_classic()
+
+```
+
+
+
+
+# Box 10.1: mites on leaves
+
+@Walter.ODowd1992 examined the role of domatia (a tiny chamber produced by plants that houses arthropods) in determining the numbers of mites on leaves of plant species with domatia. They did an experiment using 14 randomly chosen pairs of leaves from the evergreen shrub, *Viburnum tinus*, with one leaf in each pair with domatia removed and the other intact, as a control. The response variable was total number of mites per leaf, which they transformed to $ln(0.5 + (mite \times 10))$, ostensibly to improve normality and homogeneity of variances between treatments, the 0.5 added because of zeros although multiplication by ten seemed unnecessary. 
+
+The factor of interest was the presence or absence of domatia ($\alpha$ in the model). The potential source of nuisance variance was block (leaf pairs, $\beta$ in the model). The response variable was the number of mites transformed as $ln(0.5 + (mite \times 10))$.
+
+Our statistical model was:
+
+$$(y_{ij} = \mu + \alpha_i + \beta_j + \epsilon_{ij})$$ 
+
+Note that in this model $\beta$ is a "fixed effect."
+
+```{r mitesImport}
+mites <- read_csv('walter.csv', show_col_types = FALSE)
+
+```
+
+As usual, your textbook authors use ALL CAPS for factor labels, and here they've used integers for the different levels of BLOCK and TREAT. By default, R would treat those integers as numeric data and not as factors, so I have used the factor() function to use them as factor levels. I've also dropped the columns that your textbook authors had calculated and added to the data set.
+
+```{r dfArrange}
+mites <- mites[,1:4]
+names(mites) <- tolower(names(mites))
+mites$block <- factor(mites$block)
+mites$treat <- factor(mites$treat, levels = c(1, 2), 
+                      labels = c('Control', 'Shaved'))
+
+# head(mites)
+
+```
+
+We can analyze this experimental design as though it was a simple factorial treatment design:
+
+```{r mitesAnova, results='asis'}
+mites.mod <- aov(log(10*mite+0.5) ~ treat + block, mites)
+
+kbl(
+  tidy(
+    mites.mod
+    ), 
+  digits = c(0, 1, 2, 2, 2, 4),
+  caption = "ANOVA summary for analysis of an unreplicated RCBD",
+  col.names = c("Source", "df", "SS", "MS", "F", "P")
+  ) |>
+  kable_classic(full = FALSE)
+
+```
+
+We can check the assumptions of ANOVA just as we did for regression and one-way ANOVA:
+
+```{r CheckAssumpt }
+autoplot(mites.mod)
+```
+
+Note that there appears to be a pattern in the residual plot and the variance actually looks to decline with increasing magnitude of the fitted values in the scale-location plot. These results would bother me, but this is the analysis that the original authors used.
+
+@Quinn.Keough2002 produced an *interaction plot* to look for evidence of an interaction between the treatment levels and the blocks.  To use the RCBD with no replication, we must assume that there is no interaction, so this plot is a check on that assumption.
+
+```{r MiteFigure }
+
+#| fig.cap="What might we have seen if there had been an interaction?"
+
+ggplot(mites, aes(as.numeric(block), mite + 1, color = treat, shape = treat)) +
+  geom_point() +
+  geom_line(aes(linetype = treat)) +
+  scale_y_log10(name = "Number of Mites (+1)", breaks = c(1,5,10,15,20), 
+                limits = c(1,20), expand = c(0,0)) +
+  annotation_logticks(sides = "l") +
+  scale_x_continuous(name = "Blocks", breaks = seq(1,14), limits = c(1,14)) +
+  scale_shape_manual(values = c(1,19)) +
+  theme_classic()
+```
+
+@Quinn.Keough2002 also talk about conducting a Tukey's test of additivity to check the assumption of no interaction. They concluded that there was no interaction with the transformed data, but that there was with the untransformed data. You can repeat that analysis in **_R_** by using asbio::tukey.add.test() [@R-asbio], but researchers rarely do it or report on it.
+
+#### Untransformed Data
+
+```{r}
+asbio::tukey.add.test(mites$mite, mites$treat, mites$block)
+
+```
+
+#### Transformed Data
+
+```{r addTest}
+
+asbio::tukey.add.test(log(10*mites$mite + 0.5), mites$treat, mites$block)
+
+```
+
+### Efficiency of blocking:
+
+@Quinn.Keough2002 tell us how to calculate the relative efficiency of blocking:
+
+$$ERE = \frac{(q-1)MS_{Block} + q(p-1)MS_{Residual}}{(pq-1)MS_{Residual}}$$
+
+Where _p_ is the number of levels of the treatment and _q_ is the number of levels for block.
+
+So for the Box 10.1 example:
+
+$$ERE = \frac{13 \cdot 1.7737 + 14 \cdot 1 \cdot 2.7698}{(2 \cdot 14 - 1) 2.7698}$$
+$$ERE = \frac{61.835}{74.785} = 0.827$$
+If the ERE > 1 then blocking improves the efficiency of the experiment.  If ERE < 1, future experiments should perhaps be done without blocking.
+
+# References

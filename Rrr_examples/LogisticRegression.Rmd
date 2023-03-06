@@ -1,0 +1,398 @@
+---
+title: "Generalized Linear Models"
+output:
+  bookdown::html_document2:
+    toc: TRUE
+    self_contained: yes
+    number_sections: no
+    code_download: TRUE
+    
+bibliography: 
+- Quinn_Keough2002.bib
+- r-GLM.bib
+
+# uncomment this line to produce HTML and PDF in RStudio:
+#knit: pagedown::chrome_print
+---
+
+```{r setup, include=FALSE}
+
+knitr::opts_chunk$set(echo = TRUE)
+
+library(DHARMa)
+library(nnet)
+library(car)
+library(broom)
+library(latex2exp)
+library(kableExtra)
+library(tidyverse)
+
+options(scipen = 99)
+
+papaja::r_refs(file = "r-GLM.bib")
+
+options(knitr.kable.NA = "")
+
+
+```
+
+# *General* vs *Generalized* Linear Models
+
+Up to this point in the class, when we've used linear models to analyze data, we've made the assumption that the residuals have a normal distribution. Linear models that assume that the residuals (and response variables) are normally distributed are called ***general*** **linear models**, and typically follow the standard regression form (or an expansion to multiple explanatory variables):
+
+$$y_{i,j}=\beta_0 + \beta_1 x_i + \epsilon_{ij} \\ \epsilon \rightarrow NID(0,\sigma^2),$$
+but, general linear models are just one of a family of possible models.
+
+
+We can use ***generalized*** **linear models** for any variable that follows one of the many members of the ***exponential family*** of distributions. The most commonly used are:
+
+-   if our random variable, y, is a continuous variable that is the result of random additive processes, the normal (or Gaussian), distribution is appropriate (remember the Central Limit Theorem).
+-   if y is a discrete random variable that may only take a binary value (for example: yes or no, living or dead, success or failure) it will follow the binomial (or Bernoulli) distribution,
+-   if y is a discrete random variable that consists of counts of events that that take place in a fixed interval of time or space, it may follow a Poisson probability distribution.
+-   if y a continuous variable that relies on processes associated with the waiting times between Poisson distributed events, such as survival times, it may follow an exponential (time to $1^{st}$ occurrance) or gamma (time to the $k^{th}$ event) distribution. 
+
+## Link Functions
+
+We can use least squares as a maximum likelihood technique for normally distributed variables, but for other distributions, we use computer intensive maximum likelihood approaches to estimate the regression coefficients like we did for the linear mixed effects models. Also, the statistical models differ in that we use a function to ***link*** the dependent variable (left hand side = random part of the model) to the independent or explanatory variable(s) (right hand side = systematic part of the model).
+
+-   When assuming a normal distribution for the random part, we link using the "identity" function, $g(\mu) = \mu$
+-   if assuming a binomial distribution, we link using the "logit" function, $g(\mu) = log[\mu/(1-\mu)]$, and
+-   if assuming a Poisson distribution, we link using the "log" function, $g(\mu) = log(\mu)$.
+-   if assuming a Gamma distribution, we link using the "inverse" function, $g(\mu)=1/\mu$
+
+These ***link functions*** essentially act as transforms on the data.
+
+R [@R-base] provides the glm() function to estimate parameters for generalized linear models and provide tests of those estimates. We specify the assumed distribution and its associated link using the *family=* option in glm(). See the R help file for *family* for a list of the available distributions and their associated link functions.
+
+# Logistic Regression
+
+Logistic regression, or logit regression, or logit modeling is a regression model where the dependent variable is categorical. It was developed by David Cox in 1958 for the situation where the dependent variable can take only two values, "0" or "1", which represent outcomes such as pass/fail, win/lose, alive/dead or healthy/sick. There are now techniques that expand the analysis to cases where the dependent variable has more than two outcome categories: multinomial logistic regression, or, if the multiple categories are ordered, ordinal logistic regression. The binary logistic model is used to estimate the probability of a binary response (also called a Bernoulli trial) based on one or more predictor variables. It allows one to say that a change in the predictor increases or decreases the ***odds*** of a given outcome by a specific factor. It assumes a binomial distribution and uses the "logit" link function:
+
+$$logit(p) = log(\frac{p}{1-p})$$
+
+## Odds versus Probability
+
+This link function is also sometimes referred to as the "log-odds" function. If we say that something has a 50:50 chance of happening, we are referring to the odds and don't mean that the probability of the event happening is $\frac{50}{50} = 1$, or 100% probability, we mean that the probability of it happening is equal to the probability of it not happening.
+
+Odds and probability are often used as synonyms in everyday speech, but they are mathematically and conceptually distinct. Probability as you know is mathematically synonymous with the proportion of events of interest out of all possible events being considered, or
+
+$$P(A) = \frac{Number \ of \ Event \ A}{Total \ Number \ of \ Events}$$.
+
+Odds, on the other hand, are the ratio of the frequency of an event to the frequency of other events being considered, or
+
+$$Odds(A) = \frac{Number \ of \ Event \ A}{Number \ of \ Events \ that \ are \ Not \ A}$$.
+
+We can use the probabilities in place of the frequencies for odds, so you'll usually see it presented as the ratio of the probability of *A* to the probability of *not-A*, or
+
+$$Odds(A) = \frac{P(A)}{1-P(A)}$$.
+
+Given the log-odds transformation, our statistical model for a logistic regression becomes:
+
+$$ln(\frac{\pi_i}{1-\pi_i}) = \beta_0 + \beta_1x_i + \epsilon_i$$ Where:
+
+1.  $\pi_i = P(y_i = 1 \: | \: x_i)$,
+2.  $x_i$ = are the observed explanatory variable value,
+3.  $\beta_i$ are regression coefficients, and
+4.  $\epsilon_i$ are residuals.
+
+You may wonder how you go from our raw data to $\pi_i \: | \: x_i$, but remember that for events that have already happened, the probabilities are either 1 or 0, it either happened, or it didn't. *Celebrate these data as one of those few instances in life where we are certain of something!* So the our data of 0s or 1s (success/failures, alive/dead, etc.) are essentially already in the format of odds.
+
+After we estimate the parameters of the regression model, we can "back-calculate" probability from odds as $P = \frac{odds}{1 + odds}$, so one can estimate the probability of a particular outcome:
+
+$$\widehat{p_i} = \frac{e^{b_0 + b_1 x_{1,i} + . . . b_i x_{k,i})}}{1 + e^{b_0 + b_1 x_{1,i} + . . . b_i x_{k,i})}}$$ Where
+
+$\widehat{p_i}$ is the predicted probability of event i;
+
+$k$ is the number of independent variables (= predictor variables);
+
+$b_i$ are the estimated regression coefficients.
+
+Assumptions:
+
+1.  Binomial distribution (=Binary response)
+2.  Independence
+3.  Fixed predictor variables for cause and effect inference.
+4.  Linear relationship between the log-odds and the predictor variable(s)
+5.  No colinearity among predictor variables
+
+Decisions made in planning the study, choice of response/predictor variables and experimental design are important in determining and controlling the first three of these assumptions and examination of residuals can help in checking on the first four. As in multiple linear regression, the variance inflation factor can be used as a guide for checking on the assumption of no collinearity.
+
+## Box 13.1: Presence/Absence of lizards on islands.
+
+@Polis.etal1998 studied the factors that control spider populations on islands in the Gulf of California. We will use part of their data to model the presence/absence of lizards (*Uta* spp.) against the ratio of perimeter to area for 19 islands in the Gulf of California. P/A, was used by the original authors as a measure of input of marine detritus under the assumption that more shoreline per area of upland would mean greater relative input of marine detritus.
+
+![Side-blotched lizard from San Pedro Nolasco, *Uta nolacensis*, photo by Glenn Thompson (<http://glennsphotos.com/>)](Uta-nolacensis-Isla-San-Pedro-Nolasco-Gulf-of-California-Mexico-2015.jpg){width="50%"}
+
+```{r polisData }
+polis <- read_csv("polis.csv", show_col_types = FALSE)
+names(polis) <- tolower(names(polis))
+```
+
+In the data set, *island* is the name of the island, *paratio* is the perimeter to area ratio, *uta* is the presence/absence of *Uta*.
+
+Our model is:
+
+$$ln \left[ \frac{\pi(Uta)}{1-\pi(Uta)} \right] = \beta_0 + \beta_1(\frac{Perimeter}{Area})_i + \epsilon_i$$
+
+Where $\pi(Uta)$ is the probability of *Uta* being present. R's glm() handles the calculations for the probabilities and the log-odds, so we only have to provide a formula with a variable that represents *Uta* presence or absence on the left-hand-side and our descriptor variable on the right-hand-side, then indicate which family of distributions to use.
+
+The summary of the model gives us the parameter estimates and Wald tests, a maximum likelihood analog of the t-test (see section 13.2.1 @Quinn.Keough2002), which use z-scores from the normal distribution to calculate P-values, of the null hypothesis that the parameter = 0.
+
+```{r polisMod, warning=FALSE}
+polis$uta <- factor(polis$uta)
+
+polisMod <- glm(uta ~ paratio, family = "binomial", data = polis)
+
+polisModSum <- summary(polisMod)
+
+polisModSum
+
+kbl(polisModSum[[12]],
+       caption = "Parameter estimates and tests.",
+       digits = c(4,3,3,4)
+    ) |>
+  kable_classic()
+```
+
+### Lack-of-fit
+
+We can test for general lack-of-fit and lack of independence with the testResiduals() function from the DHARMa package which uses a simulation-based approach to create readily interpretable scaled (quantile) residuals for generalized linear models. A significant lack of uniformity would suggest that our model is not linear and lack of independence can result in significant overdispersion (when variance of the response is greater than would be predicted by the model).
+
+```{r dispersionTest1, results='hide', fig.show='hide'}
+
+# see help files for information on syntax and the use of the simulated
+# residuals
+
+out1 <- simulationOutput <- simulateResiduals(fittedModel = polisMod)
+
+tests <- testResiduals(out1, plot = TRUE)
+
+```
+
+We have little evidence to reject the null hypothesis of a linear model.
+
+### Parameter Estimates
+
+In a logistic regression, one can usually interpret the intercept as a *base-line* value for the probability of success in the absence of the predictor. In this instance, however, that would be nonsense as the only way for the predictor to equal zero is if there were no perimeter at all, and as this was a study of islands, that isn't reasonable.
+
+The parameter estimate for *paratio* was significantly different from zero (Table \@ref(tab:polisMod)), but what does it mean? Remember we used log-odds, so if we back-transform the slope parameter estimate, we get the slope for the odds associated with changes in the perimeter to area ratio.
+
+$$e^{-0.2196} = 0.8028$$
+
+We would interpret these results to mean that there is a statistically significant relationship between the odds of finding *Uta* on an island and perimeter:area. In fact, for every 1-unit increase in perimeter:area the odds of seeing a *Uta* change by 0.80 (in other words, they decrease by about 20%). Or in biological terms, increased relative contribution of marine detritus seems to decrease the odds of the presence of these lizards. I should note that we know that smaller islands have smaller species richness in-general, and the these results may be a good example of why we shouldn't attempt to infer causality from correlation.
+
+We can also produce an analog of the ANOVA summary table, an Analysis of Deviance table, by looking at the amount of deviation of the specified model from a fully saturated model (Null deviance - Residual deviance). The Anova() function from the car package [@R-car] will do this for us and provide a p-value from a likelihood ratio test (described in section 13.2.1 @Quinn.Keough2002). Note that this is a more powerful test than the Wald tests used in the model summary report, resulting in a smaller p-value (Table \@ref(tab:AnofDev)).
+
+```{r AnofDev}
+kbl(Anova(polisMod), 
+       round = c(1, 0, 4),
+       caption = "Analysis of Deviance for the effect of 
+       the perimeter to area ratio of islands on the presence or absence of *Uta spp.*"
+    ) |>
+  kable_classic()
+```
+
+Remember that we can use the estimated regression parameters to estimate the probability of an outcome. Luckily, we can plot this response most easily by using `geom_smooth()` within ggplot by simply including `method="glm"` and passing the argument that it should use family="binomial". In the data provided, *Uta* presence and absence was recorded as "P" and "A", which I translated to 1 and 0 by using "as.numeric(uta) - 1". By using as.numeric() the two character values would be translated to 1 and 2, sorted alphabetically, so I subtracted 1 to plot the values as 0 and 1.
+
+```{r polisPlot, fig.cap="The probability of observing *Uta spp* on an island as a function of the input of marine detritus (as quantified by the ratio of perimeter to area)."}
+
+Ylab <- TeX("Probability of Observing \\textit{Uta}")
+Xlab <- TeX('$\\frac{Perimeter}{Area}$')
+
+ggplot(polis, aes(paratio, as.numeric(uta) - 1)) +
+  geom_hline(yintercept = 0) +
+  geom_point(alpha = 0.5, size = 3) +
+  geom_smooth(method = "glm", method.args = list(family = "binomial")
+              ) +
+  scale_y_continuous(name = Ylab, expand = c(0,0),
+                     limits = c(-0.03,1.03), breaks = c(0,0.25, 0.50, 0.75, 1.00)) +
+  scale_x_continuous(name = Xlab, expand = c(0,0), limits = c(0,65),
+                     breaks = c(0,10,20,30,40,50,60)) +
+  theme_classic(base_size = 16) + 
+  theme(axis.line.x = element_blank())
+```
+
+------------------------------------------------------------------------
+
+## Elk (*Cervus elaphus* L.) habitat selection in Great Smoky Mountains National Park [@Hillard2013]
+
+Liz Hillard mapped elk trails and counted fecal pellet groups to index habitat selection by elk in GSMNP. As part of the study, she used logistic regression to explore the importance of open fields to heavy use by elk. I'll use the data from Hillard's MS research to model the presence/absence of elk as a function of distance from an open field.
+
+```{r}
+#| fig.cap = "Liz Hillard, now working at Wildlands Network's Asheville office after earning her PhD at Southern Illinois University. There **is** life after Biostats at WCU.",
+#| out.width = "50%"
+
+knitr::include_graphics("Hillard_Liz.png")
+```
+
+The data file that Liz shared with me has the counts of fecal pellet groups, so I've created a variable that I named 'Presence' to indicate presence (1) or absence (0) of evidence of elk use.
+
+```{r elkData}
+Hillard <- read.csv("Hillard.csv")
+
+# Data collected by Liz Hillard
+# (http://libres.uncg.edu/ir/wcu/f/Hillard2013.pdf)
+# Pellet_Groups refers to number of elk fecal pellet groups which likely 
+# indicates number of elk present at that distance in the preceding week.
+# Distance_Field refers to the distance from the open grass field in
+# Cataloochee Valley, Great Smoky Mountains National Park.
+
+
+Hillard$Presence <- ifelse(Hillard$Pellet_Groups < 1, 0, 1)
+
+names(Hillard)
+```
+
+```{r ElkModel, results='hide', fig.show='hide'}
+
+elk.model <- glm(Presence ~ Distance_Field, Hillard, family = binomial)
+
+summary(elk.model)
+
+out2 <- simulationOutput <- simulateResiduals(fittedModel = elk.model)
+
+tests <- testResiduals(out2, plot = TRUE)
+
+```
+
+```{r ElkPlot1}
+#| fig.cap = "The effect of distance from open fields on the probability of observing elk fecal pellets. Data provided by @Hillard2013."
+
+
+kbl(Anova(elk.model),
+    caption = "Analysis of deviance summary for the effect of distance from open fields on elk presence in Cataloochee Valley, GSMNP."
+    ) |>
+  kable_classic()
+
+Ylab <- TeX("Probability of Pellets")
+Xlab <- TeX("Distance from Fields")
+
+ggplot(Hillard, aes(Distance_Field, Presence)) +
+  geom_hline(yintercept = 0) +
+  geom_point(alpha = 0.5, size = 3) +
+  geom_smooth(method = "glm", method.args = list(family = "binomial")) +
+  scale_y_continuous(name = Ylab, expand = c(0,0),
+                     limits = c(-0.03,1.03), breaks = c(0,0.25, 0.50, 
+                                                        0.75, 1.00)) +
+  scale_x_continuous(name = Xlab, expand = c(0,0), limits = c(0,3035)) +
+  theme_classic(base_size = 16) + 
+  theme(axis.line.x = element_blank())
+```
+
+## Box 13.2: Presence/Absence of rodents in habitat fragments (multiple explanatory variables)
+
+Logistic regression can be expanded to multiple explanatory variables in the same way that simple linear regression can be expanded to multiple regression. We can use the data from @Bolger.etal1997 to model the presence/absence of species of native rodent (`rodentsp`) against three predictor variables: distance to the nearest source canyon in meters (`distx`), years since fragment was isolated by urbanization (`age`), and percentage of fragment area covered in shrubs (`pershrub`).
+
+```{r rodentData}
+bolger <- read.csv("bolger.csv")
+names(bolger) <- tolower(names(bolger))
+names(bolger)
+```
+
+```{r bolger }
+#| results = "hide"
+
+bolger.mod <- glm(rodentsp ~ pershrub + distx + age, 
+                  family = binomial, data = bolger)
+
+vif(bolger.mod)
+
+summary(bolger.mod)
+
+```
+
+```{r bolgerOut}
+
+kbl(Anova(bolger.mod),
+    caption = "Analysis of deviance summary for @Bolger.etal1997 rodent data."
+) |>
+  kable_classic()
+
+```
+
+
+------------------------------------------------------------------------
+
+# Multinomial log-linear models estimated using a neural network
+
+## Revisiting Liz Hillard's elk poo
+
+A neural network classifier is a software system that predicts the value of a categorical value. [If you're interested in more details, here is a magazine article specifically about the R package we'll use, nnet](https://visualstudiomagazine.com/articles/2016/11/01/using-the-r-nnet-package.aspx).
+
+I've expanded Liz Hillard's analysis of her elk fecal pellets to include multiple qualitative outcomes. I've classified the number of groups of fecal pellets as "none", "one or two", and "three or more," to index little elk use, some use, and use by multiple animals.
+
+To analyze the data, I've used 'multinom()' from the nnet package [@R-nnet]. This function can fit multinomial data to log-linear models using neural-networks. This function prints out intermediate information for use in trouble-shooting the iterative approach to parameter estimation, so I've hidden that output by using "results='hide'" in the code-chunk header.
+
+The mulinom() function uses multiple models to compare outcomes to a base level. By default it uses the first level, either alphabetically, or as indicated by a factor() command. It is possible to use the relevel() function [@R-base] to indicate which factor level should be used as the reference level (see ?relevel for syntax).
+
+Our models are:
+
+$$ln\left(\frac{P(one \; to \; two)}{P(none)}\right) = \beta_{10} + \beta_{11}(Distance_i) + \epsilon_i$$
+
+$$ln\left(\frac{P(three \; or \; more)}{P(none)}\right) = \beta_{20} + \beta_{21}(Distance_i) + \epsilon_i$$
+
+```{r multinomMod, results='hide'}
+Hillard$PelletClass <- ifelse(Hillard$Pellet_Groups < 1, "None",
+                              ifelse(Hillard$Pellet_Groups < 3, "One-Two",
+                                     "Three_or_more"))
+
+Hillard$PelletClass <- factor(Hillard$PelletClass
+	, levels = c("None", "One-Two", "Three_or_more")
+	, ordered = T)
+
+
+multinomMod <- multinom(PelletClass ~ Distance_Field, data = Hillard)
+out = Anova(multinomMod)
+```
+
+```{r multinomOut}
+summary(multinomMod)
+
+kbl(out,
+    caption = "Analysis of deviance summary for multinomial analysis of elk pellet data."
+) |>
+  kable_classic()
+```
+
+### Interpretation of the multinomial output
+
+Our overall test of the effect of distance from the field was statistically significant, so we reject the null hypothesis of no correlation with distance and continue to interpret the coefficients. Note that there are estimates of the intercept and the coefficient for distance for each sub-model.
+
+With this example, interpreting the intercepts is a little more complicated than with the binary logistic regression, but at the same time, more biologically tractable. The absence of elk pellets, our base reference level, could be true. What is the estimated probability of not finding pellets at the field? The probability of the reference factor level may be found by:
+
+$$\widehat{P(none)} = \frac{1}{1 + \sum{(antilog(Z_{m,i}))}}$$ Where the $Z_{m,i}$ are the estimated outcomes from our sub-models $(m)$, so for the situation where one may find no elk pellets at the field (distance = 0), the probability is:
+
+$$\widehat{P(none)} = \frac{1}{1 + e^{-0.0448} + e^{-0.4368}} = 0.3843$$
+
+We can estimate the probabilities for the situations where there were pellets using:
+
+$$\widehat{P(m)} = \frac{antilog(Z_{m,i})}{1 + \sum{(antilog(Z_{m,i}}))}$$
+
+Luckily, R automates the calculation of these probabilities for us. Here I've created a new data frame with distance values from 0 to 3000 and asked for predicted values for the three situations, no pellets, 1 to 2 groups of pellets, and 3 or more groups.
+
+```{r multinomGraph}
+#| fig.cap = "Multinomial predictions of the probability of observing elk pellets as a function of distance to an open field. Data provided by @Hillard2013."
+
+
+new <- data.frame(Distance_Field = seq(0:3000))
+pred <- cbind(new, predict(multinomMod,newdata = new, type = "probs"))
+pred_long <- gather(pred, Groups, Probability, None:Three_or_more , 
+                    factor_key = TRUE)
+                    
+ggplot() +
+  geom_point(aes(Distance_Field, Presence, group = PelletClass,
+                 color = PelletClass), alpha = 0.5, data = Hillard) +
+  geom_line(aes(Distance_Field, Probability, group = Groups, color = Groups),
+            data = pred_long) +
+  scale_y_continuous(name = 'Probability', expand = c(0.011,0.01),
+                     limits = c(0,1), breaks = c(0,0.25, 0.50, 0.75, 1.00)) +
+  scale_x_continuous(name = "Distance to Open Field (m)", expand = c(0,0),
+                     limits = c(0,3050), breaks = c(0,1000,2000,3000)) +
+  theme_classic(base_size = 20)
+```
+
+We can see that as distance from the open field increased, the probability of finding no pellets increased while the probabilities of finding 1 to 2 groups or 3 or more groups continued to decline.
+
+For more examples of multinominal logistic regression, I encourage you to visit: <https://stats.idre.ucla.edu/r/dae/multinomial-logistic-regression/>, the information available at the UCLA Insitute for Digital Research and Education.
+
+# References

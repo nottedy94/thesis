@@ -1,0 +1,411 @@
+---
+title: "GAE6"
+subtitle: "Multiple Comparisons"
+author: "J. Hillert"
+date: "3/16/2022"
+output:
+  bookdown::html_document2:
+    number_sections: false
+    toc: yes
+bibliography:
+- GAE6.bib
+- ANOVA_packages.bib
+- GAE5.bib
+
+csl: ecology.csl
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = FALSE,
+  warning = FALSE,
+  message = FALSE
+)
+
+library(patchwork)
+library(car)
+library(ggfortify)
+library(gtsummary)
+library(kableExtra)
+library(tidyverse)
+library(emmeans)
+library(effectsize)
+
+# automatically create a bib database for R packages
+papaja::r_refs(file = "GAE6.bib")
+
+options(knitr.kable.NA = "")
+```
+
+# Introduction
+## Peas, auxin, and sugars
+
+It is now relatively well known that sugars can act as signalling molecules in plants and interact with various plant signaling pathways to modulate growth and development (see @Mishra.etal2022 for a review). The data for this exercise was collected as part of the early work on the physiology of the interactions between sugars and auxin (e.g. indole-3-acetic acid, IAA) compounds. @Purves1959 knew from previous work in A.W. Galston's lab at Yale and elsewhere, where Purves was a student, that varying levels of sucrose could inhibit or promote the action of IAA, so Purves set out to explore other sugars' role in interactions with auxin. These data are just one small part of his larger thesis work.
+
+For these data, Purves was most interested in:
+
+  1. Does the presence of sugar solutions alter the growth of pea sections?
+  2. Do different sugars produce different effects?
+  3. Do combinations of sugars affect growth in the same way as individual sugars?
+
+
+
+# Methods 
+### (*exerpted from @Purves1959 with minor editing to reduce the length*)
+Seeds of *Pisum sativum* L., var. 'Alaska' (obtained from Associated Seed Growers, Inc. of New Haven Conn.) were soaked in tap water for 3-4 hr. and then sown in  thoroughly washed vermiculite (Mica-Gro Type B, supplied by Platt Seed Co., Branford, Conn.). The seedlings were allowed to develop in a curtained cabinet in a dark room maintained at $27 \pm 1$ $^o$C. They were exposed sparingly to dim green light at the time of harvest and, briefly, when the curtains were opened during normal activity in the dark room.
+
+All sections were taken from plants having recurved apical crooks and third internodes between 15 and 50 mm in length. Sections 5-mm in length taken 1 mm below the apical crook were used. The sections were randomized in the basal medium, which was 0.02 M $KH_2PO_4-Na_2HPO_4$ buffer, pH 6.1, and lots of 10 sections were floated on 5 ml of various media in 5-cm Petri dishes. After approximately 20 hr growth in darkness, sections were measured to the nearest 0.1 mm by means of a dissecting microscope with an ocular micrometer.
+
+The available data were presented in "wide" format (Table \@ref(tab:datatable)) and was then rearranged into "tidy" format. It appears that in this experiment, the sugars may have resulted in an inhibition of growth (Figure \@ref(fig:dataplot)). Data was plotted using the ggplot() function from [@R-ggplot2].
+
+```{r importpurv, include=FALSE}
+#| fig.cap = "Pea sections grown in tissue culture with auxin present. Treatments were added sugar solutions and response was measured as length (mm)."
+
+purv<-read_csv('peas.csv',
+               show_col_types = FALSE)
+
+```
+
+
+```{r datatable, echo=FALSE}
+peaTab1<-"The effect of the addition of different sugars on length of pea sections grown in tissue culture with auxin present. *Data extracted from @Purves1959*."
+
+datatable<-kbl(
+  escape=FALSE,  # To allow the use of <br> to control the linefeed
+  purv,
+  col.names=c(
+    "Replicate",
+    "Control",
+    "2% glucose",
+    "2% fructose",
+    "1% glucose<br>1% fructose",
+    "2% sucrose"
+  ),
+  caption=peaTab1
+)|>
+  kable_classic(full=FALSE)|>
+  row_spec(0,bold=F,extra_css='vertical-align: bottom !important;')
+
+datatable
+
+# Note that the data are in wide format, so I'll use pivot_longer to rearrange
+# the data.
+
+```
+
+
+```{r dataplot, echo=FALSE}
+#| fig.cap="Boxplot for growth of garden pea sections in differing sugar solutions."
+
+purv2<-purv|>
+  pivot_longer(
+    cols=2:6,
+    names_to="Treatment",
+    values_to="Length"
+    )
+purv2
+
+
+# Note the order I have used here for the treatments!!!
+
+purv2$Treatment<-factor(
+  purv2$Treatment,
+  levels=c(
+    "Control",
+    "glucose",
+    "glucose.fructose",
+    "fructose",
+    "sucrose"
+    ),
+  labels=c(
+    "Control",
+    "2% Glucose",
+    "1% Glucose & 1% Fructose",
+    "2% Fructose",
+    "2% Sucrose"
+    )
+  )
+
+purvplot<-ggplot(purv2,aes(x=Treatment,y=Length)) +
+  geom_boxplot(outlier.alpha=0) +
+  geom_jitter(width=0.35, 
+              height=0, 
+              size=3,
+              alpha=0.7,
+              shape=21,
+              color="darkgreen",
+              fill="#99cc33") +
+  scale_x_discrete(
+    name="",
+    labels=c(
+      "Control",
+      "2% glucose",
+      "1% glucose\n1% fructose",
+      # note that in ggplot2 labels \n produces a linefeed
+      "2% fructose",
+      "2% sucrose"
+    ))+
+  scale_y_continuous(name="Pea Section Length (mm)",
+                     expand=c(0,0),
+                     limits=c(6,10))+
+  theme_classic(base_size=16)
+
+purvplot
+
+```
+
+
+# Statistical Methods
+
+Data was imported into R and checked for normality using the lm() function in @R-base. The normal Q-Q plot had a light positive tail the data was log transformed to the 1/4 power to normalize the data.
+
+```{r purvlm, include=FALSE}
+purvlm<-lm(Length~Treatment,data=purv2)
+purvlm
+
+autoplot(purvlm)
+
+#Normal Q-Q is lightly tailed, log transformed to normalize
+
+```
+
+
+```{r loglm, include=FALSE}
+loglm<-lm(log(Length)~Treatment,data=purv2)
+loglm
+
+autoplot(loglm)
+
+#Can we normalize s'more!?
+
+```
+
+
+```{r morelog, include=FALSE}
+morelog<-lm(log(Length)^.25~Treatment,data=purv2)
+morelog
+
+autoplot(morelog)
+
+#Data was log transformed to the 1/4 power to normalize.
+
+```
+
+Testing for homogeneity within the log transformed data was done using Bartlett’s and Fligner-Killeen tests which are available in base R, and Levene’s test which is available from the car package [@R-car]. Levene's test on the log transformed data showed non-homogeneous data however Fligner-Killeen and Bartlett's tests showed homogeneous data, thus comparable. We conducted an anova to examine the difference between treatment effects of differing sugar media on garden pea shoot section growth (Table \@ref(tab:aovpurv)). Table produced using aov() from base R [@R-base].
+
+```{r hom, include=FALSE}
+bar<-bartlett.test(Length~Treatment,
+              data=purv2)
+
+lev<-leveneTest(Length~Treatment,
+            center=median,
+            data=purv2)
+
+fli<-fligner.test(Length~Treatment,
+             data=purv2)
+
+bar #p = 0.007497**
+lev #p = 0.003468**
+fli #p = 0.02894*
+
+#yikes
+
+```
+
+
+```{r loghom, include=FALSE}
+logbar<-bartlett.test(log(Length)^.25~Treatment,
+              data=purv2)
+
+loglev<-leveneTest(log(Length)^.25~Treatment,
+            center=median,
+            data=purv2)
+
+logfli<-fligner.test(log(Length)^.25~Treatment,
+             data=purv2)
+
+logbar #p = 0.1082
+loglev #p = 0.03828*
+logfli #p = 0.08491
+
+# 2 for 3
+# The log transformed data showed 2 for 3 that data was homogeneous and therefore comparable.
+
+```
+
+
+```{r aovpurv, echo=FALSE}
+
+aovpurv<-aov(
+    Length~Treatment,
+    data=purv2
+    )
+
+aovmodTab<-summary(
+    aovpurv,
+  split=list(
+    Treatment=list(
+      'Linear'=1,
+      'Quadratic'=2
+      )
+    )
+  )
+
+aovmodTabCap<-"ANOVA summary for treatment effects on garden pea shoot section growth."
+
+#Table produced using aov() from base R [@R-base] for output created using the lm() function in [@R-base]
+
+purvtab<-kbl(
+  aovmodTab[[1]],
+  digits = c(0,1,1,1,4),
+  caption = aovmodTabCap,
+  col.names = c(
+    "df",
+    "SS",
+    "MS",
+    "F",
+    "P"
+    )
+  ) |>
+  kable_classic(full = FALSE)
+
+purvtab
+
+```
+
+Based on the visual representation in our box plot there was a decline in growth between sugar media (Figure \@ref(fig:dataplot)). We first wanted to look at the difference in treatment effects between the 2% glucose, 2% fructose, and 1% glucose / 1% fructose additions to tissue cultures with auxin present (Table \@ref(tab:emmTab)). We then looked at the difference in treatment effects between the 2% glucose, 2% fructose, and 1% glucose / 1% fructose treatments against the sucrose treatment (Table \@ref(tab:emmTab)). 
+
+
+```{r emmTab, echo=FALSE}
+
+emmTabCap<-"Summary of t-tests of planned orthogonal polynomial contrasts computed using emmeans()"
+
+purvem<-emmeans(
+  morelog,
+  "Treatment"
+  )
+
+puemmTab<-contrast(
+  purvem,
+  list(
+    linear=c(0,-1,2,-1,0),
+    # combo sugar vs constituents
+    quadratic=c(0,1,1,1,-3)
+    # glucose/fructose combo & constituents vs sucrose
+    
+#    linear=c(4,-1,-1,-1,-1), 
+    #Control vs. each treatment
+#    quadratic=c(3,-1,0,-1,-1),
+    #Control vs. single sugar treatments
+#    cubic=c(0,-1,3,-1,-1),
+    #Combo sugar vs. single sugar treatments
+#    quartic=c(0,-1,2,-1,0)
+    #Combo sugar vs. composite sugars treatments
+  )
+)|>
+  kbl(
+    caption=emmTabCap,
+    digits=c(0,1,2,0,2,4
+             ),
+    col.names=c(
+      "Contrast",
+      "Difference",
+      "SE",
+      "df",
+      "t",
+      "P"
+      )
+    )|>
+  kable_classic(full = FALSE)
+
+puemmTab
+
+```
+
+Tukey-Kramer *a posteriori* comparisons were made using the emmeans() function from [@R-emmeans] (Table \@ref(tab:purturtab)). Table was made using features from the KableExtra package [@R-kableExtra]. Visual representation shows differences in the adjusted p-values  between treatments (Figure \@ref(fig:turplo)). Data was plotted using the plot() function from [@R-emmeans]. 
+
+
+```{r purturtab, echo=FALSE}
+
+pairsCap <- "Summary of Tukey-Kramer *a posteriori* comparisons computed using emmeans()"
+
+purturtab<-pairs(
+  purvem,
+  adjust="tukey"
+  )|>
+  kbl(
+    caption=pairsCap,
+    digits=c(0,1,2,0,2,4),
+    col.names=c(
+      "Contrast",
+      "Difference",
+      "SE",
+      "df",
+      "t",
+      "$P_{adj}$"
+      )
+  )|>
+  kable_classic(full=FALSE)
+
+purturtab
+
+```
+
+
+```{r turplo, echo=FALSE}
+#| fig.cap="Summary of Tukey-Kramer *a posteriori* comparisons of treatment effects on growth of garden pea sections with red arrows showing difference between treatments."
+
+turplo<-plot(purvem,
+     comparisons=TRUE)+
+  coord_flip()+
+  theme_classic()
+
+turplo
+
+```
+
+
+# Results
+
+The data was imported and visually represented in Table \@ref(tab:datatable) and Figure \@ref(fig:dataplot), we saw there was a decline in growth of garden pea shoot sections with the addition of different sugars when auxin is present. After log transforming to the 1/4 power, our analysis of variance of the treatments showed significant differences linearly (p = 2e^-4) and quadratically (p < 0.0001) (Table \@ref(tab:aovpurv)). 
+
+Our linear contrast between 2% fructose and 2% glucose treatments against the 1% fructose / 1% glucose treatment, showed no significant difference between treatments (p = 0.35) (Table \@ref(tab:emmTab)). Indicating that the additions of fructose, glucose, or a combination of them causes similar declines in garden pea section growth. There was a strong significant difference between the 2% fructose and 2% glucose treatments and the sucrose treatment (p < 0.0001) (Table \@ref(tab:emmTab)). Indicating that the decline in growth caused by the 2% sucrose treatment is less than the 2% fructose and 2% glucose treatments, but a greater decline in growth in comparison to the control treatment (Table \@ref(tab:emmTab)). 
+
+Our conclusion about the effects of sugar additions to growth media on garden pea section growth follows the results from Tukey-Kramer *a posteriori* comparision (Figure \@ref(fig:turplo)). Comparisons between 2% Glucose - 1% Glucose & 1% Fructose, 2% Glucose - 2% Fructose, 1% Glucose & 1% Fructose - 2% Fructose treatments caused the greatest decline in growth with no significant difference between treatments (p = 0.6050, p = 0.7321, p = 0.9996, respectively) (Table \@ref(tab:purturtab)). The most notable differences between the sucrose treatments where 2% Glucose - 2% Sucrose (p = 0.0001), and Control - 2% Sucrose (p < 0.0001) (Table \@ref(tab:purturtab)). 
+
+It is evident from our analysis that additions of sugar solutions alters the growth of garden pea sections. The effect increases based on the type of sugar added to the growth media. The 2% fructose, 2% glucose, and 1% fructose / 1% glucose treatments each showed greater declines in growth compared to the 2% sucrose treatment. However, there was no significant difference between the former three treatments despite fructose being visually lower in Figures \@ref(fig:dataplot) & \@ref(fig:turplo), therefore these combinations of sugars affect growth in a similar fashion as their constituents. It is possible however that different combinations of sugar could affect growth, further research would be needed to examine these effects on growth when auxin is present.
+
+
+# References
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

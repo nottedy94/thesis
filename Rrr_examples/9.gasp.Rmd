@@ -1,0 +1,360 @@
+---
+title: "ANCOVA & Logistic Regression"
+author: "J. Hillert"
+date: "4/15/2022"
+output:
+  bookdown::html_document2:
+    number_sections: false
+    toc: yes
+bibliography:
+- ANOVA_packages.bib
+- Quinn_Keough2002.bib
+- r-GLM.bib
+- R-GAE8.bib
+- r-GAE9.bib
+- GAE9.bib
+
+csl: ecology.csl
+---
+
+
+```{r setup, include=FALSE}
+
+knitr::opts_chunk$set(echo = FALSE)
+
+library(broom)
+library(car)       #Anova() function
+library(DHARMa)   #autoplot() but for glm
+library(ggfortify)   #autoplot() function
+library(ggplot2)   #ppppppllllloooooootttttsssss
+library(kableExtra)  #kable tables
+library(latex2exp)  #table labels
+library(nnet)
+library(tidyverse)
+
+papaja::r_refs(file = "gasp.bib")
+
+options(knitr.kable.NA = "")
+
+```
+
+
+# Scenario 1: Shakira the Saurian's "hips don't lie"
+
+
+Establishing a dependable means to determine the sex of dinosaurs is one of the most sought after goals in dinosaur vertebrate paleontology [@Erickson2005]. Paleontologists would like to be able to determine the sex of dinosaurs from fossilized skeletal features. Living crocodilians belong to the Archosauria clade and are in the sister clade to the group including the Dinosauromorpha.  Beginning in the 1950s, researchers have used living crocodilians as surrogates to look for sex-specific skeletal attributes that may prove useful in determining sex of fossil dinosaurs [@Romer1956]. Given that female pelvic canals must allow passageway for eggs while male pelvic canals do not, @Prieto-Marquez2007 wanted to test if there a difference between males and females in pelvic canal width in American alligators.
+
+
+## Methods
+
+
+@Prieto-Marquez2007 measured several characters that are thought to distinguish the sexes in American alligators, _Alligator mississipiensis_, one of the largest surviving reptiles. One of the characters measured was pelvic canal width (cm, "pelvicwidth"). The researchers also knew that it is common for anatomical features to be strongly correlated, so they also measured snout-vent length (m, "snoutvent") to use as a covariate to correct for the size of alligator when comparing pelvic canal width among individuals. The data are provided in the file alligator.csv. We wanted to examine whether there was a difference in pelvic widths by either snout-vent length or sex.
+
+
+### Statistical Methods
+
+
+```{r alligatorImport, include=FALSE}
+
+# Scenario #1
+gator<-read_csv("alligator.csv",show_col_types=TRUE)
+gator
+
+
+```
+
+
+Alligator sexual dimorphism data from @Prieto-Marquez2007 was imported and graphed for visual representation, using functions in the R package - ggplot2 - from @R-ggplot2. Due to indeterminate growth in vertebrates the data was naturally scattered in a positive direction. We first created a model including the interaction between snout-vent length and sex, but found it insignificant and removed it. The model was created using the lm() function.
+
+We then ran the model without the interaction between sex and snout-vent length. The model fit assumptions according to the autoplot() function from @R-ggfortify and analyses were carried out without removing potential outliers (data points; 4, 10, 16, 32, and 35) whose inclusion would have resulted in little to no change.
+
+Using the Anova() function in the R package - car - by @R-car and functions from the kableExtra package by @R-kableExtra, the resulting values of the model are listed in Table \@ref(tab:solocova). To visualize the difference in pelvic widths between sexes of saurians, we graphed the model using functions from @R-ggplot2 and the latex2exp package from @R-latex2exp. The data in Figure \@ref(fig:gators) are colored according to sex with regression lines based on predicted values of data using functions from @R-base.
+
+
+## Results
+
+
+```{r gatorplot, include=FALSE}
+#| fig.cap = "Scatterplot of snout-vent length versus pelvic width of measured individuals."
+
+#using @R-ggplot2 package
+ggplot(gator)+
+  geom_point(aes(pelvicwidth,
+                 snoutvent
+                 )
+             )+
+  xlab("Snout-Vent Length (cm)"
+       )+
+  ylab("Pelvic Width (m)"
+       )+
+  theme_classic()
+
+# As expected there is a positive correlation between snout-vent length and pelvic width. Due to the indeterminate growth of vertebrates as an individual increases in snout-vent length their pelvic width increases as well. 
+
+```
+
+
+```{r gatormod, include=FALSE}
+#using R-base package
+gatormod<-lm(pelvicwidth~sex*snoutvent,
+             data=gator
+             )
+gatormod
+
+#using @R-ggfortify package
+autoplot(gatormod)
+
+```
+
+
+```{r gatorcova, include=FALSE}
+
+#using R-car package
+gatormod.out<-Anova(gatormod)
+
+gatormod.out$'Pr(>F)'<-format.pval(gatormod.out$'Pr(>F)',
+                                   eps=0.0001,
+                                   digits=4,
+                                   na.form=""
+)
+
+gatmod1.cap<-"ANOVA summary for @Prieto-Marquez2007 data, including interaction"
+
+#using R-kableExtra package
+kbl(gatormod.out,
+    align='r',
+    digits=c(2,0,2,4),
+    caption=gatmod1.cap
+    )|>
+  kable_classic(full=FALSE)
+
+# Interaction between sex and length was insignificant, therefore it was dropped from the subsequent models of analysis of covariance.
+
+```
+
+
+```{r sologatormod, include=FALSE}
+#| fig.show = "hide"
+
+#using @R-base package
+solomod<-lm(pelvicwidth~snoutvent+sex,
+            data=gator
+            )
+summary(solomod)
+
+#using @R-ggfortify package
+autoplot(solomod)
+
+```
+
+
+The untransformed data used in the model had a naturally positive dispersion due to the indeterminate growth in vertebrates. This was reflected in the interaction between sex and snout-vent length so it was removed from the original model. After running an ANCOVA on the data from @Prieto-Marquez2007, the nuisance variable - snout-vent length - remained significant (Figure \@ref(tab:solocova)). However, sex was also a  significant variable in determining pelvic width between saurians (p = 0.0267).
+
+
+```{r solocova, echo=FALSE}
+
+#using R-car package
+sologat.out<-Anova(solomod)
+
+sologat.out$'Pr(>F)'<-format.pval(sologat.out$'Pr(>F)',
+                                  eps=0.0001,
+                                  digits=4,
+                                  na.form=""
+                                  )
+
+gatmod2.cap <- "ANCOVA summary for the @Prieto-Marquez2007 American alligator data."
+
+#using R-kableExtra package
+kbl(sologat.out,
+    align='r',
+    eps='0.0001',
+    digits=c(2,0,2,4),
+    caption=gatmod2.cap
+    )|>
+  kable_classic(full = FALSE)
+
+# There is a slight significant difference in pelvic widths for female alligators versus the width in male alligators. We have evidence to reject the null hypothesis of no difference in pelvic widths between sexes. 
+
+```
+
+
+There was a slight significance in pelvic width for male versus female American alligators. Showing that male alligators have slightly larger pelvic widths as they increase in size (Figure \@ref(fig:gators)). As such, we have evidence to reject the null hypothesis of no difference in pelvic width between sexes. This is rather expected considering males are generally larger in size versus females of the same species. In future studies of saurians sex can be used to show significance where snout-vent length is a nuisance variable affecting interpretation of analyses. 
+
+
+```{r gators, echo=FALSE}
+#| fig.cap = "Comparison of snout-vent length versus pelvic width of American alligators (*Alligator mississipiensis*), grouped by sex of individuals using predicted values to estimate a regression line."
+
+#predicted values from the model
+#using @R-base package
+gator$pred<-predict(solomod,
+                      type="response"
+                    )
+
+#using @R-latex2exp
+xlab<-TeX("Snout-Vent Length (m)")
+
+#using @R-ggplot2 package
+ggplot(gator) +
+  geom_point(aes(x=snoutvent,
+                 y=pelvicwidth,
+                 group=sex,
+                 color=sex, 
+                 shape=sex
+                 )
+             )+
+  geom_line(aes(x=snoutvent,
+                y=pred,
+                group=sex,
+                color=sex
+                )
+            )+
+  labs(x=xlab,
+       y="Pelvic Width (cm)"
+       )+
+  theme_classic()+
+  theme(legend.position=c(0.2,0.7),
+        legend.title=element_blank(),
+        legend.background=element_blank(),
+        legend.box.background=element_rect(color="purple")
+  )
+
+```
+
+
+# Scenario 2: Stella the Stressed-out Stork
+
+
+Physiological studies on animals usually involve routine handling, such as weighing, banding for identification, or blood sampling. @Le1992 found that even a minor routine handling procedure induced a marked physiological stress response in domestic geese even though the geese had been trained to the procedure for several weeks and showed no behavioral signs of stress. There is also evidence that stress in nestlings may reduce their survival rates [@Mullner2004]. @Blas2007 examined whether there was a connection between stress response of nestlings and their later survival.
+
+
+## Methods
+
+
+@Blas2007 measured circulating glucocorticosteroids in white stork nestlings after restraining them for 45 min (estimated to coincide with maximal physiological response to stress).  They banded the birds for individual identification and returned them to their nests.  Between 2001 and 2005 they conducted extensive, intensive field surveys of banded birds on a local, national (Spain), and international scale to relocate these individuals.  Of the original 34 birds included in the study, only 13 were relocated.  
+
+
+### Statistical Methods
+
+
+```{r storkImport, include=FALSE}
+
+# Scenario #2
+stork<-read_csv("stork.csv",show_col_types=TRUE)
+
+stork
+
+```
+
+
+Data from @Blas2007 was imported and examined in a basic survival versus mortality method. First, we used a logistic regression using the glm() function from base R to create our model that measures survival as a function of stress. We then performed our checks of the model using the DHARMa package from @R-DHARMa, the functions in this package simulate what would be seen in ideal situations and compares those results to the model to determine whether data fits assumptions. The model did not show deviance from what would be seen in ideal scenarios and was therefore used in analysis of deviance.
+
+Analysis of deviance in corticosterone level and the effect on later nestling survival was conducted on the model using functions from @R-car. The effect of stress on nestling survival following banding and relocation are visible in Table \@ref(tab:stodevtab) which was created using functions in the package from @R-kableExtra.
+
+We predicted confidence intervals of the model using binomial logistic regression. Visual representation of the effect of corticosterone level (ng/mL) on the probability of survival or mortality in relocated nestlings can be seen in Figure \@ref(fig:stodevplot). The model figure was created using functions from packages by @R-latex2exp and @R-ggplot2.  
+
+
+## Results
+
+
+```{r storkmod, include=FALSE}
+
+#using @R-base package
+storkmod<-glm(survival~corticosterone,
+              family="binomial",
+              data=stork)
+
+summary(storkmod)
+
+#using @R-ggfortify package
+autoplot(storkmod)
+#autoplot() does not work for glm because of familial difference (i.e. binomial versus linear)
+
+#using @R-DHARMa package
+sim1<-simulateResiduals(fittedModel=storkmod)
+#using @R-DHARMa package
+tests<-testResiduals(sim1,plot=TRUE)
+
+#Model fits assumptions for GLM and results match simulated results of what we would see if fully measured
+
+```
+
+
+The analysis of deviance of the effect of corticosterone level on nestling survival following banding and renesting showed a marginally insignificant effect (p = 0.0501) (Table \@ref(tab:stodevtab)). We lack enough evidence to reject the null hypothesis of mortality after a period of heightened stress in nestlings.
+
+
+```{r stodevtab, echo=FALSE}
+
+#using @R-kableExtra and @R-car packages
+kbl(Anova(storkmod),
+    align='r',
+    eps='0.0001',
+    round=c(1,0,4),
+    caption="Analysis of Deviance for the effect of corticosterones on nestling survival following banding and renesting into parts of Spain and to international locations."
+    )|>
+  kable_classic()
+
+#There was a nearly significant effect of stress during banding on later survival of relocated nestlings
+
+```
+
+
+The probability of nestling survival against corticosterone level was visualized in Figure \@ref(fig:stodevplot). Corticosterone level never increased to an amount at which mortality is guaranteed following banding and renesting. These results indicate that banding and renesting of nestlings does not significantly affect their survival to adulthood. 
+
+
+```{r stodevplot, echo=FALSE, message=FALSE, warning=FALSE}
+#| fig.cap = "The probability of survival following stress during banding in relocated nestlings to parts of Spain and to International locations. Data provided by @Blas2007."
+
+#using @R-latex2exp package
+Ylab <- TeX("Probability of Survival")
+Xlab <- TeX("Corticosterone Level (\\frac{ng}{mL})")
+
+#using @R-ggplot2 package
+ggplot(stork,aes(corticosterone,survival)
+       )+
+  geom_hline(yintercept=0
+             )+
+  geom_point(alpha=0.5,
+             size=3
+             )+
+  geom_smooth(method="glm",
+              method.args=list(family="binomial")
+              )+
+  scale_y_continuous(name=Ylab,
+                     expand=c(0,0),
+                     limits=c(-0.03,1.03),
+                     breaks=c(0,0.25,0.50,0.75,1.00)
+                     )+
+  scale_x_continuous(name=Xlab,
+                     expand=c(0,0),
+                     limits=c(24,63),
+                     )+
+  theme_classic(base_size=16
+                )+ 
+  theme(axis.line.x=element_blank()
+        )
+
+```
+
+
+# References
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
