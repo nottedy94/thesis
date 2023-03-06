@@ -1,10 +1,10 @@
 ---
-title: "Vegetation dynamics following disturbance in a rare ecosystem subtype - grass bald - and implications for conservation of Round Bald"
-subtitle: "Master's student thesis proposal for Western Carolina Universtiy"
-author: "J. Ted Hillert"
+title: "Plant community composition following low-intesity fire on Round Bald"
+author: "J. Hillert"
 output:
   bookdown::html_document2:
   #bookdown::pdf_document2:
+  #bookdown::word_document2:
     number_sections: false
     toc: no
     always_allow_html: true
@@ -29,66 +29,38 @@ papaja::r_refs(file="proposal.bib")
 
 options(knitr.kable.NA="")
 
-
 ```
+
+# Introduction
+
+NEED: 2 pages >4 paragpraphs
+1. History
+2. Management
+3. Woody Encroachment
+5. This study
 
 ### History
 
-Upper montane treeless meadows - balds - host high floral diversity, panoramic views of the landscape, and origins hotly debated to this day [@murd1986; @gers1970; @hame1990]. Many speculate that balds were cleared by early settlers for pasturing livestock in the spring and summer seasons [@lind1979b] - anthropogenic origin. Others believe that they are of a "climate-herbivore" driven change in the landscape, making it a natural ecosystem [@weig1995; @weig2014]. True balds are above 1,400 meters in elevation, while any bald can exist on a rock outcrop above 1,200 meters in elevation [@gers1970]. Furthermore, true balds occur only in the Southern Blue Ridge Physiographic Province, other balds - apparent balds - are distributed globally with sites in Siberia and Australia, among others. There has been much in the way of "bald history" in the literature, but data regarding vegetation dynamics following disturbance is scant or focused on other balds. Management of these balds varies by managing agency, type of bald - heath or grass, and proposed origin - whether it was cleared, grazed, burned, or some combination of these [@weig2014; @weig1995; @lind1979b]. Separating bald origins and subtype vegetation dynamics is key to preserving these dwindling ecosystems and conserving them for future generations [@mora2013]. Within the mindset of a landscape ecologist, the POV is all about differences in scale and size. Here, I examined changes to Round bald at the plot level scale to determine change in the vegetation community following a low-intensity ground fire disturbance from February 2022 which burned approximately 9.7 hectares. @stok2022 examined the vegetation composition following 30 years of mowing management [@murd1986; @hame1990] on the balds of Carver's Gap.
+Upper montane treeless meadows - balds - host high floral diversity, panoramic views of the landscape, and origins shrouded in mystery [@Murd1986; @Gers1970]. Balds exist above 4,000 feet in elevation, while true balds occur above 4,600 feet elevation. According to @Murd1986, true balds only occur in the Southern Blue Ridge Physiographic Province. Two types of balds have been identified; heath balds which are dominated by woody ericaceous species such as blackberry and grassy balds which are dominated by herbaceous vegetation such as, grasses and sedges [@Murd1986].
 
-### Soil Seed bank
-
-The soil seed bank is an ecologist's term for the "advanced regeneration layer", in this sense, ecologists look at what can grow in the next few years. Any estimate of vegetation types within the seed bank results in
-"What can grow here in the next few years, or growing seasons?"
-I took 24 samples of the seed bank following the February 2022 ground fire that occurred on Round Bald, in July of 2022. I also took a second set of seed bank samples in January of 2023 to use as a second sample set to compare with the previous sample set (i.e. to examine the advanced regeneration layer). As such, I plan to continue growing the first seed bank sample set as a base to ask our questions on our measured answer. The measured answer being our first and second seed bank samples in July of 2022 and January of 2023, respectively. Recently, the second seed bank set was acquired and set in the refrigerator until mid-April. At that point, I plan to fractionate the samples into four categories; burned, unburned, control, and greenhouse control. In which, I will examine vegetation types among each category. Initially these samples will be propagated with seltzer water to increase germination by providing extra carbon to the seeds, followed by tap water. This is because of a STEM student science project, which showed that carbonated water helps jump start germination and tap water supplies micronutrients to the growing plants. Mututalisms between germination requirements and invasive species can be secondary analysis to the measured states in 2020, 2022, and 2023.
-
+### Management
 ### Woody Encroachment
-
-The United States Forest Service (USFS) acquired some of the Southern Appalachian bald lands in the late 1920s after which, active management and general recreation ceased [@lind1979b]. This led to shrub succession in the late 1930s and a management problem in the 1950s [@lind1979v; @lind1979b; @lind1980]. Despite the shrub succession of these balds, there is debate about whether to protect these areas or not. This is because the literature is unclear about bald origins - whether they are natural formations or human-engineered ecosystems. Following management cessation, the range of grass balds along the Southern Appalachian Mountains (SAMs) has decreased by *[find approx %]* since a study @murd1986, who had surveyed round balds in the 1980s. A repeated survey of the balds of Carver's Gap in 2020 by @stok2022, revealed a [*find % dec/inc*] in the cover of *Rubus allegheniensis* and *Rubus canadensis* (*Rubus*) two primary native invasive species helping this grassy bald subtype to succeed into a heath bald subtype. On ideal balds, grass balds are dominated by grasses and sedge, while health balds are dominated by ericaceous shrubs. Without management, natural succession alters these balds from the grass to heath subtype.
-
-### Managment Practices
-
-Bald management within the Southern Appalachian Mountains varies by managing agency and bald history, with most practices promoting mowing or grazing, with few instances of fire or clearing. When used, fire must be high intensity or high duration to provide a significant effect against woody encroachment [@lind1980]. Germination requirements of the invasive genus *Rubus* include scarification - some damage to the seed has to occur [@davi1998] - fire can provide that damage and could possibly increase growth the following season. Sufficiently hot or lengthy burns have the potential to prevent the growth of blackberry, however post-burn analyses of the vegetation community indicates that the resulting community is not characteristic of grass balds [@lind1980]. Likewise, prescribed burns are difficult to manage at such high elevations, soil moisture levels, and effects on rare and endemic species of historic balds.
-
 ### Round Bald
 
-Round bald - located on the borders of North Carolina and Tennessee along the Appalachian Trail about 20 miles North of Bakersville, NC - is experiencing woody encroachment from invasive species like *Rubus allegheniensis*, *Rubus canadensis*, *Vaccinium spp.*, *Rhododendrom spp.* and saplings from the surrounding spruce-fir forest. These species alter the bald by converting it from a grass bald into an ericaceous-heath bald and potentially extirpating a rare ecosystem subtype that provides panoramic vista views of the adjacent mountaintops and a number of rare and endemic species, such as - "Roan Lily" *Lilium grayi*. Nearly 40 years ago, @murd1986 and @hame1990 examined the vegetation community of Roan Mountain balds when the decision to protect these landscapes started to change. In 2020, following 30 years of mowing management, @stok2022 re-surveyed plots from @murd1986 and @hame1990. In February of 2022, there was a low-intensity ground fire that burned for less than 6 hours *[according to the news article **need to contact NPS for more detail**]* and burned approximately 9.7 hectares of Round Bald. Roughly half of the plots that @stok2022 surveyed on Round Bald were within the fire and the other half was outside of the fire boundary.
+# Methods
 
+### Field - Season 1 (2022)
 
-# Objectives
+Round Bald is located in the Roan Mountain Massif of the Unaka Mountain range of the Southern Appalachian Mountains, between Carver's gap and Engine gap. The Appalachian Trail (AT) bisects the study site into North of the trail and South of the trail. The site itself is spread across Pisgah National Forest in North Carolina and Cherokee National Forest in Tennessee, at approximately 36° 06'N and 82° 60'W. In this study we sampled transects reestablished by @Stok2022. We measured the percent coverage of vegetation using a 1-m2 PVC quadrat divided into 100 equal sized squares. Each square was visually assigned by dominant vegetation type to equal 100% coverage per plot. Using the data collection tool from @Stok2022 and USFS botanist Gary Kauffman, a total of 226 plots along 12 transects were sampled in 2020, of these, 52 plots along the first four transects were in the February 2022 fire and another 47 plots along the same transects were untouched by the fire. This provided an opportunity to examine the changes in plant community composition following low-intensity ground fire over two sampling seasons in June of 2022 and 2023.
 
-The objectives of this study are; 1. Quantify vegetation composition and the soil seed bank over the first and second growing seasons following the low intensity ground fire on Round Bald, and 2. Propose methods to improve management for conservation of these rare ecosystem subtypes. The general question is, how has the low-intensity ground fire affected vegetation dynamics and are there management practices that could be gleaned from this disturbance? I expect that there is little to no decrease in the cover of *Rubus spp.*, likely there will be a slight increase in blackberry cover following slight scarification from the ground fire. 
+### Greenhouse - Season 1
 
+To examine the effects of the fire on the seed bank, seed bank samples were collected in July 2022. Approximately X grams of soil was obtained from the top 5 cm of soil at six random sites in one of four treatments; over 50% *Rubus*-in fire, over 50% *Rubus*-out fire, under 25% *Rubus*-in fire, under 25% *Rubus*-out fire. A total of 24 soil seed banks samples were taken, placed in tins, transferred to the greenhouse, and placed in 11x8.5 inch seedling trays filled with potting mix to 5 cm depth. An additional six trays only filled with potting mix will act as greenhouse controls to rule out contamination. Trays were randomly set in the greenhouse at ambient temperature and humidity and measured continuously with a Govee probe. As seedlings emerge they will be identified, recorded, and removed; while the species that cannot be identified will be repotted until identifiable following @Pric2010. Each month the trays were rotated in random order to rule out growth condition bias. In December of 2022, soil sample trays were placed outside to simulate winter conditions and potentially germinate seeds in the seed bank. A second soil sample following the same protocol will be conducted in March of 2023. These samples will examine what is readily germinable following natural winter weathering. These samples will be compared to the first set to examine post burn germinable seeds versus post winter germinable seeds.
 
-# METHODS
+### Statistical Analysis - Season 1
 
-## 2022
+# Objectives & Expected results
 
-### Study Site
-
-Round Bald is located in the Roan Mountain Massif of the Unaka Mountain range of the Southern Appalachian Mountains, between Carver's gap and Engine gap. The Appalachian Trail (AT) bisects the study site into North of the trail and South of the trail. The site itself is spread across Pisgah National Forest in North Carolina and Cherokee National Forest in Tennessee, at approximately 36° 06'N and 82° 60'W. In 2020, @stok2022 surveyed the balds of Carver's Gap following a 30-year mowing management protocol from @hame1990 and @murd1986. They detailed the vegetation composition of the balds according to vegetation type. Their data was entered into [@PCORD] and produced a schematic of the vegetation communities across the balds of Carver's Gap. In February 2022, a low-intensity ground fire burned roughly 9.7 hectares of aboveground vegetation but was quickly expunged before it could spread further. This provided an opportunity to examine the changes in vegetation composition following low-intensity ground fire over two sampling seasons in June of 2022 and 2023.
-
-### Field Methods
-
-In this study I sampled the first four transects reestablished by @stok2022. I measured the percent coverage of vegetation using a 1-m^2 PVC quadrat divided into 100 equal sized squares, following @stok2022. Each square was visually assigned by dominant vegetation type to equal 100% coverage per plot of aboveground vegetation up to 1-meter in height. Using the data collection sheet from @stok2022 and USFS botanist Gary Kauffman - which quantifies vegetation based on focal types - a total of 226 plots along 12 transects were sampled in 2020, of these, 52 plots along the first four transects were in the February 2022 fire and another 47 plots along the same transects were untouched by the fire.
-
-### Greenhouse
-
-To examine the effects of the fire on the seed bank, seed bank samples were collected in July 2022. Approximately X grams of soil was obtained from the top 5 cm of soil at six random sites in one of four categories of vegetation cover; over 50% *Rubus*/burned, over 50% *Rubus*/unburned, under 25% *Rubus*/burned, under 25% *Rubus*/unburned. The first - over 50% *Rubus*/burned - describes plots with greater than 50% cover of blackberry and burned from the February 2020 fire, followed by greater than 50% blackberry and unburned, less than 25% blackberry and burned, lastly, less than 25% blackberry and unburned. A total of 24 soil seed banks samples were taken, placed in tins, transferred to the greenhouse, and placed in 11x8.5-inch seedling trays filled with potting mix to 5 cm depth. An additional six trays only filled with potting mix acted as greenhouse controls to account for contamination. Trays were randomly set in the greenhouse at ambient temperature and humidity and measured continuously with a Govee probe, which continuously measures temperature and humidity over time. As seedlings emerge they were identified, recorded, and removed. The seedlings that cannot be identified will be re-potted until identifiable following @pric2010. Each month the trays were rotated in random order to rule out growth condition bias. In December of 2022, soil sample trays were placed outside to simulate winter conditions and potentially germinate seeds in the seed bank *[Unfortunately, They were placed in a poor position and the weather washed out 1/2 the dirt from 1/3 of the trays, then froze. I have since readjusted them and covered them for safety. Maybe it's salvageable?]*. A second set of soil samples following the same protocol were collected at the end of January 2023. They were placed in the fridge after being collected to simulate winter to spring weathering. In March of 2023, these samples will be used to examine what is readily germinable following natural winter weathering and be compared to the first seed bank set to examine post burn germinable seeds versus post winter germinable seeds.
-
-## 2023
-
-### Field Methods
-
-In the summer of 2023 I plan to repeat surveys of the first four transects and a repeat soil seed bank sample. In 2022, soil emergence was utilized for the sake of time and I plan to add a modified soil extraction method from @pric2010, @abel2013, and @chiq2018. These authors identify that both methods can provide insight into the vegetation community, but a combination of the two provides a more robust estimate of the state of the seed bank. The second method to the soil seed bank analysis will fractionate the samples into field control, greenhouse control, burned, and unburned. These samples will be exposed to two levels of light, humidity, soil moisture, and temperature to examine the germination requirements of seeds in the seed bank. This should make it more comparable to the current vegetation structure and speculate on the future composition of Round Bald as a result of mowing management. 
-
-### Analysis
-
-For the time being, the data was recorded manually, then entered into excel to get a glimpse at the dynamics behind the low-intensity ground fire disturbance from January 2022. Based on cursory examination, blackberry is slightly increased in burned vs unburned. However, more analysis is needed. To do that I plan to follow the statistic tests that @stok2022 had conducted in 2020. Once I fully understand their analysis, then I will be able to connect the data in 2020 to the data in 2022 and 2023. Otherwise, I will also be using analysis conducted by @pric2010, @monar (*unpublished?* masters thesis), and @murd1986. Beyond that, I plan to construct a 3-dimensional model to get a semi-realistic perception of the dynamic state of Round Bald.
-
-### Expected Outcomes
-
-I expect that Blackberry (Rubus) has slightly increased coverage following the February 2022 ground fire. I expect that grasses and sedges are little to not at all different after the same fire. If these statements are true, then implications for management are unchanged - fight fire as it arises and to not let the fire spread across the balds of Carver's Gap. More data will be gathered over March through August to better compare the dataset from @stok2022, with the data that has been gathered for this study.
 
 \newpage
 
