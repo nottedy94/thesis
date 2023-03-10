@@ -1,0 +1,56 @@
+---
+title: "Thesis-Schmesis"
+author: "J. Hillert"
+date: "`r Sys.Date()`"
+output:
+  bookdown::html_document2:
+  #bookdown::word_document2:
+    number_sections: false
+    toc: yes
+    always_allow_html: true
+    
+bibliography:
+- R-packages.bib
+- aRticles.bib
+
+csl: ecology.csl
+---
+
+
+```{r setup, include=FALSE}
+
+knitr::opts_chunk$set(message=FALSE,
+                      echo=FALSE,
+                      warning=FALSE)
+
+library(broom)
+library(car)       # Primarily for the Anova() function
+library(DescTools) # For the GTest
+library(emmeans)
+library(FactoMineR)  # provides exploratory mutlivariate methods
+library(factoextra)  # Visualize the Results of Multivariate Data Analyses
+library(ggfortify)
+library(ggplot2)
+library(ggpubr)
+library(ggrepel)
+library(kableExtra)
+library(lattice)   # For diagnostic plots of linear models in LME4
+library(latex2exp)
+library(lme4)      # For linear mixed effects modelling
+library(lmerTest)  # To provide P-values for lme4
+library(patchwork)
+library(purrr)
+library(readxl)
+library(tidyverse)
+
+
+papaja::r_refs(file = "schmesis.bib")
+
+options(knitr.kable.NA = "")
+
+set.seed(42)
+
+
+```
+
+words
