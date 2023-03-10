@@ -53,4 +53,25 @@ set.seed(42)
 
 ```
 
-words
+```{r imports, include=FALSE}
+
+# R/Excel data \/\/
+vege<-read_excel("round bald datas/round bald data.xlsx",
+                 sheet = "Ground Cover")
+view(vege)
+
+# PC-ORD data \/\/
+stokall <- read_excel("2020-2022 ordination.xlsx", 
+    sheet = "2020all")
+stokenvr <- read_excel("2020-2022 ordination.xlsx", 
+    sheet = "2020envr")
+stokvege <- read_excel("2020-2022 ordination.xlsx", 
+    sheet = "2020vege")
+tedall <- read_excel("2020-2022 ordination.xlsx", 
+    sheet = "2022all")
+tedenvr <- read_excel("2020-2022 ordination.xlsx", 
+    sheet = "2022envr")
+tedvege <- read_excel("2020-2022 ordination.xlsx", 
+    sheet = "2022vege")
+
+```
