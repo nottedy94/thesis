@@ -4,6 +4,7 @@ author: "J. Hillert"
 date: "`r Sys.Date()`"
 output:
   bookdown::html_document2:
+    self_contained: yes
     number_sections: false
     toc: yes
     always_allow_html: true
@@ -53,13 +54,17 @@ set.seed(42)
 
 ```
 
-# Import
+### Import
 
 ```{r imports, message=FALSE, warning=FALSE, include=FALSE}
 
 # R/Excel data \/\/
 vege<-read_excel("round bald datas/round bald data.xlsx",
                  sheet = "Ground Cover")
+
+#filtered out 0'z
+
+
 view(vege)
 
 # PC-ORD data \/\/
@@ -78,10 +83,13 @@ tedvege <- read_excel("2020-2022 ordination.xlsx",
 
 ```
 
+Data has been entered and all data went through analysis from...
+- 9.gasp.rmd
+
+
 # Boxplots
 
-```{r boxplots, echo=FALSE}
-
+```{r boxplots, echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE}
 #Rubus
 rubus<-ggplot(vege) +
   geom_boxplot(aes(Transect,Rubus))+
@@ -132,7 +140,7 @@ sedge
 
 # lm.modA
 
-```{r vegemod, echo=TRUE}
+```{r vegemod, echo=TRUE, message=FALSE, warning=FALSE, paged.print=FALSE}
 
 rubu<-lm(Rubus~Fire,
          data=vege)
@@ -160,7 +168,7 @@ aovsedg
 
 # tablA_Anova.gras
 
-```{r grascova, echo=FALSE}
+```{r grazcova, echo=TRUE, message=FALSE, warning=FALSE, paged.print=FALSE}
 
 #using R-car package
 grasmod.out<-Anova(gras)
@@ -187,7 +195,7 @@ kbl(grasmod.out,
 
 # tablA_Anova.rubu
 
-```{r rubucova, echo=FALSE}
+```{r rubucova, echo=TRUE, message=FALSE, warning=FALSE, paged.print=FALSE}
 
 #using R-car package
 rubumod.out<-Anova(rubu)
@@ -214,7 +222,7 @@ kbl(rubumod.out,
 
 # tablA_Anova.sedg
 
-```{r sedgcova, echo=FALSE}
+```{r sedgcova, echo=TRUE, message=FALSE, warning=FALSE, paged.print=FALSE}
 
 #using R-car package
 sedgmod.out<-Anova(sedg)
@@ -241,7 +249,7 @@ kbl(sedgmod.out,
 
 # lm.modsB
 
-```{r lm.modB, include=FALSE}
+```{r lm.modB, echo=TRUE, message=FALSE, warning=FALSE, paged.print=FALSE}
 
 ## Rubus
 
@@ -289,7 +297,7 @@ sedmod
 
 # tablB_Anova.gra
 
-```{r rubcova, echo=FALSE}
+```{r rubcova, echo=TRUE, message=FALSE, warning=FALSE, paged.print=FALSE}
 #using R-car package
 rubmod.out<-glm(rubu)
 
@@ -320,7 +328,7 @@ ggplot(vege) +
 
 # tablB_Anova.rub
 
-```{r sedcova, echo=FALSE}
+```{r sedcova, echo=TRUE, message=FALSE, warning=FALSE, paged.print=FALSE}
 #using R-car package
 sedmod.out<-glm(sedg)
 
@@ -351,7 +359,7 @@ ggplot(vege) +
 
 # tablB_Anova.sed
 
-```{r grascova, echo=FALSE}
+```{r grascova, echo=TRUE, message=FALSE, warning=FALSE, paged.print=FALSE}
 #using R-car package
 gramod.out<-glm(gras)
 
