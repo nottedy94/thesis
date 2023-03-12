@@ -53,7 +53,7 @@ set.seed(42)
 
 ```
 
-```{r imports, include=FALSE}
+```{r imports, message=FALSE, warning=FALSE, include=FALSE}
 
 # R/Excel data \/\/
 vege<-read_excel("round bald datas/round bald data.xlsx",
@@ -75,14 +75,15 @@ tedvege <- read_excel("2020-2022 ordination.xlsx",
     sheet = "2022vege")
 
 ```
-```{r boxplots, include=FALSE, echo=FALSE}
+
+```{r boxplots, echo=FALSE}
 
 #Rubus
 rubus<-ggplot(vege) +
-  geom_boxplot(aes(Fire,Rubus))+
-  geom_jitter(aes(x=Fire, 
+  geom_boxplot(aes(Transect,Rubus))+
+  geom_jitter(aes(x=Transect, 
                   y=Rubus, 
-                  color=Transect
+                  color=Fire
                   ),
               width=0.3, 
               alpha=0.5, 
@@ -93,10 +94,10 @@ rubus<-ggplot(vege) +
 
 #Grass
 grass<-ggplot(vege) +
-  geom_boxplot(aes(Fire,"Grass/Oat"))+
-  geom_jitter(aes(x=Fire, 
+  geom_boxplot(aes(Transect,"Grass/Oat"))+
+  geom_jitter(aes(x=Transect, 
                   y="Grass/Oat", 
-                  color=Transect
+                  color=Fire
                   ),
               width=0.3, 
               alpha=0.5, 
@@ -107,10 +108,10 @@ grass<-ggplot(vege) +
 
 #Sedge
 sedge<-ggplot(vege) +
-  geom_boxplot(aes(Fire,Sedge))+
-  geom_jitter(aes(x=Fire, 
+  geom_boxplot(aes(Transect,Sedge))+
+  geom_jitter(aes(x=Transect, 
                   y=Sedge, 
-                  color=Transect
+                  color=Fire
                   ),
               width=0.3, 
               alpha=0.5, 
@@ -121,12 +122,12 @@ sedge<-ggplot(vege) +
 
 rubus
 grass
-sedge
+#sedge
 
 ```
 
 
-```{r vegemod, include=FALSE, echo=FALSE}
+```{r vegemod, echo=TRUE}
 
 rubu<-lm(Rubus~Fire,
          data=vege)
@@ -134,11 +135,100 @@ aovrubu<-aov(rubu)
 ottorubu<-autoplot(aovrubu)
 ottorubu
 
+gras<-lm(Grass~Fire,
+         data=vege)
+aovgras<-aov(gras)
+ottogras<-autoplot(aovgras)
+ottogras
+
+sedg<-lm(Sedge~Fire,
+         data=vege)
+aovsedg<-aov(sedg)
+ottosedg<-autoplot(aovsedg)
+ottosedg
+
+aovrubu
+aovgras
+aovsedg
+
 ```
 
 
 
+```{r grascova, echo=FALSE}
 
+#using R-car package
+grasmod.out<-Anova(gras)
+
+grasmod.out$'Pr(>F)'<-format.pval(grasmod.out$'Pr(>F)',
+                                   eps=0.0001,
+                                   digits=4,
+                                   na.form=""
+)
+grasmod.out
+
+grasmod1.cap<-"ANOVA summary for the effect of Fire on Grass species"
+
+#using R-kableExtra package
+kbl(grasmod.out,
+    align='r',
+    digits=c(2,0,2,4),
+    caption=grasmod1.cap
+    )|>
+  kable_classic(full=FALSE)
+
+
+```
+
+```{r rubucova, echo=FALSE}
+
+#using R-car package
+rubumod.out<-Anova(rubu)
+
+rubumod.out$'Pr(>F)'<-format.pval(rubumod.out$'Pr(>F)',
+                                   eps=0.0001,
+                                   digits=4,
+                                   na.form=""
+)
+rubumod.out
+
+rubumod1.cap<-"ANOVA summary for the effect of Fire on Rubus species"
+
+#using R-kableExtra package
+kbl(rubumod.out,
+    align='r',
+    digits=c(2,0,2,4),
+    caption=rubumod1.cap
+    )|>
+  kable_classic(full=FALSE)
+
+
+```
+
+```{r sedgcova, echo=FALSE}
+
+#using R-car package
+sedgmod.out<-Anova(sedg)
+
+sedgmod.out$'Pr(>F)'<-format.pval(sedgmod.out$'Pr(>F)',
+                                   eps=0.0001,
+                                   digits=4,
+                                   na.form=""
+)
+sedgmod.out
+
+sedgmod1.cap<-"ANOVA summary for the effect of Fire on Sedge species"
+
+#using R-kableExtra package
+kbl(sedgmod.out,
+    align='r',
+    digits=c(2,0,2,4),
+    caption=sedgmod1.cap
+    )|>
+  kable_classic(full=FALSE)
+
+
+```
 
 
 
