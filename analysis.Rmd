@@ -53,6 +53,8 @@ set.seed(42)
 
 ```
 
+# Import
+
 ```{r imports, message=FALSE, warning=FALSE, include=FALSE}
 
 # R/Excel data \/\/
@@ -75,6 +77,8 @@ tedvege <- read_excel("2020-2022 ordination.xlsx",
     sheet = "2022vege")
 
 ```
+
+# Boxplots
 
 ```{r boxplots, echo=FALSE}
 
@@ -126,6 +130,7 @@ sedge
 
 ```
 
+# lm.modA
 
 ```{r vegemod, echo=TRUE}
 
@@ -153,7 +158,7 @@ aovsedg
 
 ```
 
-
+# tablA_Anova.gras
 
 ```{r grascova, echo=FALSE}
 
@@ -180,6 +185,8 @@ kbl(grasmod.out,
 
 ```
 
+# tablA_Anova.rubu
+
 ```{r rubucova, echo=FALSE}
 
 #using R-car package
@@ -204,6 +211,8 @@ kbl(rubumod.out,
 
 
 ```
+
+# tablA_Anova.sedg
 
 ```{r sedgcova, echo=FALSE}
 
@@ -230,17 +239,144 @@ kbl(sedgmod.out,
 
 ```
 
+# lm.modsB
+
+```{r lm.modB, include=FALSE}
+
+## Rubus
+
+#using @R-base package
+rubmod<-lm(Transect~Rubus+Fire,
+            data=vege
+            )
+summary(rubmod)
+
+#using @R-ggfortify package
+rubmod<-autoplot(rubmod)
 
 
 
+## Grass
+
+#using @R-base package
+gramod<-lm(Transect~Grass+Fire,
+            data=vege
+            )
+summary(gramod)
+
+#using @R-ggfortify package
+gramod<-autoplot(gramod)
 
 
 
+## sedge
+
+#using @R-base package
+sedmod<-lm(Transect~Sedge+Fire,
+            data=vege
+            )
+summary(sedmod)
+
+#using @R-ggfortify package
+sedmod<-autoplot(sedmod)
 
 
+rubmod
+gramod
+sedmod
+
+```
+
+# tablB_Anova.gra
+
+```{r rubcova, echo=FALSE}
+#using R-car package
+rubmod.out<-glm(rubu)
+
+rubmod.out$'Pr(>F)'<-format.pval(rubmod.out$'Pr(>F)',
+                                   eps=0.0001,
+                                   digits=4,
+                                   na.form=""
+)
+rubmod.out
+
+rubmod1.cap<-"ANOVA summary for the effect of Fire on Grass species"
+
+ggplot(vege) +
+  geom_boxplot(aes(Transect,Grass))+
+  geom_jitter(aes(x=Transect, 
+                  y=Grass, 
+                  color=Fire
+                  ),
+              width=0.3, 
+              alpha=0.5, 
+              size=4, 
+              shape=16)+
+  xlab("")+
+  theme_classic()
 
 
+```
+
+# tablB_Anova.rub
+
+```{r sedcova, echo=FALSE}
+#using R-car package
+sedmod.out<-glm(sedg)
+
+sedmod.out$'Pr(>F)'<-format.pval(sedmod.out$'Pr(>F)',
+                                   eps=0.0001,
+                                   digits=4,
+                                   na.form=""
+)
+sedmod.out
+
+sedmod1.cap<-"ANOVA summary for the effect of Fire on Grass species"
+
+ggplot(vege) +
+  geom_boxplot(aes(Transect,Grass))+
+  geom_jitter(aes(x=Transect, 
+                  y=Grass, 
+                  color=Fire
+                  ),
+              width=0.3, 
+              alpha=0.5, 
+              size=4, 
+              shape=16)+
+  xlab("")+
+  theme_classic()
 
 
+```
 
+# tablB_Anova.sed
+
+```{r grascova, echo=FALSE}
+#using R-car package
+gramod.out<-glm(gras)
+
+gramod.out$'Pr(>F)'<-format.pval(gramod.out$'Pr(>F)',
+                                   eps=0.0001,
+                                   digits=4,
+                                   na.form=""
+)
+gramod.out
+
+gramod1.cap<-"ANOVA summary for the effect of Fire on Grass species"
+
+ggplot(vege) +
+  geom_boxplot(aes(Transect,Grass))+
+  geom_jitter(aes(x=Transect, 
+                  y=Grass, 
+                  color=Fire
+                  ),
+              width=0.3, 
+              alpha=0.5, 
+              size=4, 
+              shape=16)+
+  xlab("")+
+  theme_classic()
+
+
+```
 
