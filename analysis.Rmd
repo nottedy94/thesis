@@ -1,22 +1,10 @@
 ---
-title: "Thesis-Schmesis"
-author: "J. Hillert"
+title: "analysis"
+author: "J Ted Hillert (Carter)"
 date: "`r Sys.Date()`"
 output:
-  bookdown::html_document2:
-    self_contained: yes
-    number_sections: false
-    toc: yes
-    always_allow_html: true
-    
-bibliography:
-- R-packages.bib
-- aRticles.bib
-
-csl: ecology.csl
-
+  html_document
 ---
-
 
 ```{r setup, include=FALSE}
 
@@ -43,6 +31,8 @@ library(patchwork)
 library(purrr)
 library(readxl)
 library(tidyverse)
+library(stats)
+library(vegan)
 
 
 papaja::r_refs(file = "schmesis.bib")
@@ -254,7 +244,7 @@ kbl(sedgmod.out,
 ## Rubus
 
 #using @R-base package
-rubmod<-lm(Transect~Rubus+Fire,
+rubmod<-lm(Rubus~Fire+Transect+Plot,
             data=vege
             )
 summary(rubmod)
@@ -267,7 +257,7 @@ rubmod<-autoplot(rubmod)
 ## Grass
 
 #using @R-base package
-gramod<-lm(Transect~Grass+Fire,
+gramod<-lm(Grass~Fire+Transect+Plot,
             data=vege
             )
 summary(gramod)
@@ -280,7 +270,7 @@ gramod<-autoplot(gramod)
 ## sedge
 
 #using @R-base package
-sedmod<-lm(Transect~Sedge+Fire,
+sedmod<-lm(Sedge~Fire+Transect+Plot,
             data=vege
             )
 summary(sedmod)
@@ -311,9 +301,9 @@ rubmod.out
 rubmod1.cap<-"ANOVA summary for the effect of Fire on Grass species"
 
 ggplot(vege) +
-  geom_boxplot(aes(Transect,Grass))+
+  geom_boxplot(aes(Transect,Rubus))+
   geom_jitter(aes(x=Transect, 
-                  y=Grass, 
+                  y=Rubus, 
                   color=Fire
                   ),
               width=0.3, 
@@ -342,9 +332,9 @@ sedmod.out
 sedmod1.cap<-"ANOVA summary for the effect of Fire on Grass species"
 
 ggplot(vege) +
-  geom_boxplot(aes(Transect,Grass))+
+  geom_boxplot(aes(Transect,Sedge))+
   geom_jitter(aes(x=Transect, 
-                  y=Grass, 
+                  y=Sedge, 
                   color=Fire
                   ),
               width=0.3, 
@@ -387,4 +377,135 @@ ggplot(vege) +
 
 
 ```
+
+# lm.modC
+
+```{r lm.modC, echo=TRUE, message=FALSE, warning=FALSE, paged.print=FALSE}
+# Rubus
+#using R-base package
+rumod<-lm(Rubus~Fire*Plot,
+             data=vege
+             )
+rumod
+
+#using @R-ggfortify package
+autoplot(rumod)
+
+
+# Sedge
+#using R-base package
+semod<-lm(Sedge~Fire*Plot,
+             data=vege
+             )
+semod
+
+#using @R-ggfortify package
+autoplot(semod)
+
+# Grass
+#using R-base package
+grmod<-lm(Grass~Fire*Plot,
+             data=vege
+             )
+grmod
+
+#using @R-ggfortify package
+autoplot(grmod)
+
+```
+
+```{r modCcova, include=FALSE}
+
+# Rubus
+#using R-car package
+rumod.out<-Anova(rumod)
+
+rumod.out$'Pr(>F)'<-format.pval(rumod.out$'Pr(>F)',
+                                   eps=0.0001,
+                                   digits=4,
+                                   na.form=""
+)
+
+rumod1.cap<-"ANOVA summary for Rubus spp. composition, including interaction"
+
+#using R-kableExtra package
+rumodC<-kbl(rumod.out,
+    align='r',
+    digits=c(2,0,2,4),
+    caption=rumod1.cap
+    )|>
+  kable_classic(full=FALSE)
+
+
+# Grass
+#using R-car package
+grmod.out<-Anova(grmod)
+
+grmod.out$'Pr(>F)'<-format.pval(grmod.out$'Pr(>F)',
+                                   eps=0.0001,
+                                   digits=4,
+                                   na.form=""
+)
+
+grmod1.cap<-"ANOVA summary for Grass spp. composition, including interaction"
+
+#using R-kableExtra package
+grmodC<-kbl(grmod.out,
+    align='r',
+    digits=c(2,0,2,4),
+    caption=grmod1.cap
+    )|>
+  kable_classic(full=FALSE)
+
+
+# Sedge
+#using R-car package
+semod.out<-Anova(semod)
+
+semod.out$'Pr(>F)'<-format.pval(semod.out$'Pr(>F)',
+                                   eps=0.0001,
+                                   digits=4,
+                                   na.form=""
+)
+
+semod1.cap<-"ANOVA summary for Rubus composition, including interaction"
+
+#using R-kableExtra package
+semodC<-kbl(semod.out,
+    align='r',
+    digits=c(2,0,2,4),
+    caption=semod1.cap
+    )|>
+  kable_classic(full=FALSE)
+
+
+
+rumodC
+grmodC
+semodC
+
+
+```
+
+# PCAs?
+
+```{r PCAData}
+
+names(vege) <- tolower(names(vege))
+cl <- log10(vege$cl)
+h <- log10(vege$h)
+
+chem <- data.frame(vege[,6:15])
+env <- data.frame(vege[,2:5])
+```
+
+```{r RDA}
+#| fig.cap = "A biplot of the same data, but calculations and visualization provided by rda() from the vegan package [@R-vegan]."
+
+out_rda <- rda(vege, scale = TRUE, scaling = 'sites')
+biplot(out_rda, main = 'PCA from rda()')
+```
+
+
+
 
