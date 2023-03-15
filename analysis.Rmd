@@ -285,7 +285,7 @@ sedmod
 
 ```
 
-# tablB_Anova.gra
+# plotB_Anova.gra
 
 ```{r rubcova, echo=TRUE, message=FALSE, warning=FALSE, paged.print=FALSE}
 
@@ -375,7 +375,7 @@ ggplot(vege) +
 
 ```
 
-# tablB_Anova.rub
+# plotB_Anova.rub
 
 ```{r sedcova, echo=TRUE, message=FALSE, warning=FALSE, paged.print=FALSE}
 #using R-car package
@@ -406,7 +406,7 @@ ggplot(vege) +
 
 ```
 
-# tablB_Anova.sed
+# plotB_Anova.sed
 
 ```{r grascova, echo=TRUE, message=FALSE, warning=FALSE, paged.print=FALSE}
 #using R-car package
@@ -529,7 +529,7 @@ semod.out$'Pr(>F)'<-format.pval(semod.out$'Pr(>F)',
                                    na.form=""
 )
 
-semod1.cap<-"ANOVA summary for Rubus composition, including interaction"
+semod1.cap<-"ANOVA summary for Sedge composition, including interaction"
 
 #using R-kableExtra package
 semodC<-kbl(semod.out,
