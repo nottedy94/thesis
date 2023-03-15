@@ -96,9 +96,9 @@ rubus<-ggplot(vege) +
 
 #Grass
 grass<-ggplot(vege) +
-  geom_boxplot(aes(Transect,"Grass/Oat"))+
+  geom_boxplot(aes(Transect,Grass))+
   geom_jitter(aes(x=Transect, 
-                  y="Grass/Oat", 
+                  y=Grass, 
                   color=Fire
                   ),
               width=0.3, 
@@ -288,6 +288,8 @@ sedmod
 # tablB_Anova.gra
 
 ```{r rubcova, echo=TRUE, message=FALSE, warning=FALSE, paged.print=FALSE}
+
+# Rubus
 #using R-car package
 rubmod.out<-glm(rubu)
 
@@ -301,10 +303,67 @@ rubmod.out
 rubmod1.cap<-"ANOVA summary for the effect of Fire on Grass species"
 
 ggplot(vege) +
-  geom_boxplot(aes(Transect,Rubus))+
-  geom_jitter(aes(x=Transect, 
-                  y=Rubus, 
-                  color=Fire
+  geom_boxplot(aes(Rubus,
+                   Fire))+
+  geom_jitter(aes(x=Rubus, 
+                  y=Fire, 
+                  color=Transect
+                  ),
+              width=0.3, 
+              alpha=0.5, 
+              size=4, 
+              shape=16)+
+  xlab("")+
+  theme_classic()
+
+
+# Grass
+#using R-car package
+grcmod.out<-glm(gras)
+
+grcmod.out$'Pr(>F)'<-format.pval(grcmod.out$'Pr(>F)',
+                                   eps=0.0001,
+                                   digits=4,
+                                   na.form=""
+)
+grcmod.out
+
+grcmod1.cap<-"ANOVA summary for the effect of Fire on Grass species"
+
+ggplot(vege) +
+  geom_boxplot(aes(Grass,
+                   Fire))+
+  geom_jitter(aes(x=Grass, 
+                  y=Fire, 
+                  color=Transect
+                  ),
+              width=0.3, 
+              alpha=0.5, 
+              size=4, 
+              shape=16)+
+  xlab("")+
+  theme_classic()
+
+
+# Sedge
+#using R-car package
+secmod.out<-glm(sedg)
+
+secmod.out$'Pr(>F)'<-format.pval(secmod.out$'Pr(>F)',
+                                   eps=0.0001,
+                                   digits=4,
+                                   na.form=""
+)
+secmod.out
+
+secmod1.cap<-"ANOVA summary for the effect of Fire on Grass species"
+
+ggplot(vege) +
+  geom_boxplot(aes(Sedge,
+                   Fire))+
+  geom_jitter(aes(x=Sedge, 
+                  y=Fire, 
+                  color=Transect
                   ),
               width=0.3, 
               alpha=0.5, 
@@ -414,7 +473,9 @@ autoplot(grmod)
 
 ```
 
-```{r modCcova, include=FALSE}
+# modC.cova
+
+```{r modCcova, echo=TRUE, message=FALSE, warning=FALSE, paged.print=FALSE}
 
 # Rubus
 #using R-car package
@@ -487,25 +548,4 @@ semodC
 
 ```
 
-# PCAs?
-
-```{r PCAData}
-
-names(vege) <- tolower(names(vege))
-cl <- log10(vege$cl)
-h <- log10(vege$h)
-
-chem <- data.frame(vege[,6:15])
-env <- data.frame(vege[,2:5])
-```
-
-```{r RDA}
-#| fig.cap = "A biplot of the same data, but calculations and visualization provided by rda() from the vegan package [@R-vegan]."
-
-out_rda <- rda(vege, scale = TRUE, scaling = 'sites')
-biplot(out_rda, main = 'PCA from rda()')
-```
-
-
-
-
+# Boxplots
