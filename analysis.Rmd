@@ -485,9 +485,6 @@ grmod
 
 
 
-
-
-
 # modC.plotz
 
 ```{r modCcova, echo=TRUE, message=FALSE, warning=FALSE, paged.print=FALSE}
