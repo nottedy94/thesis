@@ -76,6 +76,62 @@ Data has been entered and all data went through analysis from...
 - 9.gasp.rmd
 
 
+# homogeneous
+
+```{r hom, include=FALSE}
+
+#rubus
+barrub<-bartlett.test(Rubus~Fire,
+              data=vege)
+
+levrub<-leveneTest(Rubus~Fire,
+            center=median,
+            data=vege)
+
+flirub<-fligner.test(Rubus~Fire,
+             data=vege)
+
+barrub   #0.7099
+levrub   #0.5862
+flirub   #0.485
+
+
+#grass
+bargra<-bartlett.test(Grass~Fire,
+              data=vege)
+
+levgra<-leveneTest(Grass~Fire,
+            center=median,
+            data=vege)
+
+fligra<-fligner.test(Grass~Fire,
+             data=vege)
+
+
+bargra #0.09208
+levgra #0.04229
+fligra #0.04673
+
+
+#sedge
+barsed<-bartlett.test(Sedge~Fire,
+              data=vege)
+
+levsed<-leveneTest(Sedge~Fire,
+            center=median,
+            data=vege)
+
+flised<-fligner.test(Sedge~Fire,
+             data=vege)
+
+barsed #0.0006044
+levsed #0.01768
+flised #6.853e-5
+
+
+
+```
+
 # Boxplots
 
 ```{r boxplots, echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE}
@@ -417,8 +473,6 @@ grmod
 
 
 ```
-
-
 
 
 
