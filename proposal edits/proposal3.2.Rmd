@@ -8,12 +8,10 @@ output:
     number_sections: false
     toc: yes
     always_allow_html: true
-    
-bibliography:
-- R-packages.bib
-- aRticles.bib
-
-csl: ecology.csl
+      bibliography:
+      - R-packages.bib
+      - aRticles.bib
+      csl: ecology.csl
 ---
 
 
