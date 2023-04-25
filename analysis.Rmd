@@ -4,6 +4,7 @@ author: "J Ted Hillert (Carter)"
 date: "`r Sys.Date()`"
 output:
   html_document: default
+  word_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -57,17 +58,17 @@ vege<-read_excel("round bald datas/round bald data.xlsx",
 view(vege)
 
 # PC-ORD data \/\/
-stokall <- read_excel("2020-2022 ordination.xlsx", 
+stokall <- read_excel("round bald datas/2020-2022 ordination.xlsx", 
     sheet = "2020all")
-stokenvr <- read_excel("2020-2022 ordination.xlsx", 
+stokenvr <- read_excel("round bald datas/2020-2022 ordination.xlsx", 
     sheet = "2020envr")
-stokvege <- read_excel("2020-2022 ordination.xlsx", 
+stokvege <- read_excel("round bald datas/2020-2022 ordination.xlsx", 
     sheet = "2020vege")
-tedall <- read_excel("2020-2022 ordination.xlsx", 
+tedall <- read_excel("round bald datas/2020-2022 ordination.xlsx", 
     sheet = "2022all")
-tedenvr <- read_excel("2020-2022 ordination.xlsx", 
+tedenvr <- read_excel("round bald datas/2020-2022 ordination.xlsx", 
     sheet = "2022envr")
-tedvege <- read_excel("2020-2022 ordination.xlsx", 
+tedvege <- read_excel("round bald datas/2020-2022 ordination.xlsx", 
     sheet = "2022vege")
 
 ```
@@ -474,17 +475,6 @@ grmod
 
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 # modC.plotz
 
 ```{r modCcova, echo=TRUE, message=FALSE, warning=FALSE, paged.print=FALSE}
@@ -559,4 +549,3 @@ semodC
 
 
 ```
-
