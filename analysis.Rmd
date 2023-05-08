@@ -57,6 +57,7 @@ vege<-read_excel("round bald datas/round bald data.xlsx",
 
 view(vege)
 
+
 # PC-ORD data \/\/
 stokall <- read_excel("round bald datas/2020-2022 ordination.xlsx", 
     sheet = "2020all")
@@ -72,9 +73,6 @@ tedvege <- read_excel("round bald datas/2020-2022 ordination.xlsx",
     sheet = "2022vege")
 
 ```
-
-Data has been entered and all data went through analysis from...
-- 9.gasp.rmd
 
 
 # homogeneous
@@ -382,5 +380,4 @@ grass
 sedge
 
 ```
-
 
