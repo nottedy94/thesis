@@ -3646,3 +3646,619 @@ Members:
 
 ****************************** MRPP finished ******************************
  7 May 2023,  9:59:29
+
+
+************************************* Dominance Curves *************************************
+PC-ORD, 7.09                
+ 8 May 2023, 10:03:20
+
+ Project file: C:\Users\jonhi\OneDrive\Desktop\boopz\thesis\round bald datas\2020vegedata.7prj
+  Main matrix: C:\Users\jonhi\AppData\Roaming\MjM Software Design\PCORD 7\WORK.MJM
+
+
+Variables    RankAbun   Log(SumAbund)       Sum     RankFreq   Freq      Mean         S.Dev.           CV%         V/M
+RUBUS               2    3.69940        5005.00            2    165    25.2778        22.7986         90.1922     20.5625
+VACC               10    1.54407        35.0000           10      7   0.176768        1.34959        763.4810     10.3038
+RHODO               7    2.75051        563.000            8     12    2.84343        13.0994        460.6899     60.3477
+FERN                3    3.27323        1876.00            5     76    9.47475        19.1544        202.1624     38.7230
+GRASS               1    3.86894        7395.00            1    181    37.3485        26.3457         70.5402     18.5843
+SEDGE               4    3.10517        1274.00            4     85    6.43434        11.8990        184.9301     22.0049
+ROCK                9    2.22011        166.000            9      9   0.838384        6.27008        747.8764     46.8924
+BARE                5    3.03623        1087.00            3     98    5.48990        14.2101        258.8404     36.7814
+MOSS                6    2.94743        886.000            6     41    4.47475        14.0256        313.4391     43.9617
+FORB                8    2.64836        445.000            7     36    2.24747        9.09143        404.5178     36.7765
+---------------------------------------------------------------------------------------------------------------------------
+
+
+Writing spreadsheet containing species abundances to Domin.CSV.
+If you wish to use this spreadsheet for purposes other than
+PC-ORD`s dominance curves, rename the file before running dominance
+curves again. Select Tools | View Application Folder to find this file.
+
+*************************Dominance calculations finished *************************
+ 8 May 2023, 10:03:20
+
+
+************************************* Dominance Curves *************************************
+PC-ORD, 7.09                
+ 8 May 2023, 10:07:28
+
+ Project file: C:\Users\jonhi\OneDrive\Desktop\boopz\thesis\round bald datas\2020vegedata.7prj
+  Main matrix: C:\Users\jonhi\AppData\Roaming\MjM Software Design\PCORD 7\WORK.MJM
+
+
+Variables    RankAbun   Log(SumAbund)       Sum     RankFreq   Freq      Mean         S.Dev.           CV%         V/M
+RUBUS               2    3.69940        5005.00            2    165    25.2778        22.7986         90.1922     20.5625
+VACC               10    1.54407        35.0000           10      7   0.176768        1.34959        763.4810     10.3038
+RHODO               7    2.75051        563.000            8     12    2.84343        13.0994        460.6899     60.3477
+FERN                3    3.27323        1876.00            5     76    9.47475        19.1544        202.1624     38.7230
+GRASS               1    3.86894        7395.00            1    181    37.3485        26.3457         70.5402     18.5843
+SEDGE               4    3.10517        1274.00            4     85    6.43434        11.8990        184.9301     22.0049
+ROCK                9    2.22011        166.000            9      9   0.838384        6.27008        747.8764     46.8924
+BARE                5    3.03623        1087.00            3     98    5.48990        14.2101        258.8404     36.7814
+MOSS                6    2.94743        886.000            6     41    4.47475        14.0256        313.4391     43.9617
+FORB                8    2.64836        445.000            7     36    2.24747        9.09143        404.5178     36.7765
+---------------------------------------------------------------------------------------------------------------------------
+
+
+Writing spreadsheet containing species abundances to Domin.CSV.
+If you wish to use this spreadsheet for purposes other than
+PC-ORD`s dominance curves, rename the file before running dominance
+curves again. Select Tools | View Application Folder to find this file.
+
+*************************Dominance calculations finished *************************
+ 8 May 2023, 10:07:28
+
+
+
+*********************** Hierarchical Cluster Analysis ***********************
+PC-ORD, 7.09                
+ 8 May 2023, 10:09:08
+
+2020-2022 Cluster                                                               
+
+ Project file: C:\Users\jonhi\OneDrive\Desktop\boopz\thesis\round bald datas\2020vegedata.7prj
+  Main matrix: C:\Users\jonhi\AppData\Roaming\MjM Software Design\PCORD 7\WORK.MJM
+
+Linkage method:    WARD`S METHOD     
+Distance measure:  Sorensen (Bray-Curtis)        
+Total sum of squares:     476026.2    
+
+Cluster
+ cycle   Groups
+      1     197 Combined group    103 into group    101 at level 0.0000E+00
+      2     196 Combined group    110 into group    101 at level 0.0000E+00
+      3     195 Combined group    149 into group     51 at level 1.3148E-04
+      4     194 Combined group     98 into group     24 at level 3.3148E-04
+      5     193 Combined group    154 into group    137 at level 5.3148E-04
+      6     192 Combined group    128 into group     63 at level 8.4713E-04
+      7     191 Combined group    190 into group     68 at level 1.1628E-03
+      8     190 Combined group     80 into group     54 at level 1.4849E-03
+      9     189 Combined group     43 into group     23 at level 1.9349E-03
+     10     188 Combined group    196 into group     99 at level 2.3849E-03
+     11     187 Combined group    148 into group    113 at level 2.9913E-03
+     12     186 Combined group    175 into group     25 at level 3.6100E-03
+     13     185 Combined group     42 into group     29 at level 4.2286E-03
+     14     184 Combined group    173 into group     58 at level 4.8864E-03
+     15     183 Combined group    132 into group     86 at level 5.5441E-03
+     16     182 Combined group    176 into group     51 at level 6.2875E-03
+     17     181 Combined group    166 into group     61 at level 7.0875E-03
+     18     180 Combined group    161 into group     64 at level 7.8875E-03
+     19     179 Combined group     85 into group     79 at level 8.6875E-03
+     20     178 Combined group    120 into group     37 at level 9.5205E-03
+     21     177 Combined group    183 into group     65 at level 1.0371E-02
+     22     176 Combined group    181 into group    141 at level 1.1239E-02
+     23     175 Combined group     99 into group     75 at level 1.2155E-02
+     24     174 Combined group    146 into group     46 at level 1.3199E-02
+     25     173 Combined group    162 into group     24 at level 1.4266E-02
+     26     172 Combined group     94 into group     40 at level 1.5376E-02
+     27     171 Combined group     29 into group     21 at level 1.6488E-02
+     28     170 Combined group     67 into group     44 at level 1.7738E-02
+     29     169 Combined group    122 into group     95 at level 1.9014E-02
+     30     168 Combined group    197 into group    143 at level 2.0399E-02
+     31     167 Combined group     70 into group     68 at level 2.1888E-02
+     32     166 Combined group    198 into group     54 at level 2.3402E-02
+     33     165 Combined group     74 into group     23 at level 2.5087E-02
+     34     164 Combined group     92 into group     19 at level 2.7040E-02
+     35     163 Combined group    192 into group    118 at level 2.9077E-02
+     36     162 Combined group     84 into group     83 at level 3.1158E-02
+     37     161 Combined group    113 into group     51 at level 3.3261E-02
+     38     160 Combined group     97 into group     75 at level 3.5444E-02
+     39     159 Combined group     54 into group     36 at level 3.7632E-02
+     40     158 Combined group     50 into group     12 at level 3.9855E-02
+     41     157 Combined group     86 into group     77 at level 4.2092E-02
+     42     156 Combined group    179 into group     64 at level 4.4429E-02
+     43     155 Combined group    152 into group    150 at level 4.6863E-02
+     44     154 Combined group    155 into group     87 at level 4.9313E-02
+     45     153 Combined group    182 into group    123 at level 5.1813E-02
+     46     152 Combined group     65 into group     38 at level 5.4465E-02
+     47     151 Combined group    178 into group     66 at level 5.7124E-02
+     48     150 Combined group    174 into group    137 at level 5.9890E-02
+     49     149 Combined group     31 into group     22 at level 6.2731E-02
+     50     148 Combined group    188 into group    186 at level 6.5572E-02
+     51     147 Combined group    147 into group     46 at level 6.8528E-02
+     52     146 Combined group    159 into group    141 at level 7.1715E-02
+     53     145 Combined group    189 into group     38 at level 7.4954E-02
+     54     144 Combined group     88 into group     40 at level 7.8389E-02
+     55     143 Combined group    171 into group    158 at level 8.1935E-02
+     56     142 Combined group    109 into group      7 at level 8.5735E-02
+     57     141 Combined group    191 into group     81 at level 8.9582E-02
+     58     140 Combined group    187 into group     83 at level 9.3574E-02
+     59     139 Combined group    160 into group     60 at level 9.7624E-02
+     60     138 Combined group     47 into group     13 at level 1.0176E-01
+     61     137 Combined group    141 into group     63 at level 1.0597E-01
+     62     136 Combined group    142 into group     18 at level 1.1019E-01
+     63     135 Combined group    108 into group    105 at level 1.1441E-01
+     64     134 Combined group     93 into group     17 at level 1.1872E-01
+     65     133 Combined group     62 into group     37 at level 1.2311E-01
+     66     132 Combined group    180 into group    169 at level 1.2760E-01
+     67     131 Combined group    140 into group    129 at level 1.3213E-01
+     68     130 Combined group    145 into group    125 at level 1.3673E-01
+     69     129 Combined group    177 into group     68 at level 1.4143E-01
+     70     128 Combined group    138 into group    112 at level 1.4618E-01
+     71     127 Combined group    143 into group     25 at level 1.5094E-01
+     72     126 Combined group     26 into group      2 at level 1.5594E-01
+     73     125 Combined group     58 into group     23 at level 1.6100E-01
+     74     124 Combined group    151 into group     11 at level 1.6616E-01
+     75     123 Combined group    136 into group    123 at level 1.7142E-01
+     76     122 Combined group    119 into group    118 at level 1.7692E-01
+     77     121 Combined group    130 into group     55 at level 1.8248E-01
+     78     120 Combined group     83 into group     21 at level 1.8848E-01
+     79     119 Combined group     96 into group     82 at level 1.9451E-01
+     80     118 Combined group     59 into group     14 at level 2.0068E-01
+     81     117 Combined group    102 into group      6 at level 2.0698E-01
+     82     116 Combined group    123 into group     75 at level 2.1351E-01
+     83     115 Combined group     61 into group     33 at level 2.2018E-01
+     84     114 Combined group     90 into group     87 at level 2.2685E-01
+     85     113 Combined group    194 into group     69 at level 2.3356E-01
+     86     112 Combined group     91 into group     36 at level 2.4052E-01
+     87     111 Combined group    170 into group    165 at level 2.4762E-01
+     88     110 Combined group    158 into group     72 at level 2.5504E-01
+     89     109 Combined group     73 into group     60 at level 2.6252E-01
+     90     108 Combined group     32 into group     27 at level 2.7002E-01
+     91     107 Combined group     53 into group     52 at level 2.7767E-01
+     92     106 Combined group    184 into group    164 at level 2.8565E-01
+     93     105 Combined group    153 into group    131 at level 2.9410E-01
+     94     104 Combined group    165 into group     35 at level 3.0296E-01
+     95     103 Combined group     56 into group     28 at level 3.1205E-01
+     96     102 Combined group     20 into group     19 at level 3.2118E-01
+     97     101 Combined group    186 into group     71 at level 3.3045E-01
+     98     100 Combined group    156 into group     45 at level 3.4065E-01
+     99      99 Combined group    157 into group    114 at level 3.5106E-01
+    100      98 Combined group    185 into group     12 at level 3.6250E-01
+    101      97 Combined group    195 into group    135 at level 3.7402E-01
+    102      96 Combined group    139 into group    124 at level 3.8560E-01
+    103      95 Combined group    129 into group     79 at level 3.9763E-01
+    104      94 Combined group    150 into group     25 at level 4.0966E-01
+    105      93 Combined group     63 into group     23 at level 4.2194E-01
+    106      92 Combined group    193 into group     95 at level 4.3422E-01
+    107      91 Combined group    133 into group     34 at level 4.4702E-01
+    108      90 Combined group      4 into group      3 at level 4.6008E-01
+    109      89 Combined group    172 into group    114 at level 4.7444E-01
+    110      88 Combined group    137 into group     23 at level 4.8890E-01
+    111      87 Combined group     27 into group     18 at level 5.0358E-01
+    112      86 Combined group     37 into group     21 at level 5.1877E-01
+    113      85 Combined group     30 into group     22 at level 5.3414E-01
+    114      84 Combined group     57 into group     33 at level 5.5033E-01
+    115      83 Combined group     87 into group     81 at level 5.6726E-01
+    116      82 Combined group     95 into group     39 at level 5.8441E-01
+    117      81 Combined group    107 into group      7 at level 6.0203E-01
+    118      80 Combined group    144 into group    118 at level 6.1988E-01
+    119      79 Combined group     68 into group     24 at level 6.3772E-01
+    120      78 Combined group    163 into group     44 at level 6.5561E-01
+    121      77 Combined group     71 into group     41 at level 6.7384E-01
+    122      76 Combined group    125 into group    112 at level 6.9259E-01
+    123      75 Combined group     69 into group     19 at level 7.1188E-01
+    124      74 Combined group     89 into group     14 at level 7.3210E-01
+    125      73 Combined group     64 into group     45 at level 7.5254E-01
+    126      72 Combined group    117 into group    115 at level 7.7550E-01
+    127      71 Combined group     76 into group     28 at level 7.9846E-01
+    128      70 Combined group     55 into group     45 at level 8.2259E-01
+    129      69 Combined group    121 into group    116 at level 8.4741E-01
+    130      68 Combined group    169 into group    167 at level 8.7317E-01
+    131      67 Combined group     77 into group     23 at level 9.0207E-01
+    132      66 Combined group      9 into group      6 at level 9.3189E-01
+    133      65 Combined group      8 into group      5 at level 9.6283E-01
+    134      64 Combined group     75 into group     19 at level 9.9705E-01
+    135      63 Combined group     82 into group     22 at level 1.0320E+00
+    136      62 Combined group    135 into group     78 at level 1.0672E+00
+    137      61 Combined group     44 into group     35 at level 1.1023E+00
+    138      60 Combined group     12 into group      1 at level 1.1375E+00
+    139      59 Combined group    164 into group     66 at level 1.1728E+00
+    140      58 Combined group     51 into group     25 at level 1.2088E+00
+    141      57 Combined group    111 into group      2 at level 1.2447E+00
+    142      56 Combined group    127 into group     28 at level 1.2810E+00
+    143      55 Combined group     72 into group     24 at level 1.3177E+00
+    144      54 Combined group    131 into group    126 at level 1.3572E+00
+    145      53 Combined group     17 into group     15 at level 1.3994E+00
+    146      52 Combined group    112 into group     46 at level 1.4420E+00
+    147      51 Combined group     60 into group     18 at level 1.4857E+00
+    148      50 Combined group     41 into group     39 at level 1.5295E+00
+    149      49 Combined group     40 into group     36 at level 1.5735E+00
+    150      48 Combined group    114 into group     38 at level 1.6189E+00
+    151      47 Combined group     46 into group     25 at level 1.6701E+00
+    152      46 Combined group     48 into group     13 at level 1.7229E+00
+    153      45 Combined group    106 into group      7 at level 1.7757E+00
+    154      44 Combined group    118 into group     23 at level 1.8289E+00
+    155      43 Combined group     22 into group     21 at level 1.8840E+00
+    156      42 Combined group    104 into group      6 at level 1.9458E+00
+    157      41 Combined group    100 into group      3 at level 2.0082E+00
+    158      40 Combined group     34 into group     18 at level 2.0763E+00
+    159      39 Combined group    167 into group     39 at level 2.1468E+00
+    160      38 Combined group     45 into group     28 at level 2.2211E+00
+    161      37 Combined group     35 into group     33 at level 2.2992E+00
+    162      36 Combined group     52 into group     23 at level 2.3832E+00
+    163      35 Combined group     25 into group      1 at level 2.4754E+00
+    164      34 Combined group    168 into group     14 at level 2.5682E+00
+    165      33 Combined group     79 into group     33 at level 2.6790E+00
+    166      32 Combined group    126 into group     18 at level 2.7937E+00
+    167      31 Combined group    116 into group    115 at level 2.9096E+00
+    168      30 Combined group     38 into group     13 at level 3.0268E+00
+    169      29 Combined group     81 into group     19 at level 3.1522E+00
+    170      28 Combined group     24 into group      1 at level 3.2866E+00
+    171      27 Combined group     36 into group     21 at level 3.4254E+00
+    172      26 Combined group    134 into group     14 at level 3.5644E+00
+    173      25 Combined group    124 into group     49 at level 3.7272E+00
+    174      24 Combined group     78 into group     28 at level 3.9084E+00
+    175      23 Combined group      3 into group      2 at level 4.0942E+00
+    176      22 Combined group     66 into group     10 at level 4.2843E+00
+    177      21 Combined group     39 into group     14 at level 4.4972E+00
+    178      20 Combined group     33 into group     10 at level 4.7471E+00
+    179      19 Combined group    105 into group      7 at level 5.0009E+00
+    180      18 Combined group     28 into group     15 at level 5.2689E+00
+    181      17 Combined group     11 into group      2 at level 5.5509E+00
+    182      16 Combined group      7 into group      6 at level 5.8970E+00
+    183      15 Combined group     23 into group     19 at level 6.2566E+00
+    184      14 Combined group     18 into group     13 at level 6.6747E+00
+    185      13 Combined group     49 into group      5 at level 7.1381E+00
+    186      12 Combined group     16 into group     15 at level 7.7632E+00
+    187      11 Combined group    101 into group      5 at level 8.4451E+00
+    188      10 Combined group     13 into group      1 at level 9.2176E+00
+    189       9 Combined group     19 into group     15 at level 1.0150E+01
+    190       8 Combined group    115 into group     14 at level 1.1485E+01
+    191       7 Combined group      5 into group      2 at level 1.3124E+01
+    192       6 Combined group     15 into group     14 at level 1.4933E+01
+    193       5 Combined group      6 into group      2 at level 1.6876E+01
+    194       4 Combined group     21 into group     14 at level 1.9304E+01
+    195       3 Combined group     14 into group     10 at level 2.4444E+01
+    196       2 Combined group     10 into group      1 at level 3.0881E+01
+    197       1 Combined group      2 into group      1 at level 4.0464E+01
+
+
+Percent chaining =   1.61
+
+
+Cannot log transform distance less than or equal to zero.
+Dendrogram scaled normally.
+
+
+
+
+                         Distance (Objective Function)
+             0.000          10.116          20.232          30.348          40.464
+              |-------+-------+-------+-------+-------+-------+-------+-------+
+                         Information remaining (%)
+     100.000          75.000          50.000          25.000           0.000
+              |-------+-------+-------+-------+-------+-------+-------+-------+
+     R1.1.22  |                                                               
+    R1.12.22  |-|                                                             
+     R3.8.22  | |                                                             
+    R4.19.20  | |                                                             
+     R2.3.22  | |                                                             
+     R4.9.20  | |                                                             
+     R3.2.20  | |                                                             
+    R4.31.20  | |-|                                                           
+     R3.9.20  | | |                                                           
+    R3.11.20  ||| |                                                           
+     R3.9.22  ||| |                                                           
+     R3.8.20  ||| |                                                           
+    R4.10.20  ||| |                                                           
+    R1.14.20  ||| |                                                           
+     R3.7.20  ||  |                                                           
+     R3.4.22  ||  |                                                           
+     R3.5.20  ||  |                                                           
+     R3.6.20  ||  |--------|                                                  
+    R1.13.20  ||  |        |                                                  
+    R2.17.20  ||  |        |                                                  
+     R2.4.20  |   |        |                                                  
+     R3.4.20  |   |        |                                                  
+     R2.2.22  |   |        |                                                  
+    R4.31.22  |   |        |                                                  
+    R3.21.20  |   |        |                                                  
+     R4.1.22  ||  |        |                                                  
+    R4.24.20  ||  |        |                                                  
+     R4.3.22  ||--|        |                                                  
+    R4.11.20  ||           |                                                  
+     R4.5.22  ||           |---------------------------------|                
+    R3.17.20  |            |                                 |                
+     R4.5.20  |            |                                 |                
+    R1.13.22  ||           |                                 |                
+     R3.5.22  ||-|         |                                 |                
+     R3.6.22  -| |         |                                 |                
+    R2.16.22  |  |-----|   |                                 |                
+    R3.23.22  || |     |   |                                 |                
+    R4.17.20  || |     |   |                                 |                
+    R4.23.20  ||-|     |   |                                 |                
+    R1.15.20  ||       |   |                                 |                
+    R3.16.20  ||       |   |                                 |                
+     R4.6.20  |        |   |                                 |                
+    R1.18.22  |        |---|                                 |                
+     R3.1.20  ||       |                                     |                
+     R2.5.22  ||       |                                     |                
+    R2.10.22  |||      |                                     |                
+    R3.18.22  |||      |                                     |                
+    R3.19.20  ||||     |                                     |                
+     R4.6.22  | ||     |                                     |                
+    R2.12.22  |-||-----|                                     |                
+    R2.12.20  |  |                                           |                
+     R2.5.20  -|-|                                           |                
+    R2.10.20  ||                                             |                
+    R3.12.20  |                                              |                
+    R1.10.22  -----|                                         |                
+    R3.24.22  |    ||                                        |                
+    R4.12.20  |----||                                        |                
+    R3.23.20  |     |                                        |                
+    R4.18.20  |     |                                        |                
+    R2.11.22  |     |                                        |                
+    R3.19.22  |-|   |------------------------------|         |                
+    R3.25.20  | |   |                              |         |                
+    R3.15.22  | ||  |                              |         |---------------|
+    R2.13.22  | ||  |                              |         |               |
+    R3.24.20  | ||  |                              |         |               |
+     R4.4.20  |-||  |                              |         |               |
+     R3.2.22  |  |--|                              |         |               |
+    R3.25.22  |  |                                 |         |               |
+    R3.22.20  |  |                                 |         |               |
+    R4.12.22  |  |                                 |         |               |
+    R4.18.22  |--|                                 |         |               |
+     R2.8.20  |                                    |         |               |
+    R2.19.20  |                                    |         |               |
+    R1.14.22  |                                    |         |               |
+    R3.17.22  |--|                                 |         |               |
+    R4.22.22  |  ||                                |         |               |
+     R4.2.20  ---||-|                              |         |               |
+    R2.13.20  ----| |                              |         |               |
+    R2.17.22  |     |                              |         |               |
+    R4.28.22  ||    |----------|                   |         |               |
+     R2.1.20  |||   |          |                   |         |               |
+    R4.27.20  |||   |          |                   |         |               |
+    R2.19.22  |||   |          |                   |         |               |
+     R4.4.22  | |---|          |                   |         |               |
+    R4.20.20  | |              |----|              |         |               |
+    R4.22.20  | |              |    |              |         |               |
+     R4.1.20  |-|              |    |              |         |               |
+     R4.3.20  |                |    |              |         |               |
+    R4.14.20  |                |    |              |         |               |
+    R1.16.20  |--|             |    |              |         |               |
+    R1.18.20  |  |-------------|    |              |         |               |
+    R1.17.20  |--|                  |              |         |               |
+    R1.22.20  |                     |              |         |               |
+    R1.15.22  -|-----|              |              |         |               |
+    R1.17.22  ||     |              |              |         |               |
+    R4.26.22  |      |              |              |---------|               |
+     R2.6.22  |      |              |              |                         |
+    R3.14.22  ||     |              |              |                         |
+     R4.9.22  |||    |---|          |              |                         |
+     R2.6.20  -||    |   |          |              |                         |
+     R3.3.22  | |--| |   |          |              |                         |
+    R3.15.20  | |  | |   |          |------|       |                         |
+    R3.22.22  | |  | |   |          |      |       |                         |
+    R3.20.20  |-|  |-|   |          |      |       |                         |
+    R4.13.20  |    |     |---|      |      |       |                         |
+    R3.13.22  |    |     |   |      |      |       |                         |
+     R2.9.20  |    |     |   |      |      |       |                         |
+    R4.11.22  |----|     |   |      |      |       |                         |
+    R2.14.20  |          |   |      |      |       |                         |
+    R4.29.20  |          |   |      |      |       |                         |
+    R1.16.22  -----------|   |      |      |       |                         |
+    R1.19.22  |              |      |      |       |                         |
+    R4.25.22  |              |      |      |       |                         |
+    R1.20.22  |              |      |      |       |                         |
+     R4.2.22  |              |      |      |       |                         |
+    R4.28.20  |              |      |      |       |                         |
+     R4.8.22  |--|           |      |      |       |                         |
+    R4.32.22  |  |           |      |      |       |                         |
+    R4.30.20  |  |           |------|      |       |                         |
+    R4.30.22  |  |           |             |       |                         |
+     R2.2.20  |  |----|      |             |       |                         |
+    R4.16.20  |  |    |      |             |       |                         |
+    R2.15.20  |  |    |      |             |       |                         |
+    R4.14.22  |  |    |      |             |       |                         |
+    R4.25.20  |--|    |      |             |       |                         |
+    R4.20.22  |       |      |             |       |                         |
+    R3.14.20  |       |      |             |       |                         |
+    R4.23.22  |       |      |             |       |                         |
+     R2.1.22  |       |      |             |       |                         |
+     R3.1.22  |       |      |             |       |                         |
+     R4.7.22  |       |      |             |       |                         |
+    R3.16.22  |       |      |             |-------|                         |
+     R4.7.20  |       |------|             |                                 |
+    R3.21.22  |       |                    |                                 |
+     R2.7.20  |       |                    |                                 |
+    R2.20.20  |       |                    |                                 |
+    R4.15.20  |       |                    |                                 |
+    R3.18.20  |       |                    |                                 |
+    R2.16.20  ||      |                    |                                 |
+    R3.13.20  ||      |                    |                                 |
+     R4.8.20  ||      |                    |                                 |
+    R4.10.22  ||      |                    |                                 |
+    R4.19.22  |||     |                    |                                 |
+    R2.11.20  |||     |                    |                                 |
+    R1.19.20  |||     |                    |                                 |
+    R4.26.20  |||-----|                    |                                 |
+    R1.20.20  |||                          |                                 |
+     R3.3.20  | |                          |                                 |
+    R3.10.22  |-|                          |                                 |
+    R3.11.22  |                            |                                 |
+    R1.21.22  |                            |                                 |
+     R2.7.22  |                            |                                 |
+    R2.20.22  |                            |                                 |
+    R4.16.22  |                            |                                 |
+    R4.17.22  ||                           |                                 |
+    R4.21.20  ||                           |                                 |
+    R2.15.22  ||                           |                                 |
+    R1.21.20  ||--|                        |                                 |
+    R3.20.22  ||  |                        |                                 |
+    R1.22.22  ||  |                        |                                 |
+     R2.9.22  ||  |                        |                                 |
+     R2.8.22  ||  |                        |                                 |
+    R4.15.22  |   |------------------------|                                 |
+    R4.29.22  |   |                                                          |
+    R2.14.22  |   |                                                          |
+    R3.12.22  |   |                                                          |
+    R4.13.22  ||  |                                                          |
+    R4.32.20  ||  |                                                          |
+    R4.24.22  ||--|                                                          |
+    R2.18.22  ||                                                             |
+    R4.27.22  ||                                                             |
+    R4.21.22  |                                                              |
+     R1.2.22  |                                                              |
+     R2.4.22  |----|                                                         |
+    R1.12.20  |    |-|                                                       |
+     R1.3.22  |-|  | |                                                       |
+     R1.4.22  | |--| |-----------|                                           |
+     R1.1.20  --|    |           |                                           |
+    R1.11.22  |------|           |                                           |
+    R3.10.20  |                  |-----|                                     |
+     R1.5.22  |---------|        |     |                                     |
+     R1.8.22  |         |-|      |     |                                     |
+     R3.7.22  ----|-----| |      |     |                                     |
+     R2.3.20  |---|       |------|     |                                     |
+    R2.18.20  |           |            |                                     |
+     R1.2.20  |           |            |-------------------------------------|
+     R1.4.20  |-----------|            |                                      
+    R1.11.20  |                        |                                      
+     R1.6.22  |                        |                                      
+     R1.3.20  |-|                      |                                      
+     R1.9.22  | |-----|                |                                      
+     R1.5.20  --|     |                |                                      
+     R1.7.22  |       |----------------|                                      
+    R1.10.20  ||      |                                                       
+     R1.8.20  ||----| |                                                       
+     R1.7.20  -|    |-|                                                       
+     R1.6.20  |-----|                                                         
+     R1.9.20  |                                                               
+
+
+************************* Cluster analysis completed *************************
+ 8 May 2023, 10:09:08
+
+
+************************ Importing .xlsx Format File *************************
+PC-ORD, 7.09
+8 May 2023, 10:19:47
+
+     Import file: C:\Users\jonhi\OneDrive\Desktop\boopz\thesis\round bald datas\2020-2022 ordination.xlsx
+
+     Excel Spreadsheet format
+
+****************************** Import completed ******************************
+8 May 2023, 10:19:47
+
+
+************************ Importing .xlsx Format File *************************
+PC-ORD, 7.09
+8 May 2023, 10:20:43
+
+     Import file: C:\Users\jonhi\OneDrive\Desktop\boopz\thesis\round bald datas\2020-2022 ordination.xlsx
+
+     Excel Spreadsheet format
+
+****************************** Import completed ******************************
+8 May 2023, 10:20:43
+
+
+************************ Importing .xlsx Format File *************************
+PC-ORD, 7.09
+8 May 2023, 10:21:11
+
+     Import file: C:\Users\jonhi\OneDrive\Desktop\boopz\thesis\round bald datas\2020-2022 ordination.xlsx
+
+     Excel Spreadsheet format
+
+****************************** Import completed ******************************
+8 May 2023, 10:21:11
+
+
+************************ Importing .xlsx Format File *************************
+PC-ORD, 7.09
+8 May 2023, 10:39:26
+
+     Import file: C:\Users\jonhi\OneDrive\Desktop\boopz\thesis\round bald datas\2020-2022 ordination.xlsx
+
+     Excel Spreadsheet format
+
+****************************** Import completed ******************************
+8 May 2023, 10:39:26
+
+
+************************ Importing .xlsx Format File *************************
+PC-ORD, 7.09
+8 May 2023, 10:39:45
+
+     Import file: C:\Users\jonhi\OneDrive\Desktop\boopz\thesis\round bald datas\2020-2022 ordination.xlsx
+
+     Excel Spreadsheet format
+
+****************************** Import completed ******************************
+8 May 2023, 10:39:45
+
+
+************************ Importing .xlsx Format File *************************
+PC-ORD, 7.09
+8 May 2023, 10:40:23
+
+     Import file: C:\Users\jonhi\OneDrive\Desktop\boopz\thesis\round bald datas\2020-2022 ordination.xlsx
+
+     Excel Spreadsheet format
+
+****************************** Import completed ******************************
+8 May 2023, 10:40:23
+
+
+************************ Importing .xlsx Format File *************************
+PC-ORD, 7.09
+8 May 2023, 10:47:39
+
+     Import file: C:\Users\jonhi\OneDrive\Desktop\boopz\thesis\round bald datas\2020-2022 ordination.xlsx
+
+     Excel Spreadsheet format
+
+****************************** Import completed ******************************
+8 May 2023, 10:47:39
+
+
+************************ Importing .xlsx Format File *************************
+PC-ORD, 7.09
+8 May 2023, 10:47:55
+
+     Import file: C:\Users\jonhi\OneDrive\Desktop\boopz\thesis\round bald datas\2020-2022 ordination.xlsx
+
+     Excel Spreadsheet format
+
+****************************** Import completed ******************************
+8 May 2023, 10:47:55
+
+
+************************ Importing .xlsx Format File *************************
+PC-ORD, 7.09
+8 May 2023, 10:54:15
+
+     Import file: C:\Users\jonhi\OneDrive\Desktop\boopz\thesis\round bald datas\2020-2022 ordination.xlsx
+
+     Excel Spreadsheet format
+
+****************************** Import completed ******************************
+8 May 2023, 10:54:15
+
+
+************************ Importing .xlsx Format File *************************
+PC-ORD, 7.09
+8 May 2023, 10:54:32
+
+     Import file: C:\Users\jonhi\OneDrive\Desktop\boopz\thesis\round bald datas\2020-2022 ordination.xlsx
+
+     Excel Spreadsheet format
+
+****************************** Import completed ******************************
+8 May 2023, 10:54:32
