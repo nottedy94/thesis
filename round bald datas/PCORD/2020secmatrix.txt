@@ -1,100 +1,30 @@
 
 
-************************ Importing .xlsx Format File *************************
-PC-ORD, 7.09
-8 May 2023, 11:27:40
+************************ Importing *.xlsx Format File ***********************
+PC-ORD, 6.08
+8 May 2023, 12:59
 
-     Import file: C:\Users\jonhi\OneDrive\Desktop\boopz\thesis\round bald datas\2020-2022 ordination.xlsx
-
-     Excel Spreadsheet format
-
-****************************** Import completed ******************************
-8 May 2023, 11:27:40
-
-
-************************ Importing .xlsx Format File *************************
-PC-ORD, 7.09
-8 May 2023, 11:27:59
-
-     Import file: C:\Users\jonhi\OneDrive\Desktop\boopz\thesis\round bald datas\2020-2022 ordination.xlsx
+     Import file: C:\Users\teddy\Desktop\boopz\thesis\round bald datas\2020-2022 ordination.xlsx
 
      Excel Spreadsheet format
 
 ****************************** Import completed ******************************
-8 May 2023, 11:27:59
-
-
-************************************* Dominance Curves *************************************
-PC-ORD, 7.09                
- 8 May 2023, 11:28:17
-
- Project file: C:\Users\jonhi\OneDrive\Desktop\boopz\thesis\round bald datas\2020vegedata.7prj
-  Main matrix: C:\Users\jonhi\AppData\Roaming\MjM Software Design\PCORD 7\WORK.MJM
-
-
-Variables    RankAbun   Log(SumAbund)       Sum     RankFreq   Freq      Mean         S.Dev.           CV%         V/M
-RUBUS               2    3.27646        1890.00            2     80    19.0909        19.1360        100.2361     19.1811
-VACC               10   0.954243        9.00000            9      5   0.909091E-01   0.430730        473.8035      2.0408
-RHODO               8    2.56820        370.000            8      7    3.73737        15.0750        403.3592     60.8066
-FERN                3    2.93952        870.000            4     33    8.78788        18.6811        212.5785     39.7121
-GRASS               1    3.62252        4193.00            1     92    42.3535        27.4116         64.7209     17.7410
-SEDGE               4    2.84198        695.000            3     43    7.02020        13.1568        187.4135     24.6576
-ROCK                9    1.32222        21.0000           10      3   0.212121        1.35731        639.8765      8.6851
-BARE                5    2.77670        598.000            7     26    6.04040        18.6481        308.7235     57.5712
-MOSS                6    2.62941        426.000            6     28    4.30303        12.5986        292.7833     36.8865
-FORB                7    2.59770        396.000            5     32    4.00000        12.2674        306.6857     37.6224
----------------------------------------------------------------------------------------------------------------------------
-
-
-Writing spreadsheet containing species abundances to Domin.CSV.
-If you wish to use this spreadsheet for purposes other than
-PC-ORD`s dominance curves, rename the file before running dominance
-curves again. Select Tools | View Application Folder to find this file.
-
-*************************Dominance calculations finished *************************
- 8 May 2023, 11:28:17
-
-
-************************ Importing .xlsx Format File *************************
-PC-ORD, 7.09
-8 May 2023, 11:29:41
-
-     Import file: C:\Users\jonhi\OneDrive\Desktop\boopz\thesis\round bald datas\2020-2022 ordination.xlsx
-
-     Excel Spreadsheet format
-
-****************************** Import completed ******************************
-8 May 2023, 11:29:41
-
-
-************************ Importing .xlsx Format File *************************
-PC-ORD, 7.09
-8 May 2023, 11:29:57
-
-     Import file: C:\Users\jonhi\OneDrive\Desktop\boopz\thesis\round bald datas\2020-2022 ordination.xlsx
-
-     Excel Spreadsheet format
-
-****************************** Import completed ******************************
-8 May 2023, 11:29:57
+8 May 2023, 12:59
 
 
 ********************* Nonmetric Multidimensional Scaling *********************
-PC-ORD, 7.09                
- 8 May 2023, 11:30:36
-
- Project file: C:\Users\jonhi\OneDrive\Desktop\boopz\thesis\round bald datas\2020vegedata.7prj
-  Main matrix: C:\Users\jonhi\AppData\Roaming\MjM Software Design\PCORD 7\WORK.MJM
+PC-ORD, 6.08                
+ 8 May 2023, 13:01:42
 
 
 2020-2022 NMS                                                                   
-Ordination of Plots in Variables space.        198 Plots              10 Variables   
+Ordination of Plots    in Variable space.        198 Plots          10 Variable
 
          The following options were selected:
 ANALYSIS OPTIONS
          1.   SORENSEN = Distance measure
-         2.          4 = Number of axes (max. = 6)
-         3.        200 = Maximum number of iterations
+         2.          3 = Number of axes (max. = 6)
+         3.        500 = Maximum number of iterations
          4.     RANDOM = Starting coordinates (random or from file)
          5.          1 = Reduction in dimensionality at each cycle
          6. NO PENALTY = Tie handling (Strategy 1 does not penalize
@@ -102,12 +32,11 @@ ANALYSIS OPTIONS
                          while strategy 2 does penalize.)
          7.       0.20 = Step length (rate of movement toward minimum stress)
          8.   USE TIME = Random number seeds (use time vs. user-supplied)
-         9.         50 = Number of runs with real data
-        10.         50 = Number of runs with randomized data
-        11.        YES = Autopilot
-        12.   0.000010 = Stability criterion, standard deviations in stress
+         9.        100 = Number of runs with real data
+        10.          0 = Number of runs with randomized data
+        11.         NO = Autopilot
+        12.   0.000001 = Stability criterion, standard deviations in stress
                          over last  10 iterations.
-        13.     MEDIUM = Speed vs. thoroughness
 OUTPUT OPTIONS
         14.         NO = Write distance matrix?
         15.         NO = Write starting coordinates?
@@ -117,10 +46,15 @@ OUTPUT OPTIONS
         19.         NO = Write final configuration?
         20. PRINC.AXES = Write varimax-rotated, principal axes, or unrotated scores for graph?
         21.         NO = Write run log?
-        22.         NO = Write weighted-average scores for Variables?
+        22.         NO = Write weighted-average scores for Variable?
 ------------------------------------------------------------------------------
 
-      3667 = Seed for random number generator.
+      4243 = Seed for random number generator.
+
+
+
+
+     **************** 3-dimensional solution ****************
 
           2182 = Number of tie blocks in dissimilarity matrix.
          18597 = Number of elements involved in ties.
@@ -128,38 +62,3360 @@ OUTPUT OPTIONS
         95.355 = Percentage of elements involved in ties.
 
 
+      11.57203 = final stress for 3-dimensional solution
+       0.00000 = final instability
+            63 = number of iterations
+
+
+
+
+      PLOT OF STRESS V. ITERATION NUMBER
+      (to prevent wrapping of wide plots when printing, use small font)
+
+       38.6633148.................................................................
+                 .                                                               .
+                 .                                                               .
+                 .*                                                              .
+                 .                                                               .
+                 . *                                                             .
+                 .  ***                                                          .
+                 .     ***                                                       .
+                 .        ***                                                    .
+                 .           **                                                  .
+                 .             **                                                .
+                 .               *                                               .
+                 .                **                                             .
+                 .                  *                                            .
+                 .                   **                                          .
+      STRESS     .                     *                                         .
+                 .                      **                                       .
+                 .                        **                                     .
+                 .                          **                                   .
+                 .                            ****                               .
+                 .                                ********                       .
+                 .                                        ***********************.
+                 .                                                               .
+                 .                                                               .
+                 .                                                               .
+                 .                                                               .
+                 .                                                               .
+                 .                                                               .
+                 .                                                               .
+                 .                                                               .
+                 .                                                               .
+        0.0000000.................................................................
+                           10        20        30        40        50        60
+                      ITERATION NUMBER
+
+
+
+
+
+
+     **************** 2-dimensional solution ****************
+
+      16.86647 = final stress for 2-dimensional solution
+       0.00000 = final instability
+            95 = number of iterations
+
+
+
+
+      PLOT OF STRESS V. ITERATION NUMBER
+      (to prevent wrapping of wide plots when printing, use small font)
+
+       28.0847321.................................................................................................
+                 .                                                                                               .
+                 .                                                                                               .
+                 .*                                                                                              .
+                 .                                                                                               .
+                 .                                                                                               .
+                 .                                                                                               .
+                 .                                                                                               .
+                 . **                                                                                            .
+                 .   *  * **                                                                                     .
+                 .    ** *  ******************************                                                       .
+                 .                                        *********************                                  .
+                 .                                                             **********************************.
+                 .                                                                                               .
+                 .                                                                                               .
+      STRESS     .                                                                                               .
+                 .                                                                                               .
+                 .                                                                                               .
+                 .                                                                                               .
+                 .                                                                                               .
+                 .                                                                                               .
+                 .                                                                                               .
+                 .                                                                                               .
+                 .                                                                                               .
+                 .                                                                                               .
+                 .                                                                                               .
+                 .                                                                                               .
+                 .                                                                                               .
+                 .                                                                                               .
+                 .                                                                                               .
+                 .                                                                                               .
+        0.0000000.................................................................................................
+                           10        20        30        40        50        60        70        80        90
+                      ITERATION NUMBER
+
+
+
+
+
+
+     **************** 1-dimensional solution ****************
+
+      22.58124 = final stress for 1-dimensional solution
+       0.00000 = final instability
+            32 = number of iterations
+
+
+
+
+      PLOT OF STRESS V. ITERATION NUMBER
+       41.3786545..................................
+                 .                                .
+                 .                                .
+                 .*                               .
+                 .                                .
+                 .                                .
+                 .                                .
+                 .                                .
+                 . *                              .
+                 .   *                            .
+                 .  *                             .
+                 .    **                          .
+                 .                                .
+                 .      ******                    .
+                 .            ********************.
+      STRESS     .                                .
+                 .                                .
+                 .                                .
+                 .                                .
+                 .                                .
+                 .                                .
+                 .                                .
+                 .                                .
+                 .                                .
+                 .                                .
+                 .                                .
+                 .                                .
+                 .                                .
+                 .                                .
+                 .                                .
+                 .                                .
+        0.0000000..................................
+                           10        20        30
+                      ITERATION NUMBER
+
+
+
+
+
+
+     **************** 3-dimensional solution ****************
+
+      11.17591 = final stress for 3-dimensional solution
+       0.00000 = final instability
+            97 = number of iterations
+
+
+
+
+     **************** 2-dimensional solution ****************
+
+      16.36049 = final stress for 2-dimensional solution
+       0.00000 = final instability
+            48 = number of iterations
+
+
+
+
+     **************** 1-dimensional solution ****************
+
+      22.15185 = final stress for 1-dimensional solution
+       0.00000 = final instability
+            43 = number of iterations
+
+
+
+
+     **************** 3-dimensional solution ****************
+
+      10.95066 = final stress for 3-dimensional solution
+       0.00000 = final instability
+            99 = number of iterations
+
+
+
+
+     **************** 2-dimensional solution ****************
+
+      16.39296 = final stress for 2-dimensional solution
+       0.00000 = final instability
+            30 = number of iterations
+
+
+
+
+     **************** 1-dimensional solution ****************
+
+      23.20029 = final stress for 1-dimensional solution
+       0.00000 = final instability
+            42 = number of iterations
+
+
+
+
+     **************** 3-dimensional solution ****************
+
+      11.23690 = final stress for 3-dimensional solution
+       0.00000 = final instability
+            73 = number of iterations
+
+
+
+
+     **************** 2-dimensional solution ****************
+
+      17.34770 = final stress for 2-dimensional solution
+       0.00000 = final instability
+           106 = number of iterations
+
+
+
+
+     **************** 1-dimensional solution ****************
+
+      22.93009 = final stress for 1-dimensional solution
+       0.00000 = final instability
+            51 = number of iterations
+
+
+
+
+     **************** 3-dimensional solution ****************
+
+      11.07749 = final stress for 3-dimensional solution
+       0.00000 = final instability
+            72 = number of iterations
+
+
+
+
+     **************** 2-dimensional solution ****************
+
+      16.83987 = final stress for 2-dimensional solution
+       0.00000 = final instability
+            97 = number of iterations
+
+
+
+
+     **************** 1-dimensional solution ****************
+
+      23.11435 = final stress for 1-dimensional solution
+       0.00000 = final instability
+            36 = number of iterations
+
+
+
+
+     **************** 3-dimensional solution ****************
+
+      11.03019 = final stress for 3-dimensional solution
+       0.00000 = final instability
+           108 = number of iterations
+
+
+
+
+     **************** 2-dimensional solution ****************
+
+      17.02046 = final stress for 2-dimensional solution
+       0.00000 = final instability
+           133 = number of iterations
+
+
+
+
+     **************** 1-dimensional solution ****************
+
+      23.06197 = final stress for 1-dimensional solution
+       0.00000 = final instability
+            45 = number of iterations
+
+
+
+
+     **************** 3-dimensional solution ****************
+
+      11.16366 = final stress for 3-dimensional solution
+       0.00000 = final instability
+           125 = number of iterations
+
+
+
+
+     **************** 2-dimensional solution ****************
+
+      16.57170 = final stress for 2-dimensional solution
+       0.00000 = final instability
+            68 = number of iterations
+
+
+
+
+     **************** 1-dimensional solution ****************
+
+      22.85732 = final stress for 1-dimensional solution
+       0.00000 = final instability
+            53 = number of iterations
+
+
+
+
+     **************** 3-dimensional solution ****************
+
+      11.13505 = final stress for 3-dimensional solution
+       0.00000 = final instability
+            56 = number of iterations
+
+
+
+
+     **************** 2-dimensional solution ****************
+
+      17.22242 = final stress for 2-dimensional solution
+       0.00000 = final instability
+            87 = number of iterations
+
+
+
+
+     **************** 1-dimensional solution ****************
+
+      23.05390 = final stress for 1-dimensional solution
+       0.00000 = final instability
+            45 = number of iterations
+
+
+
+
+     **************** 3-dimensional solution ****************
+
+      10.97022 = final stress for 3-dimensional solution
+       0.00000 = final instability
+           111 = number of iterations
+
+
+
+
+     **************** 2-dimensional solution ****************
+
+      16.71932 = final stress for 2-dimensional solution
+       0.00000 = final instability
+           110 = number of iterations
+
+
+
+
+     **************** 1-dimensional solution ****************
+
+      22.96697 = final stress for 1-dimensional solution
+       0.00000 = final instability
+            45 = number of iterations
+
+
+
+
+     **************** 3-dimensional solution ****************
+
+      11.13472 = final stress for 3-dimensional solution
+       0.00000 = final instability
+           116 = number of iterations
+
+
+
+
+     **************** 2-dimensional solution ****************
+
+      16.66141 = final stress for 2-dimensional solution
+       0.00000 = final instability
+            87 = number of iterations
+
+
+
+
+     **************** 1-dimensional solution ****************
+
+      22.96629 = final stress for 1-dimensional solution
+       0.00000 = final instability
+            41 = number of iterations
+
+
+
+
+     **************** 3-dimensional solution ****************
+
+      11.14664 = final stress for 3-dimensional solution
+       0.00000 = final instability
+           126 = number of iterations
+
+
+
+
+     **************** 2-dimensional solution ****************
+
+      16.53683 = final stress for 2-dimensional solution
+       0.00000 = final instability
+           122 = number of iterations
+
+
+
+
+     **************** 1-dimensional solution ****************
+
+      23.09394 = final stress for 1-dimensional solution
+       0.00000 = final instability
+            45 = number of iterations
+
+
+
+
+     **************** 3-dimensional solution ****************
+
+      11.24080 = final stress for 3-dimensional solution
+       0.00000 = final instability
+            89 = number of iterations
+
+
+
+
+     **************** 2-dimensional solution ****************
+
+      16.89664 = final stress for 2-dimensional solution
+       0.00000 = final instability
+            94 = number of iterations
+
+
+
+
+     **************** 1-dimensional solution ****************
+
+      23.25421 = final stress for 1-dimensional solution
+       0.00000 = final instability
+            39 = number of iterations
+
+
+
+
+     **************** 3-dimensional solution ****************
+
+      11.49732 = final stress for 3-dimensional solution
+       0.00000 = final instability
+            86 = number of iterations
+
+
+
+
+     **************** 2-dimensional solution ****************
+
+      16.20599 = final stress for 2-dimensional solution
+       0.00000 = final instability
+           110 = number of iterations
+
+
+
+
+     **************** 1-dimensional solution ****************
+
+      22.54607 = final stress for 1-dimensional solution
+       0.00000 = final instability
+            39 = number of iterations
+
+
+
+
+     **************** 3-dimensional solution ****************
+
+      11.21969 = final stress for 3-dimensional solution
+       0.00000 = final instability
+           102 = number of iterations
+
+
+
+
+     **************** 2-dimensional solution ****************
+
+      16.86140 = final stress for 2-dimensional solution
+       0.00000 = final instability
+            93 = number of iterations
+
+
+
+
+     **************** 1-dimensional solution ****************
+
+      23.29477 = final stress for 1-dimensional solution
+       0.00000 = final instability
+            35 = number of iterations
+
+
+
+
+     **************** 3-dimensional solution ****************
+
+      11.35468 = final stress for 3-dimensional solution
+       0.00000 = final instability
+            85 = number of iterations
+
+
+
+
+     **************** 2-dimensional solution ****************
+
+      17.70305 = final stress for 2-dimensional solution
+       0.00000 = final instability
+           154 = number of iterations
+
+
+
+
+     **************** 1-dimensional solution ****************
+
+      23.20015 = final stress for 1-dimensional solution
+       0.00000 = final instability
+            41 = number of iterations
+
+
+
+
+     **************** 3-dimensional solution ****************
+
+      11.08442 = final stress for 3-dimensional solution
+       0.00000 = final instability
+            69 = number of iterations
+
+
+
+
+     **************** 2-dimensional solution ****************
+
+      16.77492 = final stress for 2-dimensional solution
+       0.00000 = final instability
+            72 = number of iterations
+
+
+
+
+     **************** 1-dimensional solution ****************
+
+      23.03717 = final stress for 1-dimensional solution
+       0.00000 = final instability
+            47 = number of iterations
+
+
+
+
+     **************** 3-dimensional solution ****************
+
+      11.36901 = final stress for 3-dimensional solution
+       0.00000 = final instability
+           108 = number of iterations
+
+
+
+
+     **************** 2-dimensional solution ****************
+
+      16.50984 = final stress for 2-dimensional solution
+       0.00000 = final instability
+           114 = number of iterations
+
+
+
+
+     **************** 1-dimensional solution ****************
+
+      23.02818 = final stress for 1-dimensional solution
+       0.00000 = final instability
+            44 = number of iterations
+
+
+
+
+     **************** 3-dimensional solution ****************
+
+      11.05057 = final stress for 3-dimensional solution
+       0.00000 = final instability
+            89 = number of iterations
+
+
+
+
+     **************** 2-dimensional solution ****************
+
+      16.10296 = final stress for 2-dimensional solution
+       0.00000 = final instability
+            94 = number of iterations
+
+
+
+
+     **************** 1-dimensional solution ****************
+
+      22.56524 = final stress for 1-dimensional solution
+       0.00000 = final instability
+            45 = number of iterations
+
+
+
+
+     **************** 3-dimensional solution ****************
+
+      11.26843 = final stress for 3-dimensional solution
+       0.00000 = final instability
+            74 = number of iterations
+
+
+
+
+     **************** 2-dimensional solution ****************
+
+      16.35587 = final stress for 2-dimensional solution
+       0.00000 = final instability
+            75 = number of iterations
+
+
+
+
+     **************** 1-dimensional solution ****************
+
+      23.18797 = final stress for 1-dimensional solution
+       0.00000 = final instability
+            44 = number of iterations
+
+
+
+
+     **************** 3-dimensional solution ****************
+
+      11.83528 = final stress for 3-dimensional solution
+       0.00000 = final instability
+            84 = number of iterations
+
+
+
+
+     **************** 2-dimensional solution ****************
+
+      16.98526 = final stress for 2-dimensional solution
+       0.00000 = final instability
+            81 = number of iterations
+
+
+
+
+     **************** 1-dimensional solution ****************
+
+      23.04334 = final stress for 1-dimensional solution
+       0.00000 = final instability
+            46 = number of iterations
+
+
+
+
+     **************** 3-dimensional solution ****************
+
+      11.12687 = final stress for 3-dimensional solution
+       0.00000 = final instability
+            77 = number of iterations
+
+
+
+
+     **************** 2-dimensional solution ****************
+
+      16.58902 = final stress for 2-dimensional solution
+       0.00000 = final instability
+           178 = number of iterations
+
+
+
+
+     **************** 1-dimensional solution ****************
+
+      22.76931 = final stress for 1-dimensional solution
+       0.00000 = final instability
+            47 = number of iterations
+
+
+
+
+     **************** 3-dimensional solution ****************
+
+      11.00925 = final stress for 3-dimensional solution
+       0.00000 = final instability
+           132 = number of iterations
+
+
+
+
+     **************** 2-dimensional solution ****************
+
+      17.18494 = final stress for 2-dimensional solution
+       0.00000 = final instability
+            88 = number of iterations
+
+
+
+
+     **************** 1-dimensional solution ****************
+
+      22.98544 = final stress for 1-dimensional solution
+       0.00000 = final instability
+            50 = number of iterations
+
+
+
+
+     **************** 3-dimensional solution ****************
+
+      11.32259 = final stress for 3-dimensional solution
+       0.00000 = final instability
+           128 = number of iterations
+
+
+
+
+     **************** 2-dimensional solution ****************
+
+      17.66252 = final stress for 2-dimensional solution
+       0.00000 = final instability
+            95 = number of iterations
+
+
+
+
+     **************** 1-dimensional solution ****************
+
+      23.34438 = final stress for 1-dimensional solution
+       0.00000 = final instability
+            38 = number of iterations
+
+
+
+
+     **************** 3-dimensional solution ****************
+
+      11.11091 = final stress for 3-dimensional solution
+       0.00000 = final instability
+            74 = number of iterations
+
+
+
+
+     **************** 2-dimensional solution ****************
+
+      16.13325 = final stress for 2-dimensional solution
+       0.00000 = final instability
+            78 = number of iterations
+
+
+
+
+     **************** 1-dimensional solution ****************
+
+      23.13745 = final stress for 1-dimensional solution
+       0.00000 = final instability
+            37 = number of iterations
+
+
+
+
+     **************** 3-dimensional solution ****************
+
+      11.88249 = final stress for 3-dimensional solution
+       0.00000 = final instability
+            78 = number of iterations
+
+
+
+
+     **************** 2-dimensional solution ****************
+
+      17.38995 = final stress for 2-dimensional solution
+       0.00000 = final instability
+            74 = number of iterations
+
+
+
+
+     **************** 1-dimensional solution ****************
+
+      23.23012 = final stress for 1-dimensional solution
+       0.00000 = final instability
+            45 = number of iterations
+
+
+
+
+     **************** 3-dimensional solution ****************
+
+      11.43246 = final stress for 3-dimensional solution
+       0.00000 = final instability
+           103 = number of iterations
+
+
+
+
+     **************** 2-dimensional solution ****************
+
+      16.67606 = final stress for 2-dimensional solution
+       0.00000 = final instability
+           157 = number of iterations
+
+
+
+
+     **************** 1-dimensional solution ****************
+
+      23.13243 = final stress for 1-dimensional solution
+       0.00000 = final instability
+            47 = number of iterations
+
+
+
+
+     **************** 3-dimensional solution ****************
+
+      11.73068 = final stress for 3-dimensional solution
+       0.00000 = final instability
+            89 = number of iterations
+
+
+
+
+     **************** 2-dimensional solution ****************
+
+      16.19796 = final stress for 2-dimensional solution
+       0.00000 = final instability
+           107 = number of iterations
+
+
+
+
+     **************** 1-dimensional solution ****************
+
+      22.84422 = final stress for 1-dimensional solution
+       0.00000 = final instability
+            50 = number of iterations
+
+
+
+
+     **************** 3-dimensional solution ****************
+
+      11.25932 = final stress for 3-dimensional solution
+       0.00000 = final instability
+           101 = number of iterations
+
+
+
+
+     **************** 2-dimensional solution ****************
+
+      17.64441 = final stress for 2-dimensional solution
+       0.00000 = final instability
+           121 = number of iterations
+
+
+
+
+     **************** 1-dimensional solution ****************
+
+      22.66356 = final stress for 1-dimensional solution
+       0.00000 = final instability
+            50 = number of iterations
+
+
+
+
+     **************** 3-dimensional solution ****************
+
+      11.88310 = final stress for 3-dimensional solution
+       0.00000 = final instability
+           127 = number of iterations
+
+
+
+
+     **************** 2-dimensional solution ****************
+
+      16.54646 = final stress for 2-dimensional solution
+       0.00000 = final instability
+            80 = number of iterations
+
+
+
+
+     **************** 1-dimensional solution ****************
+
+      22.97829 = final stress for 1-dimensional solution
+       0.00000 = final instability
+            42 = number of iterations
+
+
+
+
+     **************** 3-dimensional solution ****************
+
+      11.22886 = final stress for 3-dimensional solution
+       0.00000 = final instability
+            98 = number of iterations
+
+
+
+
+     **************** 2-dimensional solution ****************
+
+      16.69009 = final stress for 2-dimensional solution
+       0.00000 = final instability
+           108 = number of iterations
+
+
+
+
+     **************** 1-dimensional solution ****************
+
+      23.33018 = final stress for 1-dimensional solution
+       0.00000 = final instability
+            38 = number of iterations
+
+
+
+
+     **************** 3-dimensional solution ****************
+
+      11.20234 = final stress for 3-dimensional solution
+       0.00000 = final instability
+            92 = number of iterations
+
+
+
+
+     **************** 2-dimensional solution ****************
+
+      16.54448 = final stress for 2-dimensional solution
+       0.00000 = final instability
+            96 = number of iterations
+
+
+
+
+     **************** 1-dimensional solution ****************
+
+      23.23150 = final stress for 1-dimensional solution
+       0.00000 = final instability
+            38 = number of iterations
+
+
+
+
+     **************** 3-dimensional solution ****************
+
+      11.07782 = final stress for 3-dimensional solution
+       0.00000 = final instability
+           119 = number of iterations
+
+
+
+
+     **************** 2-dimensional solution ****************
+
+      16.30750 = final stress for 2-dimensional solution
+       0.00000 = final instability
+           102 = number of iterations
+
+
+
+
+     **************** 1-dimensional solution ****************
+
+      23.01873 = final stress for 1-dimensional solution
+       0.00000 = final instability
+            36 = number of iterations
+
+
+
+
+     **************** 3-dimensional solution ****************
+
+      11.37918 = final stress for 3-dimensional solution
+       0.00000 = final instability
+            92 = number of iterations
+
+
+
+
+     **************** 2-dimensional solution ****************
+
+      16.77788 = final stress for 2-dimensional solution
+       0.00000 = final instability
+           102 = number of iterations
+
+
+
+
+     **************** 1-dimensional solution ****************
+
+      22.93832 = final stress for 1-dimensional solution
+       0.00000 = final instability
+            45 = number of iterations
+
+
+
+
+     **************** 3-dimensional solution ****************
+
+      11.17027 = final stress for 3-dimensional solution
+       0.00000 = final instability
+            93 = number of iterations
+
+
+
+
+     **************** 2-dimensional solution ****************
+
+      16.15448 = final stress for 2-dimensional solution
+       0.00000 = final instability
+            67 = number of iterations
+
+
+
+
+     **************** 1-dimensional solution ****************
+
+      22.95267 = final stress for 1-dimensional solution
+       0.00000 = final instability
+            43 = number of iterations
+
+
+
+
+     **************** 3-dimensional solution ****************
+
+      11.07800 = final stress for 3-dimensional solution
+       0.00000 = final instability
+           138 = number of iterations
+
+
+
+
+     **************** 2-dimensional solution ****************
+
+      16.45318 = final stress for 2-dimensional solution
+       0.00000 = final instability
+            93 = number of iterations
+
+
+
+
+     **************** 1-dimensional solution ****************
+
+      23.06664 = final stress for 1-dimensional solution
+       0.00000 = final instability
+            40 = number of iterations
+
+
+
+
+     **************** 3-dimensional solution ****************
+
+      11.35463 = final stress for 3-dimensional solution
+       0.00000 = final instability
+           104 = number of iterations
+
+
+
+
+     **************** 2-dimensional solution ****************
+
+      16.64441 = final stress for 2-dimensional solution
+       0.00000 = final instability
+            74 = number of iterations
+
+
+
+
+     **************** 1-dimensional solution ****************
+
+      22.89082 = final stress for 1-dimensional solution
+       0.00000 = final instability
+            53 = number of iterations
+
+
+
+
+     **************** 3-dimensional solution ****************
+
+      11.16681 = final stress for 3-dimensional solution
+       0.00000 = final instability
+            91 = number of iterations
+
+
+
+
+     **************** 2-dimensional solution ****************
+
+      16.38492 = final stress for 2-dimensional solution
+       0.00000 = final instability
+           110 = number of iterations
+
+
+
+
+     **************** 1-dimensional solution ****************
+
+      23.23728 = final stress for 1-dimensional solution
+       0.00000 = final instability
+            47 = number of iterations
+
+
+
+
+     **************** 3-dimensional solution ****************
+
+      11.44243 = final stress for 3-dimensional solution
+       0.00000 = final instability
+            93 = number of iterations
+
+
+
+
+     **************** 2-dimensional solution ****************
+
+      16.36691 = final stress for 2-dimensional solution
+       0.00000 = final instability
+           124 = number of iterations
+
+
+
+
+     **************** 1-dimensional solution ****************
+
+      22.96718 = final stress for 1-dimensional solution
+       0.00000 = final instability
+            44 = number of iterations
+
+
+
+
+     **************** 3-dimensional solution ****************
+
+      11.10795 = final stress for 3-dimensional solution
+       0.00000 = final instability
+            73 = number of iterations
+
+
+
+
+     **************** 2-dimensional solution ****************
+
+      16.96251 = final stress for 2-dimensional solution
+       0.00000 = final instability
+           115 = number of iterations
+
+
+
+
+     **************** 1-dimensional solution ****************
+
+      22.81530 = final stress for 1-dimensional solution
+       0.00000 = final instability
+            48 = number of iterations
+
+
+
+
+     **************** 3-dimensional solution ****************
+
+      11.05010 = final stress for 3-dimensional solution
+       0.00000 = final instability
+            94 = number of iterations
+
+
+
+
+     **************** 2-dimensional solution ****************
+
+      17.64037 = final stress for 2-dimensional solution
+       0.00000 = final instability
+           102 = number of iterations
+
+
+
+
+     **************** 1-dimensional solution ****************
+
+      22.92843 = final stress for 1-dimensional solution
+       0.00000 = final instability
+            46 = number of iterations
+
+
+
+
+     **************** 3-dimensional solution ****************
+
+      11.19550 = final stress for 3-dimensional solution
+       0.00000 = final instability
+           106 = number of iterations
+
+
+
+
+     **************** 2-dimensional solution ****************
+
+      17.23155 = final stress for 2-dimensional solution
+       0.00000 = final instability
+            79 = number of iterations
+
+
+
+
+     **************** 1-dimensional solution ****************
+
+      23.41716 = final stress for 1-dimensional solution
+       0.00000 = final instability
+            33 = number of iterations
+
+
+
+
+     **************** 3-dimensional solution ****************
+
+      10.93425 = final stress for 3-dimensional solution
+       0.00000 = final instability
+            94 = number of iterations
+
+
+
+
+     **************** 2-dimensional solution ****************
+
+      16.05568 = final stress for 2-dimensional solution
+       0.00000 = final instability
+            33 = number of iterations
+
+
+
+
+     **************** 1-dimensional solution ****************
+
+      23.08179 = final stress for 1-dimensional solution
+       0.00000 = final instability
+            43 = number of iterations
+
+
+
+
+     **************** 3-dimensional solution ****************
+
+      11.01652 = final stress for 3-dimensional solution
+       0.00000 = final instability
+           131 = number of iterations
+
+
+
+
+     **************** 2-dimensional solution ****************
+
+      16.72372 = final stress for 2-dimensional solution
+       0.00000 = final instability
+            80 = number of iterations
+
+
+
+
+     **************** 1-dimensional solution ****************
+
+      23.01476 = final stress for 1-dimensional solution
+       0.00000 = final instability
+            41 = number of iterations
+
+
+
+
+     **************** 3-dimensional solution ****************
+
+      11.41967 = final stress for 3-dimensional solution
+       0.00000 = final instability
+            75 = number of iterations
+
+
+
+
+     **************** 2-dimensional solution ****************
+
+      16.03672 = final stress for 2-dimensional solution
+       0.00000 = final instability
+           103 = number of iterations
+
+
+
+
+     **************** 1-dimensional solution ****************
+
+      22.57367 = final stress for 1-dimensional solution
+       0.00000 = final instability
+            40 = number of iterations
+
+
+
+
+     **************** 3-dimensional solution ****************
+
+      11.05925 = final stress for 3-dimensional solution
+       0.00000 = final instability
+            82 = number of iterations
+
+
+
+
+     **************** 2-dimensional solution ****************
+
+      16.54435 = final stress for 2-dimensional solution
+       0.00000 = final instability
+           110 = number of iterations
+
+
+
+
+     **************** 1-dimensional solution ****************
+
+      22.99518 = final stress for 1-dimensional solution
+       0.00000 = final instability
+            44 = number of iterations
+
+
+
+
+     **************** 3-dimensional solution ****************
+
+      10.96672 = final stress for 3-dimensional solution
+       0.00000 = final instability
+           119 = number of iterations
+
+
+
+
+     **************** 2-dimensional solution ****************
+
+      16.65536 = final stress for 2-dimensional solution
+       0.00000 = final instability
+            69 = number of iterations
+
+
+
+
+     **************** 1-dimensional solution ****************
+
+      22.86004 = final stress for 1-dimensional solution
+       0.00000 = final instability
+            53 = number of iterations
+
+
+
+
+     **************** 3-dimensional solution ****************
+
+      10.95635 = final stress for 3-dimensional solution
+       0.00000 = final instability
+            66 = number of iterations
+
+
+
+
+     **************** 2-dimensional solution ****************
+
+      16.24717 = final stress for 2-dimensional solution
+       0.00000 = final instability
+            90 = number of iterations
+
+
+
+
+     **************** 1-dimensional solution ****************
+
+      22.92910 = final stress for 1-dimensional solution
+       0.00000 = final instability
+            52 = number of iterations
+
+
+
+
+     **************** 3-dimensional solution ****************
+
+      11.13318 = final stress for 3-dimensional solution
+       0.00000 = final instability
+            86 = number of iterations
+
+
+
+
+     **************** 2-dimensional solution ****************
+
+      17.10143 = final stress for 2-dimensional solution
+       0.00000 = final instability
+            90 = number of iterations
+
+
+
+
+     **************** 1-dimensional solution ****************
+
+      22.91753 = final stress for 1-dimensional solution
+       0.00000 = final instability
+            37 = number of iterations
+
+
+
+
+     **************** 3-dimensional solution ****************
+
+      11.05704 = final stress for 3-dimensional solution
+       0.00000 = final instability
+           120 = number of iterations
+
+
+
+
+     **************** 2-dimensional solution ****************
+
+      17.12469 = final stress for 2-dimensional solution
+       0.00000 = final instability
+           142 = number of iterations
+
+
+
+
+     **************** 1-dimensional solution ****************
+
+      22.87580 = final stress for 1-dimensional solution
+       0.00000 = final instability
+            47 = number of iterations
+
+
+
+
+     **************** 3-dimensional solution ****************
+
+      11.20879 = final stress for 3-dimensional solution
+       0.00000 = final instability
+           105 = number of iterations
+
+
+
+
+     **************** 2-dimensional solution ****************
+
+      16.35817 = final stress for 2-dimensional solution
+       0.00000 = final instability
+            80 = number of iterations
+
+
+
+
+     **************** 1-dimensional solution ****************
+
+      23.26641 = final stress for 1-dimensional solution
+       0.00000 = final instability
+            34 = number of iterations
+
+
+
+
+     **************** 3-dimensional solution ****************
+
+      11.67561 = final stress for 3-dimensional solution
+       0.00000 = final instability
+            94 = number of iterations
+
+
+
+
+     **************** 2-dimensional solution ****************
+
+      17.16802 = final stress for 2-dimensional solution
+       0.00000 = final instability
+            85 = number of iterations
+
+
+
+
+     **************** 1-dimensional solution ****************
+
+      22.99312 = final stress for 1-dimensional solution
+       0.00000 = final instability
+            45 = number of iterations
+
+
+
+
+     **************** 3-dimensional solution ****************
+
+      11.12679 = final stress for 3-dimensional solution
+       0.00000 = final instability
+           110 = number of iterations
+
+
+
+
+     **************** 2-dimensional solution ****************
+
+      16.71457 = final stress for 2-dimensional solution
+       0.00000 = final instability
+            93 = number of iterations
+
+
+
+
+     **************** 1-dimensional solution ****************
+
+      22.97969 = final stress for 1-dimensional solution
+       0.00000 = final instability
+            37 = number of iterations
+
+
+
+
+     **************** 3-dimensional solution ****************
+
+      11.06728 = final stress for 3-dimensional solution
+       0.00000 = final instability
+           115 = number of iterations
+
+
+
+
+     **************** 2-dimensional solution ****************
+
+      16.27201 = final stress for 2-dimensional solution
+       0.00000 = final instability
+           144 = number of iterations
+
+
+
+
+     **************** 1-dimensional solution ****************
+
+      22.98747 = final stress for 1-dimensional solution
+       0.00000 = final instability
+            48 = number of iterations
+
+
+
+
+     **************** 3-dimensional solution ****************
+
+      11.87882 = final stress for 3-dimensional solution
+       0.00000 = final instability
+            77 = number of iterations
+
+
+
+
+     **************** 2-dimensional solution ****************
+
+      16.25145 = final stress for 2-dimensional solution
+       0.00000 = final instability
+            79 = number of iterations
+
+
+
+
+     **************** 1-dimensional solution ****************
+
+      22.84248 = final stress for 1-dimensional solution
+       0.00000 = final instability
+            51 = number of iterations
+
+
+
+
+     **************** 3-dimensional solution ****************
+
+      10.95404 = final stress for 3-dimensional solution
+       0.00000 = final instability
+           140 = number of iterations
+
+
+
+
+     **************** 2-dimensional solution ****************
+
+      16.40857 = final stress for 2-dimensional solution
+       0.00000 = final instability
+           105 = number of iterations
+
+
+
+
+     **************** 1-dimensional solution ****************
+
+      23.13579 = final stress for 1-dimensional solution
+       0.00000 = final instability
+            43 = number of iterations
+
+
+
+
+     **************** 3-dimensional solution ****************
+
+      10.90287 = final stress for 3-dimensional solution
+       0.00000 = final instability
+           102 = number of iterations
+
+
+
+
+     **************** 2-dimensional solution ****************
+
+      16.01038 = final stress for 2-dimensional solution
+       0.00000 = final instability
+            27 = number of iterations
+
+
+
+
+     **************** 1-dimensional solution ****************
+
+      23.49254 = final stress for 1-dimensional solution
+       0.00000 = final instability
+            55 = number of iterations
+
+
+
+
+     **************** 3-dimensional solution ****************
+
+      11.29576 = final stress for 3-dimensional solution
+       0.00000 = final instability
+            69 = number of iterations
+
+
+
+
+     **************** 2-dimensional solution ****************
+
+      16.24536 = final stress for 2-dimensional solution
+       0.00000 = final instability
+           122 = number of iterations
+
+
+
+
+     **************** 1-dimensional solution ****************
+
+      23.33853 = final stress for 1-dimensional solution
+       0.00000 = final instability
+            30 = number of iterations
+
+
+
+
+     **************** 3-dimensional solution ****************
+
+      10.99215 = final stress for 3-dimensional solution
+       0.00000 = final instability
+           104 = number of iterations
+
+
+
+
+     **************** 2-dimensional solution ****************
+
+      16.96636 = final stress for 2-dimensional solution
+       0.00000 = final instability
+            86 = number of iterations
+
+
+
+
+     **************** 1-dimensional solution ****************
+
+      23.33850 = final stress for 1-dimensional solution
+       0.00000 = final instability
+            47 = number of iterations
+
+
+
+
+     **************** 3-dimensional solution ****************
+
+      11.23541 = final stress for 3-dimensional solution
+       0.00000 = final instability
+            92 = number of iterations
+
+
+
+
+     **************** 2-dimensional solution ****************
+
+      16.71844 = final stress for 2-dimensional solution
+       0.00000 = final instability
+            68 = number of iterations
+
+
+
+
+     **************** 1-dimensional solution ****************
+
+      22.98275 = final stress for 1-dimensional solution
+       0.00000 = final instability
+            42 = number of iterations
+
+
+
+
+     **************** 3-dimensional solution ****************
+
+      12.06900 = final stress for 3-dimensional solution
+       0.00000 = final instability
+            82 = number of iterations
+
+
+
+
+     **************** 2-dimensional solution ****************
+
+      16.42179 = final stress for 2-dimensional solution
+       0.00000 = final instability
+            85 = number of iterations
+
+
+
+
+     **************** 1-dimensional solution ****************
+
+      23.24860 = final stress for 1-dimensional solution
+       0.00000 = final instability
+            31 = number of iterations
+
+
+
+
+     **************** 3-dimensional solution ****************
+
+      11.09182 = final stress for 3-dimensional solution
+       0.00000 = final instability
+            93 = number of iterations
+
+
+
+
+     **************** 2-dimensional solution ****************
+
+      16.33761 = final stress for 2-dimensional solution
+       0.00000 = final instability
+            72 = number of iterations
+
+
+
+
+     **************** 1-dimensional solution ****************
+
+      22.74499 = final stress for 1-dimensional solution
+       0.00000 = final instability
+            50 = number of iterations
+
+
+
+
+     **************** 3-dimensional solution ****************
+
+      11.62352 = final stress for 3-dimensional solution
+       0.00000 = final instability
+           100 = number of iterations
+
+
+
+
+     **************** 2-dimensional solution ****************
+
+      17.12971 = final stress for 2-dimensional solution
+       0.00000 = final instability
+            95 = number of iterations
+
+
+
+
+     **************** 1-dimensional solution ****************
+
+      23.24113 = final stress for 1-dimensional solution
+       0.00000 = final instability
+            38 = number of iterations
+
+
+
+
+     **************** 3-dimensional solution ****************
+
+      10.90189 = final stress for 3-dimensional solution
+       0.00000 = final instability
+            87 = number of iterations
+
+
+
+
+     **************** 2-dimensional solution ****************
+
+      16.60921 = final stress for 2-dimensional solution
+       0.00000 = final instability
+            38 = number of iterations
+
+
+
+
+     **************** 1-dimensional solution ****************
+
+      23.19255 = final stress for 1-dimensional solution
+       0.00000 = final instability
+            34 = number of iterations
+
+
+
+
+     **************** 3-dimensional solution ****************
+
+      11.17042 = final stress for 3-dimensional solution
+       0.00000 = final instability
+           105 = number of iterations
+
+
+
+
+     **************** 2-dimensional solution ****************
+
+      15.95773 = final stress for 2-dimensional solution
+       0.00000 = final instability
+           113 = number of iterations
+
+
+
+
+     **************** 1-dimensional solution ****************
+
+      22.48278 = final stress for 1-dimensional solution
+       0.00000 = final instability
+            36 = number of iterations
+
+
+
+
+     **************** 3-dimensional solution ****************
+
+      11.24210 = final stress for 3-dimensional solution
+       0.00000 = final instability
+            69 = number of iterations
+
+
+
+
+     **************** 2-dimensional solution ****************
+
+      16.94974 = final stress for 2-dimensional solution
+       0.00000 = final instability
+           146 = number of iterations
+
+
+
+
+     **************** 1-dimensional solution ****************
+
+      23.30271 = final stress for 1-dimensional solution
+       0.00000 = final instability
+            34 = number of iterations
+
+
+
+
+     **************** 3-dimensional solution ****************
+
+      10.90985 = final stress for 3-dimensional solution
+       0.00000 = final instability
+            84 = number of iterations
+
+
+
+
+     **************** 2-dimensional solution ****************
+
+      16.90081 = final stress for 2-dimensional solution
+       0.00000 = final instability
+            82 = number of iterations
+
+
+
+
+     **************** 1-dimensional solution ****************
+
+      23.03510 = final stress for 1-dimensional solution
+       0.00000 = final instability
+            48 = number of iterations
+
+
+
+
+     **************** 3-dimensional solution ****************
+
+      11.18041 = final stress for 3-dimensional solution
+       0.00000 = final instability
+           113 = number of iterations
+
+
+
+
+     **************** 2-dimensional solution ****************
+
+      16.77657 = final stress for 2-dimensional solution
+       0.00000 = final instability
+            88 = number of iterations
+
+
+
+
+     **************** 1-dimensional solution ****************
+
+      23.09345 = final stress for 1-dimensional solution
+       0.00000 = final instability
+            50 = number of iterations
+
+
+
+
+     **************** 3-dimensional solution ****************
+
+      11.38764 = final stress for 3-dimensional solution
+       0.00000 = final instability
+            64 = number of iterations
+
+
+
+
+     **************** 2-dimensional solution ****************
+
+      16.62820 = final stress for 2-dimensional solution
+       0.00000 = final instability
+            88 = number of iterations
+
+
+
+
+     **************** 1-dimensional solution ****************
+
+      23.07432 = final stress for 1-dimensional solution
+       0.00000 = final instability
+            46 = number of iterations
+
+
+
+
+     **************** 3-dimensional solution ****************
+
+      11.16503 = final stress for 3-dimensional solution
+       0.00000 = final instability
+           105 = number of iterations
+
+
+
+
+     **************** 2-dimensional solution ****************
+
+      16.71356 = final stress for 2-dimensional solution
+       0.00000 = final instability
+            94 = number of iterations
+
+
+
+
+     **************** 1-dimensional solution ****************
+
+      22.98776 = final stress for 1-dimensional solution
+       0.00000 = final instability
+            50 = number of iterations
+
+
+
+
+     **************** 3-dimensional solution ****************
+
+      11.11881 = final stress for 3-dimensional solution
+       0.00000 = final instability
+           136 = number of iterations
+
+
+
+
+     **************** 2-dimensional solution ****************
+
+      17.07275 = final stress for 2-dimensional solution
+       0.00000 = final instability
+           151 = number of iterations
+
+
+
+
+     **************** 1-dimensional solution ****************
+
+      23.06925 = final stress for 1-dimensional solution
+       0.00000 = final instability
+            48 = number of iterations
+
+
+
+
+     **************** 3-dimensional solution ****************
+
+      11.16253 = final stress for 3-dimensional solution
+       0.00000 = final instability
+           117 = number of iterations
+
+
+
+
+     **************** 2-dimensional solution ****************
+
+      17.13345 = final stress for 2-dimensional solution
+       0.00000 = final instability
+           105 = number of iterations
+
+
+
+
+     **************** 1-dimensional solution ****************
+
+      22.94942 = final stress for 1-dimensional solution
+       0.00000 = final instability
+            48 = number of iterations
+
+
+
+
+     **************** 3-dimensional solution ****************
+
+      11.01762 = final stress for 3-dimensional solution
+       0.00000 = final instability
+           106 = number of iterations
+
+
+
+
+     **************** 2-dimensional solution ****************
+
+      16.95440 = final stress for 2-dimensional solution
+       0.00000 = final instability
+           107 = number of iterations
+
+
+
+
+     **************** 1-dimensional solution ****************
+
+      22.88381 = final stress for 1-dimensional solution
+       0.00000 = final instability
+            48 = number of iterations
+
+
+
+
+     **************** 3-dimensional solution ****************
+
+      11.70781 = final stress for 3-dimensional solution
+       0.00000 = final instability
+            97 = number of iterations
+
+
+
+
+     **************** 2-dimensional solution ****************
+
+      16.82590 = final stress for 2-dimensional solution
+       0.00000 = final instability
+           154 = number of iterations
+
+
+
+
+     **************** 1-dimensional solution ****************
+
+      23.00056 = final stress for 1-dimensional solution
+       0.00000 = final instability
+            48 = number of iterations
+
+
+
+
+     **************** 3-dimensional solution ****************
+
+      11.40620 = final stress for 3-dimensional solution
+       0.00000 = final instability
+           119 = number of iterations
+
+
+
+
+     **************** 2-dimensional solution ****************
+
+      16.50092 = final stress for 2-dimensional solution
+       0.00000 = final instability
+            70 = number of iterations
+
+
+
+
+     **************** 1-dimensional solution ****************
+
+      23.18504 = final stress for 1-dimensional solution
+       0.00000 = final instability
+            38 = number of iterations
+
+
+
+
+     **************** 3-dimensional solution ****************
+
+      11.05729 = final stress for 3-dimensional solution
+       0.00000 = final instability
+            92 = number of iterations
+
+
+
+
+     **************** 2-dimensional solution ****************
+
+      16.24617 = final stress for 2-dimensional solution
+       0.00000 = final instability
+            88 = number of iterations
+
+
+
+
+     **************** 1-dimensional solution ****************
+
+      23.29190 = final stress for 1-dimensional solution
+       0.00000 = final instability
+            33 = number of iterations
+
+
+
+
+     **************** 3-dimensional solution ****************
+
+      11.02327 = final stress for 3-dimensional solution
+       0.00000 = final instability
+            75 = number of iterations
+
+
+
+
+     **************** 2-dimensional solution ****************
+
+      17.24436 = final stress for 2-dimensional solution
+       0.00000 = final instability
+            90 = number of iterations
+
+
+
+
+     **************** 1-dimensional solution ****************
+
+      23.38085 = final stress for 1-dimensional solution
+       0.00000 = final instability
+            40 = number of iterations
+
+
+
+
+     **************** 3-dimensional solution ****************
+
+      11.80599 = final stress for 3-dimensional solution
+       0.00000 = final instability
+           118 = number of iterations
+
+
+
+
+     **************** 2-dimensional solution ****************
+
+      16.41355 = final stress for 2-dimensional solution
+       0.00000 = final instability
+           189 = number of iterations
+
+
+
+
+     **************** 1-dimensional solution ****************
+
+      22.95947 = final stress for 1-dimensional solution
+       0.00000 = final instability
+            48 = number of iterations
+
+
+
+
+     **************** 3-dimensional solution ****************
+
+      11.60074 = final stress for 3-dimensional solution
+       0.00000 = final instability
+            88 = number of iterations
+
+
+
+
+     **************** 2-dimensional solution ****************
+
+      16.57824 = final stress for 2-dimensional solution
+       0.00000 = final instability
+            76 = number of iterations
+
+
+
+
+     **************** 1-dimensional solution ****************
+
+      23.09953 = final stress for 1-dimensional solution
+       0.00000 = final instability
+            45 = number of iterations
+
+
+
+
+     **************** 3-dimensional solution ****************
+
+      11.33563 = final stress for 3-dimensional solution
+       0.00000 = final instability
+           116 = number of iterations
+
+
+
+
+     **************** 2-dimensional solution ****************
+
+      16.09171 = final stress for 2-dimensional solution
+       0.00000 = final instability
+            78 = number of iterations
+
+
+
+
+     **************** 1-dimensional solution ****************
+
+      23.01767 = final stress for 1-dimensional solution
+       0.00000 = final instability
+            45 = number of iterations
+
+
+
+
+     **************** 3-dimensional solution ****************
+
+      11.14699 = final stress for 3-dimensional solution
+       0.00000 = final instability
+           142 = number of iterations
+
+
+
+
+     **************** 2-dimensional solution ****************
+
+      17.57968 = final stress for 2-dimensional solution
+       0.00000 = final instability
+            69 = number of iterations
+
+
+
+
+     **************** 1-dimensional solution ****************
+
+      23.16233 = final stress for 1-dimensional solution
+       0.00000 = final instability
+            42 = number of iterations
+
+
+
+
+     **************** 3-dimensional solution ****************
+
+      10.90274 = final stress for 3-dimensional solution
+       0.00000 = final instability
+           125 = number of iterations
+
+
+
+
+     **************** 2-dimensional solution ****************
+
+      16.74976 = final stress for 2-dimensional solution
+       0.00000 = final instability
+            87 = number of iterations
+
+
+
+
+     **************** 1-dimensional solution ****************
+
+      23.07708 = final stress for 1-dimensional solution
+       0.00000 = final instability
+            38 = number of iterations
+
+
+
+
+     **************** 3-dimensional solution ****************
+
+      11.20966 = final stress for 3-dimensional solution
+       0.00000 = final instability
+           143 = number of iterations
+
+
+
+
+     **************** 2-dimensional solution ****************
+
+      15.68439 = final stress for 2-dimensional solution
+       0.00000 = final instability
+            70 = number of iterations
+
+
+
+
+     **************** 1-dimensional solution ****************
+
+      22.50876 = final stress for 1-dimensional solution
+       0.00000 = final instability
+            41 = number of iterations
+
+
+
+
+     **************** 3-dimensional solution ****************
+
+      10.98320 = final stress for 3-dimensional solution
+       0.00000 = final instability
+           112 = number of iterations
+
+
+
+
+     **************** 2-dimensional solution ****************
+
+      16.98005 = final stress for 2-dimensional solution
+       0.00000 = final instability
+           110 = number of iterations
+
+
+
+
+     **************** 1-dimensional solution ****************
+
+      22.73038 = final stress for 1-dimensional solution
+       0.00000 = final instability
+            51 = number of iterations
+
+
+
+
+     **************** 3-dimensional solution ****************
+
+      10.99489 = final stress for 3-dimensional solution
+       0.00000 = final instability
+           101 = number of iterations
+
+
+
+
+     **************** 2-dimensional solution ****************
+
+      17.68074 = final stress for 2-dimensional solution
+       0.00000 = final instability
+            90 = number of iterations
+
+
+
+
+     **************** 1-dimensional solution ****************
+
+      22.95381 = final stress for 1-dimensional solution
+       0.00000 = final instability
+            44 = number of iterations
+
+
+
+
+     **************** 3-dimensional solution ****************
+
+      11.24438 = final stress for 3-dimensional solution
+       0.00000 = final instability
+            92 = number of iterations
+
+
+
+
+     **************** 2-dimensional solution ****************
+
+      16.13332 = final stress for 2-dimensional solution
+       0.00000 = final instability
+            66 = number of iterations
+
+
+
+
+     **************** 1-dimensional solution ****************
+
+      23.07172 = final stress for 1-dimensional solution
+       0.00000 = final instability
+            45 = number of iterations
+
+
+
+
+     **************** 3-dimensional solution ****************
+
+      11.26007 = final stress for 3-dimensional solution
+       0.00000 = final instability
+           102 = number of iterations
+
+
+
+
+     **************** 2-dimensional solution ****************
+
+      16.36006 = final stress for 2-dimensional solution
+       0.00000 = final instability
+           121 = number of iterations
+
+
+
+
+     **************** 1-dimensional solution ****************
+
+      23.25160 = final stress for 1-dimensional solution
+       0.00000 = final instability
+            48 = number of iterations
+
+
+
+
+     **************** 3-dimensional solution ****************
+
+      11.46938 = final stress for 3-dimensional solution
+       0.00000 = final instability
+           123 = number of iterations
+
+
+
+
+     **************** 2-dimensional solution ****************
+
+      16.89660 = final stress for 2-dimensional solution
+       0.00000 = final instability
+           113 = number of iterations
+
+
+
+
+     **************** 1-dimensional solution ****************
+
+      22.97308 = final stress for 1-dimensional solution
+       0.00000 = final instability
+            48 = number of iterations
+
+
+
+
+     **************** 3-dimensional solution ****************
+
+      11.07510 = final stress for 3-dimensional solution
+       0.00000 = final instability
+            83 = number of iterations
+
+
+
+
+     **************** 2-dimensional solution ****************
+
+      16.60300 = final stress for 2-dimensional solution
+       0.00000 = final instability
+           114 = number of iterations
+
+
+
+
+     **************** 1-dimensional solution ****************
+
+      22.80776 = final stress for 1-dimensional solution
+       0.00000 = final instability
+            44 = number of iterations
+
+
+
+
+     **************** 3-dimensional solution ****************
+
+      11.52781 = final stress for 3-dimensional solution
+       0.00000 = final instability
+           142 = number of iterations
+
+
+
+
+     **************** 2-dimensional solution ****************
+
+      16.43640 = final stress for 2-dimensional solution
+       0.00000 = final instability
+            87 = number of iterations
+
+
+
+
+     **************** 1-dimensional solution ****************
+
+      22.92638 = final stress for 1-dimensional solution
+       0.00000 = final instability
+            49 = number of iterations
+
+
+
+
+     **************** 3-dimensional solution ****************
+
+      11.20025 = final stress for 3-dimensional solution
+       0.00000 = final instability
+           103 = number of iterations
+
+
+
+
+     **************** 2-dimensional solution ****************
+
+      17.61362 = final stress for 2-dimensional solution
+       0.00000 = final instability
+            81 = number of iterations
+
+
+
+
+     **************** 1-dimensional solution ****************
+
+      22.99021 = final stress for 1-dimensional solution
+       0.00000 = final instability
+            48 = number of iterations
+
+
+
+
+     **************** 3-dimensional solution ****************
+
+      11.07066 = final stress for 3-dimensional solution
+       0.00000 = final instability
+            60 = number of iterations
+
+
+
+
+     **************** 2-dimensional solution ****************
+
+      16.86782 = final stress for 2-dimensional solution
+       0.00000 = final instability
+            75 = number of iterations
+
+
+
+
+     **************** 1-dimensional solution ****************
+
+      22.91375 = final stress for 1-dimensional solution
+       0.00000 = final instability
+            47 = number of iterations
+
+
+
+
+     **************** 3-dimensional solution ****************
+
+      11.03774 = final stress for 3-dimensional solution
+       0.00000 = final instability
+           136 = number of iterations
+
+
+
+
+     **************** 2-dimensional solution ****************
+
+      17.00116 = final stress for 2-dimensional solution
+       0.00000 = final instability
+           155 = number of iterations
+
+
+
+
+     **************** 1-dimensional solution ****************
+
+      22.96964 = final stress for 1-dimensional solution
+       0.00000 = final instability
+            43 = number of iterations
+
+
+
+
+     **************** 3-dimensional solution ****************
+
+      11.08647 = final stress for 3-dimensional solution
+       0.00000 = final instability
+           124 = number of iterations
+
+
+
+
+     **************** 2-dimensional solution ****************
+
+      17.48897 = final stress for 2-dimensional solution
+       0.00000 = final instability
+           106 = number of iterations
+
+
+
+
+     **************** 1-dimensional solution ****************
+
+      23.15284 = final stress for 1-dimensional solution
+       0.00000 = final instability
+            44 = number of iterations
+
+
+
+
+     **************** 3-dimensional solution ****************
+
+      10.98296 = final stress for 3-dimensional solution
+       0.00000 = final instability
+           169 = number of iterations
+
+
+
+
+     **************** 2-dimensional solution ****************
+
+      17.17101 = final stress for 2-dimensional solution
+       0.00000 = final instability
+           107 = number of iterations
+
+
+
+
+     **************** 1-dimensional solution ****************
+
+      22.83580 = final stress for 1-dimensional solution
+       0.00000 = final instability
+            50 = number of iterations
+
+
+
+
+     **************** 3-dimensional solution ****************
+
+      10.96234 = final stress for 3-dimensional solution
+       0.00000 = final instability
+           103 = number of iterations
+
+
+
+
+     **************** 2-dimensional solution ****************
+
+      16.30232 = final stress for 2-dimensional solution
+       0.00000 = final instability
+            83 = number of iterations
+
+
+
+
+     **************** 1-dimensional solution ****************
+
+      23.43487 = final stress for 1-dimensional solution
+       0.00000 = final instability
+            40 = number of iterations
+
+
+
+
+     **************** 3-dimensional solution ****************
+
+      11.06770 = final stress for 3-dimensional solution
+       0.00000 = final instability
+           104 = number of iterations
+
+
+
+
+     **************** 2-dimensional solution ****************
+
+      16.48223 = final stress for 2-dimensional solution
+       0.00000 = final instability
+            89 = number of iterations
+
+
+
+
+     **************** 1-dimensional solution ****************
+
+      22.79365 = final stress for 1-dimensional solution
+       0.00000 = final instability
+            53 = number of iterations
+
+
+
+
+     **************** 3-dimensional solution ****************
+
+      11.02840 = final stress for 3-dimensional solution
+       0.00000 = final instability
+            65 = number of iterations
+
+
+
+
+     **************** 2-dimensional solution ****************
+
+      16.88720 = final stress for 2-dimensional solution
+       0.00000 = final instability
+            76 = number of iterations
+
+
+
+
+     **************** 1-dimensional solution ****************
+
+      22.87119 = final stress for 1-dimensional solution
+       0.00000 = final instability
+            51 = number of iterations
+
+
+
+
+     **************** 3-dimensional solution ****************
+
+      11.19421 = final stress for 3-dimensional solution
+       0.00000 = final instability
+           106 = number of iterations
+
+
+
+
+     **************** 2-dimensional solution ****************
+
+      16.71798 = final stress for 2-dimensional solution
+       0.00000 = final instability
+            91 = number of iterations
+
+
+
+
+     **************** 1-dimensional solution ****************
+
+      23.18692 = final stress for 1-dimensional solution
+       0.00000 = final instability
+            45 = number of iterations
+
+
+
+
+     **************** 3-dimensional solution ****************
+
+      10.98083 = final stress for 3-dimensional solution
+       0.00000 = final instability
+            80 = number of iterations
+
+
+
+
+     **************** 2-dimensional solution ****************
+
+      16.82067 = final stress for 2-dimensional solution
+       0.00000 = final instability
+           100 = number of iterations
+
+
+
+
+     **************** 1-dimensional solution ****************
+
+      22.81992 = final stress for 1-dimensional solution
+       0.00000 = final instability
+            49 = number of iterations
+
+
+
+
+     **************** 3-dimensional solution ****************
+
+      11.00491 = final stress for 3-dimensional solution
+       0.00000 = final instability
+            92 = number of iterations
+
+
+
+
+     **************** 2-dimensional solution ****************
+
+      16.18456 = final stress for 2-dimensional solution
+       0.00000 = final instability
+            71 = number of iterations
+
+
+
+
+     **************** 1-dimensional solution ****************
+
+      23.16723 = final stress for 1-dimensional solution
+       0.00000 = final instability
+            44 = number of iterations
+
 
 STRESS IN RELATION TO DIMENSIONALITY (Number of Axes)
--------------------------------------------------------------------------------------
+--------------------------------------------------------------------
           Stress in real data          Stress in randomized data
-               50 run(s)               Monte Carlo test,   50 runs
-      -------------------------  ----------------------------------------------------
-Axes  Minimum     Mean  Maximum  Minimum     Mean  Maximum      p         n      C
--------------------------------------------------------------------------------------
-   1   22.223   23.006   23.436    0.000   32.246   47.878    0.2745     13    0.2865
-   2   15.686   16.720   17.654    0.002   17.515   25.513    0.2745     13    0.0454
-   3   10.900   11.250   11.917    0.001   11.758   17.770    0.2745     13    0.0432
-   4    7.589    7.816    8.350    0.003    8.803   12.512    0.2745     13    0.1122
--------------------------------------------------------------------------------------
+              100 run(s)               Monte Carlo test,    0 runs
+      -------------------------  -----------------------------------
+Axes  Minimum     Mean  Maximum  Minimum     Mean  Maximum      p
+--------------------------------------------------------------------
+   1   22.152   23.015   23.493
+   2   15.684   16.708   17.703
+   3   10.902   11.220   12.069
+--------------------------------------------------------------------
 p = proportion of randomized runs with stress < or = observed stress
-i.e., p  = (1 + n)/(1 + N)
-      n = no. permutations <= observed
-      N = no. permutations
-      C = Cohesion = 1 - SmeanObserved/SmeanRand)
+i.e., p  = (1 + no. permutations <= observed)/(1 + no. permutations)
 
-Randomizing data resulted in undefined distances.
-Data were reshuffled for this reason a total of     1 times.
 
-Conclusion:  a useful NMS ordination was not found.
-   The data may be weakly structured or data problems
-   may be interfering with NMS finding a good solution.
-   Two common examples of such problems are outliers 
-   and single variables having drastically greater weight
-   than the other variables.  Check for the former with
-   Summary | Outlier Analysis.  Check for the latter with
-   Summary | Row and Column Summary, then compare totals
-   and standard deviations of the columns.
+Conclusion:  a 2-dimensional solution is recommended.
 
-******************** NMS ordination completed ********************
- 8 May 2023, 11:32:50
-        2.22 minutes elapsed time.
+Selected file CONFIG2.GPH  for the starting configuration for
+   the final run.
+
+
+2020-2022 NMS                                                                   
+Ordination of Plots    in Variable space.        198 Plots          10 Variable
+
+         The following options were selected:
+ANALYSIS OPTIONS
+         1.   SORENSEN = Distance measure
+         2.          2 = Number of axes (max. = 6)
+         3.        500 = Maximum number of iterations
+         4.  FROM FILE = Starting coordinates (random or from file)
+         5.          2 = Reduction in dimensionality at each cycle
+         6. NO PENALTY = Tie handling (Strategy 1 does not penalize
+                         ties with unequal ordination distance,
+                         while strategy 2 does penalize.)
+         7.       0.20 = Step length (rate of movement toward minimum stress)
+         8.   USE TIME = Random number seeds (use time vs. user-supplied)
+         9.          1 = Number of runs with real data
+        10.          0 = Number of runs with randomized data
+        11.         NO = Autopilot
+        12.   0.000001 = Stability criterion, standard deviations in stress
+                         over last  10 iterations.
+OUTPUT OPTIONS
+        14.         NO = Write distance matrix?
+        15.         NO = Write starting coordinates?
+        16.         NO = List stress, etc. for each iteration?
+        17.        YES = Plot stress vs. iteration?
+        18.         NO = Plot distance vs. dissimilarity?
+        19.        YES = Write final configuration?
+        20. PRINC.AXES = Write varimax-rotated, principal axes, or unrotated scores for graph?
+        21.         NO = Write run log?
+        22.         NO = Write weighted-average scores for Variable?
+------------------------------------------------------------------------------
+
+
+File containing starting coordinates:
+CONFIG2.GPH                                                                                                                                                                                                                                     
+
+
+
+
+     **************** 2-dimensional solution ****************
+
+      15.68421 = final stress for 2-dimensional solution
+       0.00000 = final instability
+            70 = number of iterations
+
+Final configuration (ordination scores) for this run
+    Plots             Axis
+Number Name              1          2
+     1 R1.1.22      0.2185    -0.7114
+     2 R1.2.22     -0.4592    -1.7756
+     3 R1.3.22     -1.2359    -1.4055
+     4 R1.4.22     -1.0799    -1.6691
+     5 R1.5.22     -1.2041    -0.7760
+     6 R1.6.22     -1.1882    -1.6678
+     7 R1.7.22     -1.6561    -1.3786
+     8 R1.8.22     -2.0004    -0.7915
+     9 R1.9.22     -1.3301    -1.7241
+    10 R1.10.22    -1.6768    -0.0327
+    11 R1.11.22     0.1285    -0.8951
+    12 R1.12.22     0.3860    -0.5083
+    13 R1.13.22     0.1201    -0.3388
+    14 R1.14.22     0.3561     0.7293
+    15 R1.15.22     0.5243     0.6125
+    16 R1.16.22     0.7332     1.9654
+    17 R1.17.22     0.0204     0.4526
+    18 R1.18.22     0.2001    -0.1088
+    19 R1.19.22     0.1972     0.3044
+    20 R1.20.22     0.1416     0.4958
+    21 R1.21.22     0.0777     0.7448
+    22 R1.22.22     0.0974     0.4994
+    23 R2.1.22      0.3162     0.0235
+    24 R2.2.22      0.4030    -0.1355
+    25 R2.3.22      0.4904    -0.2994
+    26 R2.4.22     -0.3504    -1.4473
+    27 R2.5.22     -0.0215    -0.2504
+    28 R2.6.22     -0.2150     0.3309
+    29 R2.7.22      0.1061     0.6807
+    30 R2.8.22     -0.2267     0.5895
+    31 R2.9.22     -0.0562     0.5405
+    32 R2.10.22     0.0683    -0.0238
+    33 R2.11.22    -0.7287     0.8738
+    34 R2.12.22     0.2245    -0.3985
+    35 R2.13.22    -0.8367     0.6427
+    36 R2.14.22    -0.1100     1.0299
+    37 R2.15.22    -0.0170     0.8208
+    38 R2.16.22     0.3988    -0.0101
+    39 R2.17.22     0.5668     0.1727
+    40 R2.18.22     0.1918     0.9111
+    41 R2.19.22     0.6587     0.4390
+    42 R2.20.22     0.1284     0.6143
+    43 R3.1.22      0.3079     0.0581
+    44 R3.2.22     -0.4777     0.4092
+    45 R3.3.22     -0.1056     0.2777
+    46 R3.4.22      0.6831    -0.4426
+    47 R3.5.22      0.2441    -0.5787
+    48 R3.6.22      0.2507    -0.6672
+    49 R3.7.22     -0.8555    -0.0934
+    50 R3.8.22      0.4116    -0.3798
+    51 R3.9.22      0.7146    -0.5446
+    52 R3.10.22     0.0402    -0.1257
+    53 R3.11.22    -0.0502     0.0657
+    54 R3.12.22    -0.0863     0.9690
+    55 R3.13.22     0.0391     0.2053
+    56 R3.14.22    -0.1944     0.4251
+    57 R3.15.22    -0.5656     0.8418
+    58 R3.16.22     0.2771     0.1312
+    59 R3.17.22     0.3684     0.5519
+    60 R3.18.22     0.0410     0.1485
+    61 R3.19.22    -0.7465     0.9665
+    62 R3.20.22    -0.0067     0.8069
+    63 R3.21.22     0.3400    -0.0384
+    64 R3.22.22     0.0300     0.1898
+    65 R3.23.22     0.4533    -0.0015
+    66 R3.24.22    -0.3525     0.1481
+    67 R3.25.22    -0.5664     0.4596
+    68 R4.1.22      0.5071    -0.1910
+    69 R4.2.22      0.2822     0.2275
+    70 R4.3.22      0.4495    -0.1486
+    71 R4.4.22      0.6402     0.2623
+    72 R4.5.22      0.4114    -0.3218
+    73 R4.6.22      0.0037     0.0472
+    74 R4.7.22      0.3202     0.1051
+    75 R4.8.22      0.2240     0.3513
+    76 R4.9.22     -0.1748     0.0932
+    77 R4.10.22     0.1976     0.1249
+    78 R4.11.22    -0.4493     0.5756
+    79 R4.12.22    -1.2296     0.7925
+    80 R4.13.22    -0.0286     1.0031
+    81 R4.14.22     0.3976     0.3905
+    82 R4.15.22     0.1222     0.6795
+    83 R4.16.22     0.1385     0.8166
+    84 R4.17.22     0.0544     0.7221
+    85 R4.18.22    -1.1049     0.8662
+    86 R4.19.22     0.2176     0.0650
+    87 R4.20.22     0.1884     0.4045
+    88 R4.21.22     0.0389     1.0803
+    89 R4.22.22     0.5530     0.7747
+    90 R4.23.22     0.0961     0.2411
+    91 R4.24.22    -0.0263     0.9778
+    92 R4.25.22     0.2144     0.3613
+    93 R4.26.22     0.2917     0.6345
+    94 R4.27.22     0.1547     1.0976
+    95 R4.28.22     0.4042     0.3327
+    96 R4.29.22     0.1297     0.5421
+    97 R4.30.22     0.2776     0.3829
+    98 R4.31.22     0.3979    -0.1514
+    99 R4.32.22     0.2421     0.4352
+   100 R1.1.20     -0.6401    -0.9903
+   101 R1.2.20     -2.1479    -0.4881
+   102 R1.3.20     -1.0326    -1.7829
+   103 R1.4.20     -2.1479    -0.4880
+   104 R1.5.20     -0.8970    -1.8129
+   105 R1.6.20     -1.3253    -1.1474
+   106 R1.7.20     -3.9340    -4.0613
+   107 R1.8.20     -1.3189    -1.5086
+   108 R1.9.20     -1.4119    -1.3588
+   109 R1.10.20    -1.5674    -1.4158
+   110 R1.11.20    -2.1479    -0.4879
+   111 R1.12.20    -0.3687    -1.7458
+   112 R1.13.20     0.7206    -0.6012
+   113 R1.14.20     0.6839    -0.5268
+   114 R1.15.20     0.4101    -0.4375
+   115 R1.16.20     1.1636    -0.1219
+   116 R1.17.20     1.5714     0.2546
+   117 R1.18.20     0.8938    -0.5576
+   118 R1.19.20     0.3232     0.0500
+   119 R1.20.20     0.2458     0.0534
+   120 R1.21.20     0.0045     0.8432
+   121 R1.22.20     0.8418     1.0024
+   122 R2.1.20      0.4436     0.2588
+   123 R2.2.20      0.2634     0.2577
+   124 R2.3.20     -0.5267    -0.6622
+   125 R2.4.20      0.6336    -0.4946
+   126 R2.5.20      0.1329    -0.5893
+   127 R2.6.20     -0.3032     0.2998
+   128 R2.7.20      0.3650    -0.0099
+   129 R2.8.20     -0.7437     0.4911
+   130 R2.9.20      0.0563     0.3096
+   131 R2.10.20     0.1653    -0.1896
+   132 R2.11.20     0.1859     0.0580
+   133 R2.12.20    -0.0721    -0.3259
+   134 R2.13.20    -1.0866    -0.0915
+   135 R2.14.20    -0.3438     0.7919
+   136 R2.15.20     0.1389     0.3276
+   137 R2.16.20     0.3610     0.0885
+   138 R2.17.20     0.5625    -0.5225
+   139 R2.18.20    -0.3681    -0.3255
+   140 R2.19.20    -1.0367     0.5838
+   141 R2.20.20     0.3617     0.0357
+   142 R3.1.20      0.0878    -0.1496
+   143 R3.2.20      0.4646    -0.3462
+   144 R3.3.20      0.1657    -0.0962
+   145 R3.4.20      0.6499    -0.5480
+   146 R3.5.20      0.7639    -0.4455
+   147 R3.6.20      0.7471    -0.4004
+   148 R3.7.20      0.7346    -0.5510
+   149 R3.8.20      0.7106    -0.5322
+   150 R3.9.20      0.5841    -0.5653
+   151 R3.10.20     0.1980    -0.8196
+   152 R3.11.20     0.5952    -0.4652
+   153 R3.12.20     0.2028    -0.2535
+   154 R3.13.20     0.3631     0.1061
+   155 R3.14.20     0.1700     0.3766
+   156 R3.15.20    -0.0662     0.3046
+   157 R3.16.20     0.7021    -0.1803
+   158 R3.17.20     0.3272    -0.1753
+   159 R3.18.20     0.2741     0.0443
+   160 R3.19.20     0.1518     0.0405
+   161 R3.20.20     0.0327     0.2417
+   162 R3.21.20     0.4141    -0.0927
+   163 R3.22.20    -0.8407     0.7610
+   164 R3.23.20    -0.4356     0.3008
+   165 R3.24.20    -0.7024     0.5569
+   166 R3.25.20    -0.7382     0.8209
+   167 R4.1.20      0.8919     0.3472
+   168 R4.2.20      1.2161     0.5575
+   169 R4.3.20      0.8625     0.0674
+   170 R4.4.20     -0.8278     0.4771
+   171 R4.5.20      0.3567    -0.2797
+   172 R4.6.20      0.6786    -0.3329
+   173 R4.7.20      0.3098     0.1321
+   174 R4.8.20      0.3696     0.0448
+   175 R4.9.20      0.5559    -0.3174
+   176 R4.10.20     0.6396    -0.4206
+   177 R4.11.20     0.5848    -0.2643
+   178 R4.12.20    -0.4835     0.2465
+   179 R4.13.20     0.0667     0.1850
+   180 R4.14.20     0.7642     0.0490
+   181 R4.15.20     0.3606     0.0184
+   182 R4.16.20     0.2592     0.3475
+   183 R4.17.20     0.5071     0.0008
+   184 R4.18.20    -0.6832     0.2803
+   185 R4.19.20     0.2208    -0.5030
+   186 R4.20.20     0.5534     0.5161
+   187 R4.21.20     0.1868     0.6998
+   188 R4.22.20     0.5188     0.3535
+   189 R4.23.20     0.5316    -0.0674
+   190 R4.24.20     0.4818    -0.1556
+   191 R4.25.20     0.3439     0.3313
+   192 R4.26.20     0.3672    -0.0452
+   193 R4.27.20     0.4537     0.1820
+   194 R4.28.20     0.2675     0.2347
+   195 R4.29.20    -0.3320     0.7087
+   196 R4.30.20     0.2608     0.4220
+   197 R4.31.20     0.4751    -0.2797
+   198 R4.32.20     0.0810     1.0877
+
+
+
+
+      PLOT OF STRESS V. ITERATION NUMBER
+      (to prevent wrapping of wide plots when printing, use small font)
+
+       46.8988266........................................................................
+                 .                                                                      .
+                 .                                                                      .
+                 .*                                                                     .
+                 . *                                                                    .
+                 .  **                                                                  .
+                 .    *                                                                 .
+                 .     *                                                                .
+                 .      *                                                               .
+                 .       *                                                              .
+                 .        *                                                             .
+                 .         **                                                           .
+                 .           *                                                          .
+                 .            **                                                        .
+                 .              **                                                      .
+      STRESS     .                ***                                                   .
+                 .                   ******                                             .
+                 .                         *****                                        .
+                 .                              *******                                 .
+                 .                                     ***********                      .
+                 .                                                **********************.
+                 .                                                                      .
+                 .                                                                      .
+                 .                                                                      .
+                 .                                                                      .
+                 .                                                                      .
+                 .                                                                      .
+                 .                                                                      .
+                 .                                                                      .
+                 .                                                                      .
+                 .                                                                      .
+        0.0000000........................................................................
+                           10        20        30        40        50        60        70
+                      ITERATION NUMBER
+
+
+
+
+
+Principal axes rotation of 2-dimensional solution.
+
+Configuration after rotation is listed below.
+
+Final configuration (ordination scores) for this run
+    Plots             Axis
+Number Name              1          2
+     1 R1.1.22     -0.3537     0.6547
+     2 R1.2.22     -1.5875     0.9183
+     3 R1.3.22     -1.8686     0.1052
+     4 R1.4.22     -1.9471     0.4013
+     5 R1.5.22     -1.3977    -0.3137
+     6 R1.6.22     -2.0222     0.3232
+     7 R1.7.22     -2.1442    -0.2131
+     8 R1.8.22     -1.9673    -0.8704
+     9 R1.9.22     -2.1618     0.2616
+    10 R1.10.22    -1.1996    -1.1721
+    11 R1.11.22    -0.5477     0.7195
+    12 R1.12.22    -0.0914     0.6316
+    13 R1.13.22    -0.1572     0.3233
+    14 R1.14.22     0.7695    -0.2578
+    15 R1.15.22     0.8043    -0.0560
+    16 R1.16.22     1.9150    -0.8562
+    17 R1.17.22     0.3369    -0.3029
+    18 R1.18.22     0.0629     0.2189
+    19 R1.19.22     0.3553    -0.0730
+    20 R1.20.22     0.4527    -0.2469
+    21 R1.21.22     0.5853    -0.4671
+    22 R1.22.22     0.4242    -0.2809
+    23 R2.1.22      0.2385     0.2089
+    24 R2.2.22      0.1861     0.3823
+    25 R2.3.22      0.1307     0.5596
+    26 R2.4.22     -1.2772     0.7655
+    27 R2.5.22     -0.1936     0.1604
+    28 R2.6.22      0.0849    -0.3853
+    29 R2.7.22      0.5595    -0.4019
+    30 R2.8.22      0.2611    -0.5750
+    31 R2.9.22      0.3458    -0.4192
+    32 R2.10.22     0.0309     0.0654
+    33 R2.11.22     0.1115    -1.1323
+    34 R2.12.22    -0.1266     0.4395
+    35 R2.13.22    -0.1290    -1.0472
+    36 R2.14.22     0.6568    -0.8009
+    37 R2.15.22     0.5730    -0.5879
+    38 R2.16.22     0.2726     0.2913
+    39 R2.17.22     0.5207     0.2827
+    40 R2.18.22     0.7839    -0.5024
+    41 R2.19.22     0.7749     0.1615
+    42 R2.20.22     0.5278    -0.3394
+    43 R3.1.22      0.2574     0.1787
+    44 R3.2.22     -0.0435    -0.6275
+    45 R3.3.22      0.1238    -0.2701
+    46 R3.4.22      0.1638     0.7973
+    47 R3.5.22     -0.2412     0.5799
+    48 R3.6.22     -0.2996     0.6467
+    49 R3.7.22     -0.6666    -0.5442
+    50 R3.8.22      0.0181     0.5597
+    51 R3.9.22      0.1132     0.8913
+    52 R3.10.22    -0.0614     0.1169
+    53 R3.11.22     0.0116    -0.0818
+    54 R3.12.22     0.6301    -0.7412
+    55 R3.13.22     0.1737    -0.1162
+    56 R3.14.22     0.1666    -0.4368
+    57 R3.15.22     0.2032    -0.9936
+    58 R3.16.22     0.2879     0.1054
+    59 R3.17.22     0.6517    -0.1246
+    60 R3.18.22     0.1346    -0.0749
+    61 R3.19.22     0.1651    -1.2100
+    62 R3.20.22     0.5704    -0.5709
+    63 R3.21.22     0.2112     0.2692
+    64 R3.22.22     0.1564    -0.1118
+    65 R3.23.22     0.3170     0.3241
+    66 R3.24.22    -0.1418    -0.3551
+    67 R3.25.22    -0.0698    -0.7261
+    68 R4.1.22      0.2196     0.4954
+    69 R4.2.22      0.3601     0.0415
+    70 R4.3.22      0.2094     0.4246
+    71 R4.4.22      0.6360     0.2723
+    72 R4.5.22      0.0592     0.5189
+    73 R4.6.22      0.0362    -0.0305
+    74 R4.7.22      0.2996     0.1545
+    75 R4.8.22      0.4075    -0.0868
+    76 R4.9.22     -0.0562    -0.1900
+    77 R4.10.22     0.2277     0.0532
+    78 R4.11.22     0.0950    -0.7240
+    79 R4.12.22    -0.2978    -1.4322
+    80 R4.13.22     0.6948    -0.7241
+    81 R4.14.22     0.5572     0.0094
+    82 R4.15.22     0.5699    -0.3896
+    83 R4.16.22     0.6791    -0.4741
+    84 R4.17.22     0.5527    -0.4678
+    85 R4.18.22    -0.1578    -1.3951
+    86 R4.19.22     0.1990     0.1095
+    87 R4.20.22     0.4204    -0.1495
+    88 R4.21.22     0.7972    -0.7302
+    89 R4.22.22     0.9400    -0.1493
+    90 R4.23.22     0.2392    -0.1006
+    91 R4.24.22     0.6784    -0.7047
+    92 R4.25.22     0.4079    -0.1007
+    93 R4.26.22     0.6568    -0.2372
+    94 R4.27.22     0.8908    -0.6597
+    95 R4.28.22     0.5206     0.0546
+    96 R4.29.22     0.4773    -0.2879
+    97 R4.30.22     0.4676    -0.0708
+    98 R4.31.22     0.1712     0.3898
+    99 R4.32.22     0.4800    -0.1328
+   100 R1.1.20     -1.1548     0.2385
+   101 R1.2.20     -1.8546    -1.1883
+   102 R1.3.20     -1.9950     0.5148
+   103 R1.4.20     -1.8545    -1.1884
+   104 R1.5.20     -1.9213     0.6325
+   105 R1.6.20     -1.7474    -0.1396
+   106 R1.7.20     -5.6541     0.0454
+   107 R1.8.20     -2.0003     0.1184
+   108 R1.9.20     -1.9588    -0.0530
+   109 R1.10.20    -2.1085    -0.1239
+   110 R1.11.20    -1.8545    -1.1885
+   111 R1.12.20    -1.5028     0.9620
+   112 R1.13.20     0.0771     0.9353
+   113 R1.14.20     0.1043     0.8570
+   114 R1.15.20    -0.0241     0.5992
+   115 R1.16.20     0.7294     0.9148
+   116 R1.17.20     1.2838     0.9413
+   117 R1.18.20     0.2296     1.0282
+   118 R1.19.20     0.2624     0.1953
+   119 R1.20.20     0.2105     0.1377
+   120 R1.21.20     0.6041    -0.5884
+   121 R1.22.20     1.3048    -0.1033
+   122 R2.1.20      0.4957     0.1346
+   123 R2.2.20      0.3684     0.0070
+   124 R2.3.20     -0.8414     0.0892
+   125 R2.4.20      0.0920     0.7986
+   126 R2.5.20     -0.3267     0.5081
+   127 R2.6.20      0.0010    -0.4264
+   128 R2.7.20      0.2490     0.2670
+   129 R2.8.20     -0.1718    -0.8745
+   130 R2.9.20      0.2601    -0.1771
+   131 R2.10.20    -0.0192     0.2507
+   132 R2.11.20     0.1718     0.0918
+   133 R2.12.20    -0.2828     0.1772
+   134 R2.13.20    -0.8275    -0.7102
+   135 R2.14.20     0.3232    -0.8005
+   136 R2.15.20     0.3309    -0.1309
+   137 R2.16.20     0.3163     0.1952
+   138 R2.17.20     0.0222     0.7674
+   139 R2.18.20    -0.4902    -0.0340
+   140 R2.19.20    -0.3112    -1.1484
+   141 R2.20.20     0.2792     0.2327
+   142 R3.1.20     -0.0450     0.1675
+   143 R3.2.20      0.0792     0.5740
+   144 R3.3.20      0.0477     0.1856
+   145 R3.4.20      0.0654     0.8476
+   146 R3.5.20      0.2184     0.8569
+   147 R3.6.20      0.2387     0.8134
+   148 R3.7.20      0.1227     0.9100
+   149 R3.8.20      0.1192     0.8797
+   150 R3.9.20      0.0069     0.8128
+   151 R3.10.20    -0.4452     0.7161
+   152 R3.11.20     0.0860     0.7505
+   153 R3.12.20    -0.0384     0.3224
+   154 R3.13.20     0.3303     0.1843
+   155 R3.14.20     0.3877    -0.1431
+   156 R3.15.20     0.1706    -0.2609
+   157 R3.16.20     0.3640     0.6268
+   158 R3.17.20     0.1045     0.3562
+   159 R3.18.20     0.2239     0.1642
+   160 R3.19.20     0.1353     0.0797
+   161 R3.20.20     0.1952    -0.1463
+   162 R3.21.20     0.2244     0.3601
+   163 R3.22.20    -0.0474    -1.1330
+   164 R3.23.20    -0.0912    -0.5215
+   165 R3.24.20    -0.0958    -0.8912
+   166 R3.25.20     0.0672    -1.1019
+   167 R4.1.20      0.8731     0.3921
+   168 R4.2.20      1.2504     0.4756
+   169 R4.3.20      0.6531     0.5674
+   170 R4.4.20     -0.2407    -0.9246
+   171 R4.5.20      0.0509     0.4504
+   172 R4.6.20      0.2387     0.7171
+   173 R4.7.20      0.3115     0.1281
+   174 R4.8.20      0.2912     0.2320
+   175 R4.9.20      0.1638     0.6188
+   176 R4.10.20     0.1489     0.7509
+   177 R4.11.20     0.2219     0.6022
+   178 R4.12.20    -0.1636    -0.5175
+   179 R4.13.20     0.1787    -0.0822
+   180 R4.14.20     0.5710     0.5103
+   181 R4.15.20     0.2661     0.2441
+   182 R4.16.20     0.4295    -0.0590
+   183 R4.17.20     0.3564     0.3608
+   184 R4.18.20    -0.2795    -0.6835
+   185 R4.19.20    -0.2036     0.5102
+   186 R4.20.20     0.7560     0.0324
+   187 R4.21.20     0.6298    -0.3578
+   188 R4.22.20     0.6158     0.1218
+   189 R4.23.20     0.3249     0.4261
+   190 R4.24.20     0.2271     0.4525
+   191 R4.25.20     0.4774     0.0126
+   192 R4.26.20     0.2254     0.2934
+   193 R4.27.20     0.4480     0.1956
+   194 R4.28.20     0.3549     0.0260
+   195 R4.29.20     0.2722    -0.7338
+   196 R4.30.20     0.4837    -0.1102
+   197 R4.31.20     0.1339     0.5348
+   198 R4.32.20     0.8320    -0.7053
+ 8 May 2023, 13:03:39
+        1.95 minutes elapsed time.
+
+**************************** Calculations finished ****************************
+
+
+************************ Importing *.xlsx Format File ***********************
+PC-ORD, 6.08
+8 May 2023, 14:28
+
+     Import file: C:\Users\teddy\Desktop\boopz\thesis\round bald datas\2020-2022 ordination.xlsx
+
+     Excel Spreadsheet format
+
+****************************** Import completed ******************************
+8 May 2023, 14:28
