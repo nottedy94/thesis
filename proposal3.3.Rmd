@@ -99,7 +99,7 @@ In 2022, soil emergence was utilized for the sake of time and I plan to add a mo
 
 ### Analysis
 
-Data were compiled and entered into PC-ORD 6 [@PCORD6]
+Differences between the 2020 and 2022 plant community were analyzed using percent covers of vegetation and seedling emergence data. The initial question was to discover whether species percent covers were different between plots that were burned and plots that did not burn. Multi-response permutation procedure (MRPP) is a non-parametric test to describe difference between groups based on a chosen distance function [@PCORD6]. Sorensen's distance was calculated from the percent cover data. Categorical variables were removed from the data matrix and analysis was performed on a matrix of 198 plots by 10 species. The T score produced by MRPP indicates the degree of difference between groups, while the A-value is the effect size within groups, and a p-value to establish the level of test significance. Dominance curves were also used to examine the distribution of vegetation by percent cover between years. 
 
 
 # References

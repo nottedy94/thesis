@@ -234,3 +234,52 @@ Members:
 
 ****************************** MRPP finished ******************************
  8 May 2023, 11:36:22
+
+
+************************ Importing .xlsx Format File *************************
+PC-ORD, 7.09
+16 May 2023, 10:48:02
+
+     Import file: C:\Users\jonhi\OneDrive\Desktop\boopz\thesis\round bald datas\2020-2022 ordination.xlsx
+
+     Excel Spreadsheet format
+
+****************************** Import completed ******************************
+16 May 2023, 10:48:02
+
+
+************************ Importing .xlsx Format File *************************
+PC-ORD, 7.09
+17 May 2023, 10:13:52
+
+     Import file: C:\Users\jonhi\OneDrive\Desktop\boopz\thesis\round bald datas\2020-2022 ordination.xlsx
+
+     Excel Spreadsheet format
+
+****************************** Import completed ******************************
+17 May 2023, 10:13:52
+
+
+************************************* Dominance Curves *************************************
+PC-ORD, 7.09                
+17 May 2023, 10:16:03
+
+ Project file: C:\Users\jonhi\OneDrive\Desktop\boopz\thesis\round bald datas\2020vegedata.7prj
+  Main matrix: C:\Users\jonhi\AppData\Roaming\MjM Software Design\PCORD 7\WORK.MJM
+
+
+species      RankAbun   Log(SumAbund)       Sum     RankFreq   Freq      Mean         S.Dev.           CV%         V/M
+Grass               1    1.79239        62.0000            1     23    1.16981        2.56257        219.0584      5.6135
+Forb                2    1.56820        37.0000            2     18   0.698113        1.32411        189.6697      2.5114
+Rubus               3    1.04139        11.0000            3      8   0.207547       0.631192        304.1198      1.9196
+Fern                4    0.00000        1.00000            4      1   0.188679E-01   0.137361        728.0109      1.0000
+---------------------------------------------------------------------------------------------------------------------------
+
+
+Writing spreadsheet containing species abundances to Domin.CSV.
+If you wish to use this spreadsheet for purposes other than
+PC-ORD`s dominance curves, rename the file before running dominance
+curves again. Select Tools | View Application Folder to find this file.
+
+*************************Dominance calculations finished *************************
+17 May 2023, 10:16:03
