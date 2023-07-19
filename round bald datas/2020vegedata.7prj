@@ -1,6 +1,6 @@
 7.09
 Description
-2022 pca
+2020-2022 MRPP
 TransOption 1,2,3,4,6,7,8,10,11,12,13,14,15,16,17,18,19,20,21,22,24,25,26,27,28,29
 21
 PowerPValue 0.0, 9.0, 0.0
@@ -36,7 +36,7 @@ PCAOption 1, 3, 1
 PCAPrint 1, 2, 1
 2
 ClustrDistance 1, 11, 4
-4
+1
 ClustrMethod 1, 8, 6
 6
 DendrogramWidth 1, 2, 1
@@ -149,13 +149,13 @@ NmsRandomizationTest 1, 2, 2
 NmsRandomizationRuns 1, 15999, 249
 249
 MRPPGroupingMatrix 1, 2, 2
-1
-MRPPVarName
-SLOPE
-MRPPDistance 1, 11, 4
-4
-MRPPWeight 1, 2, 1
 2
+MRPPVarName
+FIRE
+MRPPDistance 1, 11, 4
+1
+MRPPWeight 1, 2, 1
+1
 MRPPExclude 1, 2, 1
 1
 MRPPTransform 1, 2, 1
@@ -183,7 +183,7 @@ Divisions 1, 14, 6
 BcordDistance 1, 11, 1
 1
 BcordEndPoint 1, 4, 2
-2
+1
 AxisProjection 1, 2, 1
 1
 ResidualDistances 1, 2, 1
@@ -360,7 +360,7 @@ ExpDbsOmitZeros 1, 2, 1
 SpeciesAreaDistance 1, 11, 1
 1
 MatrixOption 1, 5, 1=Main, 2=Second, 3=Traits, 4=Main and Second, 5=Main and Traits
-1
+2
 ClusterTwoWay 1, 2
 1
 CrudeDen 1, 2, 2
@@ -415,11 +415,11 @@ PerMANOVADesign 1, 5, 1
 PerMANOVADistance 1, 11, 1
 1
 PerMANOVAPairwise 1, 2, 1
-1
+2
 PerMANOVAFactor1
-GRUBUS
+FIRE
 PerMANOVAFactor2
-GGRASS
+YEAR
 PerMANOVAFactor3
 
 PerMANOVARandomOption 1, 2, 1
@@ -463,7 +463,7 @@ SummaryBreakDown 1, 2, 1
 FixedPercent 1.0, 100.0, 15.0
 15.
 MRPPPairwise 1, 2, 1
-1
+2
 ExpSingleLine 1, 2, 1
 1
 GleanAnalysis
@@ -642,7 +642,7 @@ C:\Users\jonhi\AppData\Roaming\MjM Software Design\PCORD 7\
 Second Matrix
 C:\Users\jonhi\AppData\Roaming\MjM Software Design\PCORD 7\
 Traits Matrix
-C:\Users\jonhi\AppData\Roaming\MjM Software Design\PCORD 7\
+
 TraitsDMeas 1, 2, 2
 2
 FuncDivStand 1, 3, 1
@@ -688,24 +688,24 @@ File=C:\Users\jonhi\AppData\Roaming\MjM Software Design\PCORD 7\
 [Second Window]
 File=C:\Users\jonhi\AppData\Roaming\MjM Software Design\PCORD 7\
 [Traits Window]
-File=C:\Users\jonhi\AppData\Roaming\MjM Software Design\PCORD 7\
+File=
 [Row Window]
-File=C:\Users\jonhi\AppData\Roaming\MjM Software Design\PCORD 7\
+File=
 [Column Window]
-File=C:\Users\jonhi\AppData\Roaming\MjM Software Design\PCORD 7\
+File=
 [Result Window]
-File=C:\Users\jonhi\OneDrive\Desktop\boopz\thesis\round bald datas\PCORD\
+File=C:\Users\jonhi\OneDrive\Desktop\boopz\thesis\round bald datas\PCORD\2020secmatrix.txt
 [Graph Options]
 Species Frequency=0
-Variance Distance=3
+Variance Distance=0
 Flexibility=8.2
 EnvelopeStdDev=2.0
 Envelope Sparse Data Type=0
-Envelope Min To Plot=3
+Envelope Min To Plot=4.97
 Frame Type=0
 Tick Type=1
 Label Points Row=0
-Label Points Col=0
+Label Points Col=1
 Plot Points Row=1
 Plot Points Col=1
 Symbols Row=3
@@ -718,8 +718,8 @@ Overlay Symbol Size=1
 Group Centroids Symbol=1000
 Graph Title=1
 Axis Titles=1
-Tick Marks=0
-Tick Labels=0
+Tick Marks=1
+Tick Labels=1
 Label Every Other Tick=1
 Overlay Tick Marks=1
 Show Quantitative=1
@@ -898,7 +898,7 @@ Color Joint Plots=0
 Color Column Lines=4
 Graph Color=0
 Labels From=0
-Quadrant Labeling=0
+Quadrant Labeling=1
 Show Weak Plexus=1
 Show Strong Plexus=1
 Weak Color=0
@@ -959,7 +959,7 @@ Hull Border Color=1
 Hull Borders=1
 One Axis=1
 Axis Scaling=0
-Variable Cutoff=.200
+Variable Cutoff=.002
 Vector Scale=100
 Graph Title Name=Arial
 Graph Title Size=18
@@ -1416,8 +1416,8 @@ Measure Of Spread=0
 Show Outliers=1
 Interquartile Cutoff=1.50
 SD Cutoff=2.00
-Box Matrix Var=
-Grouping Var=
+Box Matrix Var=GRASS
+Grouping Var=FIRE
 Nesting Var=
 Use Grouping Var=1
 Use Nesting Var=0
@@ -1504,8 +1504,8 @@ C:\Users\jonhi\OneDrive\Desktop\boopz\thesis\round bald datas\PCORD\2020-2022 or
 [Row History]
 C:\Users\jonhi\OneDrive\Desktop\boopz\thesis\round bald datas\PCORD\2020-2022 ordination.gph=H0
 [Column History]
-C:\Users\jonhi\OneDrive\Desktop\boopz\thesis\round bald datas\PCORD\2022 Eigenvalues.gph=H0
-C:\Users\jonhi\OneDrive\Desktop\boopz\thesis\round bald datas\PCORD\2020nms2.gph=H1
+C:\Users\jonhi\OneDrive\Desktop\boopz\thesis\round bald datas\PCORD\2020nms2.gph=H0
+C:\Users\jonhi\OneDrive\Desktop\boopz\thesis\round bald datas\PCORD\2022 Eigenvalues.gph=H1
 [Result History]
 C:\Users\jonhi\OneDrive\Desktop\boopz\thesis\round bald datas\PCORD\2020secmatrix.txt=H0
 [Dendrogram Window]
@@ -1513,15 +1513,17 @@ File=C:\Users\jonhi\AppData\Roaming\MjM Software Design\PCORD 7\DENDPREP.DEN
 [Dendrogram Two Way Window]
 File=
 [Species-Area Curves Window]
-File=
+File=C:\Users\jonhi\AppData\Roaming\MjM Software Design\PCORD 7\SPPAREA.SPA
 [Stress Window]
 File=C:\Users\jonhi\AppData\Roaming\MjM Software Design\PCORD 7\STRESS.STR
+[Save All History]
+C:\Users\jonhi\OneDrive\Desktop\boopz\thesis\round bald datas\=H0
 [Vectors]
 Unit/Time=0
 Translation=0
 Translate All Axes=1
 [Graphs]
-Save Type=1
+Save Type=4
 [Envelope Curves]
 Fix FileName=
 CSV FileName=

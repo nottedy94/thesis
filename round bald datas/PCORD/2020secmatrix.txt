@@ -283,3 +283,205 @@ curves again. Select Tools | View Application Folder to find this file.
 
 *************************Dominance calculations finished *************************
 17 May 2023, 10:16:03
+
+
+************************ Importing .xlsx Format File *************************
+PC-ORD, 7.09
+17 May 2023, 13:48:53
+
+     Import file: C:\Users\jonhi\OneDrive\Desktop\boopz\thesis\round bald datas\2020-2022 ordination.xlsx
+
+     Excel Spreadsheet format
+
+****************************** Import completed ******************************
+17 May 2023, 13:48:53
+
+
+************************ Importing .xlsx Format File *************************
+PC-ORD, 7.09
+17 May 2023, 13:49:39
+
+     Import file: C:\Users\jonhi\OneDrive\Desktop\boopz\thesis\round bald datas\2020-2022 ordination.xlsx
+
+     Excel Spreadsheet format
+
+****************************** Import completed ******************************
+17 May 2023, 13:49:39
+
+
+************************ Importing .xlsx Format File *************************
+PC-ORD, 7.09
+17 May 2023, 13:55:17
+
+     Import file: C:\Users\jonhi\OneDrive\Desktop\boopz\thesis\round bald datas\2020-2022 ordination.xlsx
+
+     Excel Spreadsheet format
+
+****************************** Import completed ******************************
+17 May 2023, 13:55:17
+
+***************** Multi-Response Permutation Procedures (MRPP) *****************
+PC-ORD, 7.09                
+17 May 2023, 13:55:46
+
+ Project file: C:\Users\jonhi\OneDrive\Desktop\boopz\thesis\round bald datas\2020vegedata.7prj
+  Main matrix: C:\Users\jonhi\AppData\Roaming\MjM Software Design\PCORD 7\WORK.MJM
+Second matrix: C:\Users\jonhi\AppData\Roaming\MjM Software Design\PCORD 7\WORK2.MJM
+
+
+2020-2022 MRPP                                                                  
+
+Grouping variable: FIRE from matrix 2
+
+        Groups were defined by values of: FIRE        
+        Input data has:      198 Plots by      10 Variables
+        Weighting option: C(I) = n(I)/sum(n(I))
+        Distance measure: Sorensen (Bray-Curtis)        
+
+     GROUP:      1
+Identifier: 1                   
+      Size:    146      0.60736713    = Average distance
+Members:
+ R1.1.22      R1.2.22      R1.3.22      R1.4.22      R1.5.22      R1.6.22      R1.7.22      R1.8.22     
+ R1.9.22      R1.10.22     R1.11.22     R1.12.22     R2.1.22      R2.2.22      R2.3.22      R2.4.22     
+ R2.5.22      R2.6.22      R2.7.22      R2.8.22      R2.9.22      R3.1.22      R3.2.22      R3.3.22     
+ R3.4.22      R3.7.22      R4.1.22      R4.2.22      R4.3.22      R4.4.22      R4.5.22      R4.6.22     
+ R4.7.22      R4.8.22      R4.9.22      R4.10.22     R4.11.22     R4.12.22     R4.13.22     R4.14.22    
+ R4.15.22     R4.16.22     R4.17.22     R4.18.22     R4.19.22     R4.20.22     R4.21.22     R1.1.20     
+ R1.2.20      R1.3.20      R1.4.20      R1.5.20      R1.6.20      R1.7.20      R1.8.20      R1.9.20     
+ R1.10.20     R1.11.20     R1.12.20     R1.13.20     R1.14.20     R1.15.20     R1.16.20     R1.17.20    
+ R1.18.20     R1.19.20     R1.20.20     R1.21.20     R1.22.20     R2.1.20      R2.2.20      R2.3.20     
+ R2.4.20      R2.5.20      R2.6.20      R2.7.20      R2.8.20      R2.9.20      R2.10.20     R2.11.20    
+ R2.12.20     R2.13.20     R2.14.20     R2.15.20     R2.16.20     R2.17.20     R2.18.20     R2.19.20    
+ R2.20.20     R3.1.20      R3.2.20      R3.3.20      R3.4.20      R3.5.20      R3.6.20      R3.7.20     
+ R3.8.20      R3.9.20      R3.10.20     R3.11.20     R3.12.20     R3.13.20     R3.14.20     R3.15.20    
+ R3.16.20     R3.17.20     R3.18.20     R3.19.20     R3.20.20     R3.21.20     R3.22.20     R3.23.20    
+ R3.24.20     R3.25.20     R4.1.20      R4.2.20      R4.3.20      R4.4.20      R4.5.20      R4.6.20     
+ R4.7.20      R4.8.20      R4.9.20      R4.10.20     R4.11.20     R4.12.20     R4.13.20     R4.14.20    
+ R4.15.20     R4.16.20     R4.17.20     R4.18.20     R4.19.20     R4.20.20     R4.21.20     R4.22.20    
+ R4.23.20     R4.24.20     R4.25.20     R4.26.20     R4.27.20     R4.28.20     R4.29.20     R4.30.20    
+ R4.31.20     R4.32.20    
+
+     GROUP:      2
+Identifier: 2                   
+      Size:     52      0.47499487    = Average distance
+Members:
+ R1.13.22     R1.14.22     R1.15.22     R1.16.22     R1.17.22     R1.18.22     R1.19.22     R1.20.22    
+ R1.21.22     R1.22.22     R2.10.22     R2.11.22     R2.12.22     R2.13.22     R2.14.22     R2.15.22    
+ R2.16.22     R2.17.22     R2.18.22     R2.19.22     R2.20.22     R3.5.22      R3.6.22      R3.8.22     
+ R3.9.22      R3.10.22     R3.11.22     R3.12.22     R3.13.22     R3.14.22     R3.15.22     R3.16.22    
+ R3.17.22     R3.18.22     R3.19.22     R3.20.22     R3.21.22     R3.22.22     R3.23.22     R3.24.22    
+ R3.25.22     R4.22.22     R4.23.22     R4.24.22     R4.25.22     R4.26.22     R4.27.22     R4.28.22    
+ R4.29.22     R4.30.22     R4.31.22     R4.32.22    
+ 
+        Test statistic: T =      -8.6418408    
+           Observed delta =      0.57260270    
+           Expected delta =      0.58317203    
+        Variance of delta =      0.14958326E-05
+        Skewness of delta =      -1.4137648    
+
+        Chance-corrected within-group agreement, A =    0.01812388
+          A = 1 - (observed delta/expected delta)
+          Amax = 1 when all items are identical within groups (delta=0)
+          A = 0 when heterogeneity within groups equals expectation by chance
+          A < 0 with more heterogeneity within groups than expected by chance
+
+        Probability of a smaller or equal delta, p =    0.00001012
+
+****************************** MRPP finished ******************************
+17 May 2023, 13:55:46
+
+
+************************ Importing .xlsx Format File *************************
+PC-ORD, 7.09
+25 May 2023, 15:22:01
+
+     Import file: C:\Users\jonhi\OneDrive\Desktop\boopz\thesis\round bald datas\2020-2022 ordination.xlsx
+
+     Excel Spreadsheet format
+
+****************************** Import completed ******************************
+25 May 2023, 15:22:01
+
+
+************************ Importing .xlsx Format File *************************
+PC-ORD, 7.09
+25 May 2023, 15:23:08
+
+     Import file: C:\Users\jonhi\OneDrive\Desktop\boopz\thesis\round bald datas\2020-2022 ordination.xlsx
+
+     Excel Spreadsheet format
+
+****************************** Import completed ******************************
+25 May 2023, 15:23:08
+
+***************** Multi-Response Permutation Procedures (MRPP) *****************
+PC-ORD, 7.09                
+25 May 2023, 15:23:28
+
+ Project file: C:\Users\jonhi\OneDrive\Desktop\boopz\thesis\round bald datas\2020vegedata.7prj
+  Main matrix: C:\Users\jonhi\AppData\Roaming\MjM Software Design\PCORD 7\WORK.MJM
+Second matrix: C:\Users\jonhi\AppData\Roaming\MjM Software Design\PCORD 7\WORK2.MJM
+
+
+2020-2022 MRPP                                                                  
+
+Grouping variable: FIRE from matrix 2
+
+        Groups were defined by values of: FIRE        
+        Input data has:      198 Plots by      10 Variables
+        Weighting option: C(I) = n(I)/sum(n(I))
+        Distance measure: Sorensen (Bray-Curtis)        
+
+     GROUP:      1
+Identifier: 1                   
+      Size:    146      0.60736713    = Average distance
+Members:
+ R1.1.22      R1.2.22      R1.3.22      R1.4.22      R1.5.22      R1.6.22      R1.7.22      R1.8.22     
+ R1.9.22      R1.10.22     R1.11.22     R1.12.22     R2.1.22      R2.2.22      R2.3.22      R2.4.22     
+ R2.5.22      R2.6.22      R2.7.22      R2.8.22      R2.9.22      R3.1.22      R3.2.22      R3.3.22     
+ R3.4.22      R3.7.22      R4.1.22      R4.2.22      R4.3.22      R4.4.22      R4.5.22      R4.6.22     
+ R4.7.22      R4.8.22      R4.9.22      R4.10.22     R4.11.22     R4.12.22     R4.13.22     R4.14.22    
+ R4.15.22     R4.16.22     R4.17.22     R4.18.22     R4.19.22     R4.20.22     R4.21.22     R1.1.20     
+ R1.2.20      R1.3.20      R1.4.20      R1.5.20      R1.6.20      R1.7.20      R1.8.20      R1.9.20     
+ R1.10.20     R1.11.20     R1.12.20     R1.13.20     R1.14.20     R1.15.20     R1.16.20     R1.17.20    
+ R1.18.20     R1.19.20     R1.20.20     R1.21.20     R1.22.20     R2.1.20      R2.2.20      R2.3.20     
+ R2.4.20      R2.5.20      R2.6.20      R2.7.20      R2.8.20      R2.9.20      R2.10.20     R2.11.20    
+ R2.12.20     R2.13.20     R2.14.20     R2.15.20     R2.16.20     R2.17.20     R2.18.20     R2.19.20    
+ R2.20.20     R3.1.20      R3.2.20      R3.3.20      R3.4.20      R3.5.20      R3.6.20      R3.7.20     
+ R3.8.20      R3.9.20      R3.10.20     R3.11.20     R3.12.20     R3.13.20     R3.14.20     R3.15.20    
+ R3.16.20     R3.17.20     R3.18.20     R3.19.20     R3.20.20     R3.21.20     R3.22.20     R3.23.20    
+ R3.24.20     R3.25.20     R4.1.20      R4.2.20      R4.3.20      R4.4.20      R4.5.20      R4.6.20     
+ R4.7.20      R4.8.20      R4.9.20      R4.10.20     R4.11.20     R4.12.20     R4.13.20     R4.14.20    
+ R4.15.20     R4.16.20     R4.17.20     R4.18.20     R4.19.20     R4.20.20     R4.21.20     R4.22.20    
+ R4.23.20     R4.24.20     R4.25.20     R4.26.20     R4.27.20     R4.28.20     R4.29.20     R4.30.20    
+ R4.31.20     R4.32.20    
+
+     GROUP:      2
+Identifier: 2                   
+      Size:     52      0.47499487    = Average distance
+Members:
+ R1.13.22     R1.14.22     R1.15.22     R1.16.22     R1.17.22     R1.18.22     R1.19.22     R1.20.22    
+ R1.21.22     R1.22.22     R2.10.22     R2.11.22     R2.12.22     R2.13.22     R2.14.22     R2.15.22    
+ R2.16.22     R2.17.22     R2.18.22     R2.19.22     R2.20.22     R3.5.22      R3.6.22      R3.8.22     
+ R3.9.22      R3.10.22     R3.11.22     R3.12.22     R3.13.22     R3.14.22     R3.15.22     R3.16.22    
+ R3.17.22     R3.18.22     R3.19.22     R3.20.22     R3.21.22     R3.22.22     R3.23.22     R3.24.22    
+ R3.25.22     R4.22.22     R4.23.22     R4.24.22     R4.25.22     R4.26.22     R4.27.22     R4.28.22    
+ R4.29.22     R4.30.22     R4.31.22     R4.32.22    
+ 
+        Test statistic: T =      -8.6418408    
+           Observed delta =      0.57260270    
+           Expected delta =      0.58317203    
+        Variance of delta =      0.14958326E-05
+        Skewness of delta =      -1.4137648    
+
+        Chance-corrected within-group agreement, A =    0.01812388
+          A = 1 - (observed delta/expected delta)
+          Amax = 1 when all items are identical within groups (delta=0)
+          A = 0 when heterogeneity within groups equals expectation by chance
+          A < 0 with more heterogeneity within groups than expected by chance
+
+        Probability of a smaller or equal delta, p =    0.00001012
+
+****************************** MRPP finished ******************************
+25 May 2023, 15:23:28
