@@ -52,11 +52,11 @@ set.seed(42)
 # R/Excel data \/\/
 vege<-read_excel("round bald datas/round bald data.xlsx",
                  sheet = "Ground Cover")
-
-
-
 view(vege)
 
+soil<-read_excel("round bald datas/round bald data.xlsx",
+                 sheet="Soil Samples")
+view(soil)
 
 # PC-ORD data \/\/
 
@@ -65,12 +65,12 @@ nms<-read_excel("round bald datas/2020-2022 ordination.xlsx",sheet = "NMS")
 ```
 
 # NMS
-```{r NMS}
+```{r NMS Vege}
 
 ggplot(nms) +
   geom_jitter(aes(x=Axis1, 
                   y=Axis2, 
-                  color=Fire,
+                  color=Tag,
                   ),
               width=0.3, 
               alpha=0.5, 
@@ -83,309 +83,19 @@ ggplot(nms) +
 
 ```
 
-# homogeneous
 
-```{r hom, include=FALSE}
+# T-test
 
-#rubus
-barrub<-bartlett.test(Rubus~Fire,
-              data=vege)
+```{r ttest soil, eval=FALSE, include=FALSE}
 
-levrub<-leveneTest(Rubus~Fire,
-            center=median,
-            data=vege)
+t.test(Grass~Fire, data=soil)
 
-flirub<-fligner.test(Rubus~Fire,
-             data=vege)
+t.test(Rubus~Fire, data=soil)
 
-barrub   #0.7099
-levrub   #0.5862
-flirub   #0.485
+t.test(Forb~Fire, data=soil)
 
+#combo 
 
-#grass
-bargra<-bartlett.test(Grass~Fire,
-              data=vege)
-
-levgra<-leveneTest(Grass~Fire,
-            center=median,
-            data=vege)
-
-fligra<-fligner.test(Grass~Fire,
-             data=vege)
-
-
-bargra #0.09208
-levgra #0.04229
-fligra #0.04673
-
-
-#sedge
-barsed<-bartlett.test(Sedge~Fire,
-              data=vege)
-
-levsed<-leveneTest(Sedge~Fire,
-            center=median,
-            data=vege)
-
-flised<-fligner.test(Sedge~Fire,
-             data=vege)
-
-barsed #0.0006044
-levsed #0.01768
-flised #6.853e-5
-
-
+t.test(All~Fire, data=soil)
 
 ```
-
-
-# lm.modA
-
-```{r vegemod, echo=TRUE, message=FALSE, warning=FALSE, paged.print=FALSE}
-
-rubu<-lm(Rubus~Fire,
-         data=vege)
-aovrubu<-aov(rubu)
-ottorubu<-autoplot(aovrubu)
-ottorubu
-
-gras<-lm(Grass~Fire,
-         data=vege)
-aovgras<-aov(gras)
-ottogras<-autoplot(aovgras)
-ottogras
-
-sedg<-lm(Sedge~Fire,
-         data=vege)
-aovsedg<-aov(sedg)
-ottosedg<-autoplot(aovsedg)
-ottosedg
-
-
-
-aovrubu
-aovgras
-aovsedg
-
-```
-
-# tablA_Anova.gras
-
-```{r grazcova, echo=TRUE, message=FALSE, warning=FALSE, paged.print=FALSE}
-
-
-## Grass
-#using R-car package
-grasmod.out<-Anova(gras)
-
-grasmod.out$'Pr(>F)'<-format.pval(grasmod.out$'Pr(>F)',
-                                   eps=0.0001,
-                                   digits=4,
-                                   na.form=""
-)
-#grasmod.out
-
-grasmod1.cap<-"ANOVA summary for the effect of Fire on Grass species"
-
-#using R-kableExtra package
-gramod1tab<-kbl(grasmod.out,
-    align='r',
-    digits=c(2,0,2,4),
-    caption=grasmod1.cap
-    )|>
-  kable_classic(full=FALSE)
-
-
-## Rubus
-#using R-car package
-rubumod.out<-Anova(rubu)
-
-rubumod.out$'Pr(>F)'<-format.pval(rubumod.out$'Pr(>F)',
-                                   eps=0.0001,
-                                   digits=4,
-                                   na.form=""
-)
-#rubumod.out
-
-rubumod1.cap<-"ANOVA summary for the effect of Fire on Rubus species"
-
-#using R-kableExtra package
-rubmod1tab<-kbl(rubumod.out,
-    align='r',
-    digits=c(2,0,2,4),
-    caption=rubumod1.cap
-    )|>
-  kable_classic(full=FALSE)
-
-
-##Sedge
-#using R-car package
-sedgmod.out<-Anova(sedg)
-
-sedgmod.out$'Pr(>F)'<-format.pval(sedgmod.out$'Pr(>F)',
-                                   eps=0.0001,
-                                   digits=4,
-                                   na.form=""
-)
-#sedgmod.out
-
-sedgmod1.cap<-"ANOVA summary for the effect of Fire on Sedge species"
-
-#using R-kableExtra package
-sedmod1tab<-kbl(sedgmod.out,
-    align='r',
-    digits=c(2,0,2,4),
-    caption=sedgmod1.cap
-    )|>
-  kable_classic(full=FALSE)
-
-
-gramod1tab
-rubmod1tab
-sedmod1tab
-
-
-```
-
-# lm.modB
-
-```{r lmmodB, echo=TRUE, message=FALSE, warning=FALSE, paged.print=FALSE}
-
-
-## Rubus
-#using @R-base package
-rubmod<-lm(Rubus~Fire+Transect+Plot,
-            data=vege
-            )
-#summary(rubmod)
-
-#using @R-ggfortify package
-rubmod<-autoplot(rubmod)
-
-
-
-## Grass
-#using @R-base package
-gramod<-lm(Grass~Fire+Transect+Plot,
-            data=vege
-            )
-#summary(gramod)
-
-#using @R-ggfortify package
-gramod<-autoplot(gramod)
-
-
-
-## Sedge
-#using @R-base package
-sedmod<-lm(Sedge~Fire+Transect+Plot,
-            data=vege
-            )
-#summary(sedmod)
-
-#using @R-ggfortify package
-sedmod<-autoplot(sedmod)
-
-
-rubmod
-gramod
-sedmod
-
-```
-
-# plotB_Anovaz
-
-```{r plotzcova, echo=TRUE, message=FALSE, warning=FALSE, paged.print=FALSE}
-
-
-# Rubus
-#using R-car package
-rubmod.out<-glm(rubu)
-
-rubmod.out$'Pr(>F)'<-format.pval(rubmod.out$'Pr(>F)',
-                                   eps=0.0001,
-                                   digits=4,
-                                   na.form=""
-)
-#rubmod.out
-
-rubmod1.cap<-"ANOVA summary for the effect of Fire on Grass species"
-
-rubus<-ggplot(vege) +
-  geom_boxplot(aes(Rubus,
-                   Fire))+
-  geom_jitter(aes(x=Rubus, 
-                  y=Fire, 
-                  color=Transect
-                  ),
-              width=0.3, 
-              alpha=0.5, 
-              size=4, 
-              shape=16)+
-  xlab("")+
-  theme_classic()
-
-
-# Grass
-#using R-car package
-gramod.out<-glm(gras)
-
-gramod.out$'Pr(>F)'<-format.pval(gramod.out$'Pr(>F)',
-                                   eps=0.0001,
-                                   digits=4,
-                                   na.form=""
-)
-#gramod.out
-
-gramod1.cap<-"ANOVA summary for the effect of Fire on Grass species"
-
-grass<-ggplot(vege) +
-  geom_boxplot(aes(Grass,
-                   Fire))+
-  geom_jitter(aes(x=Grass, 
-                  y=Fire, 
-                  color=Transect
-                  ),
-              width=0.3, 
-              alpha=0.5, 
-              size=4, 
-              shape=16)+
-  xlab("")+
-  theme_classic()
-
-
-# Sedge
-#using R-car package
-sedmod.out<-glm(sedg)
-
-sedmod.out$'Pr(>F)'<-format.pval(sedmod.out$'Pr(>F)',
-                                   eps=0.0001,
-                                   digits=4,
-                                   na.form=""
-)
-#sedmod.out
-
-sedmod1.cap<-"ANOVA summary for the effect of Fire on Grass species"
-
-sedge<-ggplot(vege) +
-  geom_boxplot(aes(Sedge,
-                   Fire))+
-  geom_jitter(aes(x=Sedge, 
-                  y=Fire, 
-                  color=Transect
-                  ),
-              width=0.3, 
-              alpha=0.5, 
-              size=4, 
-              shape=16)+
-  xlab("")+
-  theme_classic()
-
-
-rubus
-grass
-sedge
-
-```
-
