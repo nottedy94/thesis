@@ -86,7 +86,7 @@ ggplot(nms) +
 
 # T-test
 
-```{r ttest soil, eval=FALSE, include=FALSE}
+```{r ttest soil}
 
 t.test(Grass~Fire, data=soil)
 

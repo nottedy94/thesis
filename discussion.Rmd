@@ -1,0 +1,51 @@
+---
+title: "Discussion"
+author: "J. Ted Hillert"
+date: "`r Sys.Date()`"
+output:
+  #bookdown::html_document2:
+  bookdown::word_document2:
+  #bookdown::pdf_document2:
+    number_sections: false
+    toc: yes
+
+bibliography:
+- aRticles.bib
+   
+csl: ecology.csl
+
+---
+
+\newpage
+
+```{r setup, include=FALSE}
+
+knitr::opts_chunk$set(echo=FALSE,
+                      message=FALSE,
+                      warning=FALSE)
+
+
+library(kableExtra)
+library(latex2exp)
+library(pandoc)
+library(papaja)
+
+
+papaja::r_refs(file="discussion.bib")
+
+options(knitr.kable.NA="")
+
+
+```
+
+
+# Discussion
+
+The objectives of this study were to examine how the 2022 low intensity ground fire affected the vegetation community as compared to the previous time the bald was surveyed in 2020. Results from the MRPP indicate that there is little difference between burned and unburned plots across years within the vegetation community. Further analysis of the dominance curves show an increase in the presence of *Rubus* and rock species and a decrease in *Rhododendron* and forbs. Slight variation in other vegetation can be attributed to differences in categorization by surveyors. 
+
+
+
+\newpage
+
+# References
+
