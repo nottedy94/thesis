@@ -1,0 +1,65 @@
+---
+title: "Introduction"
+author: "J. Ted Hillert"
+date: "`r Sys.Date()`"
+output:
+  #bookdown::html_document2:
+  bookdown::word_document2:
+  #bookdown::pdf_document2:
+    number_sections: false
+    toc: yes
+
+bibliography:
+- aRticles.bib
+   
+csl: ecology.csl
+
+---
+
+\newpage
+
+```{r setup, include=FALSE}
+
+knitr::opts_chunk$set(echo=FALSE,
+                      message=FALSE,
+                      warning=FALSE)
+
+
+library(kableExtra)
+library(latex2exp)
+library(pandoc)
+library(papaja)
+
+
+papaja::r_refs(file="introduction.bib")
+
+options(knitr.kable.NA="")
+
+
+```
+
+# INTRODUCTION
+
+Upper montane treeless meadows - balds - host high floral diversity, panoramic views of the landscape, and origins hotly debated to this day [@Gers1970; @Murd1986; @Hame1990]. Many speculate that balds were cleared by Native people for hunting, pasturing livestock, and home and land use and by European settlers for timber and pasturing livestock in the spring and summer seasons [@Lind1979b] - anthropogenic origin. Others believe that they are of a climate-herbivore driven change in the landscape, making it a natural ecosystem caused by Pleistocene glaciation opening up patches in the timberline that were subsequently grazed on by large herbivores and megafauna to maintain the open state [@Weig1995; @Weig2014]. Regardless of origins, true balds are present above 1,400 meters in elevation and occur only in the Southern Blue Ridge Physiographic Province, while any bald can exist on a rock outcrop above 1,200 meters in elevation [@Gers1970]. Other balds - apparent balds - are distributed globally with sites in Oregon, Siberia, and Australia. Balds can be further divided into subtype of grass, dominated by dense herbaceous vegetation and the presence of various forbs - or heath balds dominated by evergreen ericaceous in rocky soils.  
+
+The United States Forest Service (USFS) acquired some of the Southern Appalachian bald lands in the late 1920s after which active management and general recreation ceased [@Lind1979b]. This led to shrub succession in the late 1930s and a management problem in the 1950s [@Lind1979b; @Lind1980]. Despite the shrub succession on these balds, there was debate about whether to protect these areas or not as the literature is unclear about bald origins - whether they are natural formations or human-engineered ecosystems. Following management cessation, the range of grass balds along the Southern Appalachian Mountains has shifted since the study by @Murd1986, who had surveyed round balds in the 1980s. A repeated survey of the balds of Carver's Gap in 2020 by @Stok2022 examined the first 3.36 km of the balds. The cover of *Rubus allegheniensis* and *Rubus canadensis* (*Rubus*) two primary native invasive species are helping convert this grass bald into a heath bald subtype.
+
+Bald management within the Southern Appalachian Mountains varies by managing agency and bald history, with most practices promoting mowing or grazing, and few instances of fire or clearing. When used, fire must be high intensity or high duration to provide a significant effect against woody encroachment [@Lind1980]. Germination requirements of the invasive genus Rubus include scarification - some damage to the seed has to occur for the seed to germinate, fire can provide that damage and could possibly increase growth the following season [@Davi1998]. Sufficiently hot or lengthy burns have the potential to prevent the growth of blackberry, however post-burn analyses of the vegetation community indicates that the resulting community is not characteristic of grass balds [@Lind1980]. Likewise, prescribed burns are difficult to manage at such high elevations, soil moisture levels, and effects on rare and endemic species of historic balds. Therefore management of the balds of Carver's Gap is accomplished through track mowing on a yearly basis in the summer months before *Rubus* goes to seed.
+
+The soil seed bank is a term for the potential community layer that can readily grow from the earth within the next few growing seasons. It is the prequel layer to the advanced regeneration layer that is currently growing on the landscape floor. Estimates of the soil seed bank are more accurate when using two methods - seedling emergence and seed extraction [@Pric2010; @Abel2013; and @Chiq2018]. Seedling emergence involves taking samples of the seed bank from the study site and germinating the plants in greenhouse conditions over the course of several months to see what grows. Seed extraction also takes samples from the study site and then sifts these samples to locate the seeds in the seed bank, these could then be sown in soil to quantify viable seeds extracted from the seed bank. There are drawbacks to both practices, with seedling emergence being time consuming - taking several months to complete - and can give a over-exaggerated count of germinable seeds in the seed bank, considering the fact that these seeds are grown in ideal conditions free from competition. Likewise, seed extraction can over-exaggerate the amount of viable seeds within the seed bank and is more labor intensive than seedling emergence. A combination of the two provides the most robust estimate of the seed bank as they are able to reinforce the findings of the two datasets. 
+
+### Round Bald
+
+Round bald is located along the borders of North Carolina and Tennessee of the Appalachian Trail, about 20 miles North of Bakersville, North Carolina and about 13 miles South of Roan Mountain, Tennessee. The site is largely south-facing with a slope of 13.5 degrees and an average soil depth of 14.2 ± 3.9 centimeters. Vegetation on this bald is dominated by *Danthonia spp.* and *Carex spp.* [@Flem1999]. Round bald has been experiencing woody encroachment from invasive species like *Rubus allegheniensis*, *Rubus canadensis*, *Vaccinium spp.*, *Rhododendrom spp.* and saplings from the surrounding spruce-fir forest. These species are causing the bald to shift from a grass bald subtype into a heath bald subtype. Grass balds are defined by the majority of vegetation as either grasses or sedges, while heath balds are dominated by woody species like *Rubus*. Woody encroachment could potentially extirpate a rare ecosystem subtype that provides panoramic vista views of the adjacent mountaintops and hosts a number of rare and endemic species, such as - Roan Lily (*Lilium grayi*), New England Ragwort (*Packera schweinitziana*), and Roan Mountain Bluet (*Houstonia montana*). Nearly 40 years ago, @Murd1986 and @Hame1990 examined the vegetation community of Roan Mountain balds with the decision to protect these landscapes and reinstate management of these rare ecosystems. The researchers undertook a multi-year study examining the best method for management and found mowing with small application of fire to be sufficient in protecting against woody invasion [@Murd1986]. In 2020, following 30 years of mowing management, @Stok2022 re-surveyed plots from @Murd1986 and @Hame1990. In February of 2022, there was a low-intensity ground fire that burned approximately 9.7 hectares of Round Bald. Roughly half of the plots that @Stok2022 surveyed on Round Bald along the first four transects were within the fire and the other half - along the same four transects - were outside of the fire boundary.
+
+The objectives of this study are; 1. Quantify vegetation composition and the soil seed bank over the 2020 and 2022 growing seasons following the low intensity ground fire on Round Bald, and 2. Propose methods to improve management for conservation of these rare ecosystem subtypes. How has the low-intensity ground fire affected vegetation dynamics in 2022 compared to 2020 from data provided by @Stok2022? What are the management implications that could be gleaned from this disturbance? 
+
+
+
+
+
+
+
+\newpage
+
+# References

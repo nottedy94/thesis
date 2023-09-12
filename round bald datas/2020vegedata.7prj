@@ -1,6 +1,6 @@
 7.09
 Description
-permANOVA
+DCbu
 TransOption 1,2,3,4,6,7,8,10,11,12,13,14,15,16,17,18,19,20,21,22,24,25,26,27,28,29
 21
 PowerPValue 0.0, 9.0, 0.0
@@ -360,7 +360,7 @@ ExpDbsOmitZeros 1, 2, 1
 SpeciesAreaDistance 1, 11, 1
 1
 MatrixOption 1, 5, 1=Main, 2=Second, 3=Traits, 4=Main and Second, 5=Main and Traits
-2
+1
 ClusterTwoWay 1, 2
 1
 CrudeDen 1, 2, 2
@@ -638,9 +638,9 @@ Matrix To Gph File
 Project
 C:\Users\jonhi\OneDrive\Desktop\boopz\thesis\round bald datas\2020vegedata.7prj
 Main Matrix
-C:\Users\jonhi\AppData\Roaming\MjM Software Design\PCORD 7\WORK.MJM
+C:\Users\jonhi\AppData\Roaming\MjM Software Design\PCORD 7\
 Second Matrix
-C:\Users\jonhi\AppData\Roaming\MjM Software Design\PCORD 7\WORK2.MJM
+C:\Users\jonhi\AppData\Roaming\MjM Software Design\PCORD 7\
 Traits Matrix
 
 TraitsDMeas 1, 2, 2
@@ -684,9 +684,9 @@ Replicates 2, 1000, 500
 IncludeDistanceCurves 1, 2, 2
 2
 [Main Window]
-File=C:\Users\jonhi\AppData\Roaming\MjM Software Design\PCORD 7\WORK.MJM
+File=C:\Users\jonhi\AppData\Roaming\MjM Software Design\PCORD 7\
 [Second Window]
-File=C:\Users\jonhi\AppData\Roaming\MjM Software Design\PCORD 7\WORK2.MJM
+File=C:\Users\jonhi\AppData\Roaming\MjM Software Design\PCORD 7\
 [Traits Window]
 File=
 [Row Window]

@@ -60,7 +60,7 @@ view(soil)
 
 # PC-ORD data \/\/
 
-nms<-read_excel("round bald datas/2020-2022 ordination.xlsx",sheet = "NMS")
+nms<-read_excel("round bald datas/2020-2022 ordination.xlsx",sheet = "NMS22")
 
 ```
 
