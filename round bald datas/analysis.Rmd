@@ -1,0 +1,146 @@
+---
+title: "analysis"
+author: "J Ted Hillert (Carter)"
+date: "`r Sys.Date()`"
+output:
+  html_document: default
+  word_document: default
+---
+
+```{r setup, include=FALSE}
+
+knitr::opts_chunk$set(message=FALSE,
+                      echo=FALSE,
+                      warning=FALSE)
+
+library(broom)
+library(car)       # Primarily for the Anova() function
+library(DescTools) # For the GTest
+library(emmeans)
+library(FactoMineR)  # provides exploratory mutlivariate methods
+library(factoextra)  # Visualize the Results of Multivariate Data Analyses
+library(ggfortify)
+library(ggplot2)
+library(ggpubr)
+library(ggrepel)
+library(kableExtra)
+library(lattice)   # For diagnostic plots of linear models in LME4
+library(latex2exp)
+library(lme4)      # For linear mixed effects modelling
+library(lmerTest)  # To provide P-values for lme4
+library(patchwork)
+library(purrr)
+library(readxl)
+library(tidyverse)
+library(stats)
+library(vegan)
+
+
+papaja::r_refs(file = "schmesis.bib")
+
+options(knitr.kable.NA = "")
+
+set.seed(42)
+
+
+```
+
+# Import
+
+```{r imports, message=FALSE, warning=FALSE, include=FALSE}
+
+vege <- read_excel("nmds.xlsx", 
+    sheet = "vege")
+view(vege)
+
+envr<- read_excel("nmds.xlsx", 
+    sheet = "envr")
+view(envr)
+
+vegescores<- read_excel("nmds.xlsx", 
+    sheet = "vegescores")
+view(vegescores)
+
+seedbank <- read_excel("seedbank.xlsx", 
+    sheet = "seedbank ")
+
+
+
+# PC-ORD data \/\/
+
+nms<-read_excel("round bald data.xlsx",sheet = "NMS")
+
+```
+
+# NMS
+```{r nmds}
+data(vege, envr)
+
+vege_out <- metaMDS(comm = vege, 
+                    distance = "bray", 
+                    k = 2, 
+                    autotransform = TRUE
+                    )
+
+
+vege_scores <- as_tibble(vege_out$points, rownames = "site")
+vege_scores$FIRE <- vege_scores$FIRE
+vege_species <- as_tibble(vege_out$species, rownames = "species")
+
+ggplot() +
+  geom_segment(aes(x = 0, y = 0, xend = MDS1, yend = MDS2), 
+               data = vege_species, 
+               arrow = arrow(length = unit(0.03, "npc")), alpha = 0.5) +
+  geom_text_repel(aes(x = MDS1, y = MDS2, label = species), 
+                  data = vege_species, 
+                  max.overlaps = 15,
+                  alpha = 0.5, 
+                  size = 3) +
+  geom_point(aes(x = MDS1, y = MDS2, color = Year), 
+             data = vegescores) +
+  scale_y_continuous(name = 'NMDS 2', limits = c(-2,2)) +
+  scale_x_continuous(name = 'NMDS 1', limits = c(-2,2)) +
+  theme_minimal()
+
+
+```
+
+
+# PERManova
+
+```{r irisPERMANOVA }
+
+seedbank <- read_excel("seedbank.xlsx", 
+    sheet = "seedbank ")
+
+
+seedPERMANOVA <- adonis2(
+  seedbank[,4] ~ Fire+Grass+Rubus+Forb, 
+  data = seedbank, 
+  method = "euclidean",
+  permutations = 10001
+  )
+
+seedPERMANOVA.tab <- "Summary of PERMANOVA test results for multivariate differences among soil seedbank emergence data."
+
+seedPERMANOVA$`Pr(>F)` <- format.pval(seedPERMANOVA$`Pr(>F)`,
+                                 eps = 0.0001,
+                                 digits = 3,
+                                 na.form = ""
+                                 )
+
+kbl(seedPERMANOVA,
+    caption = seedPERMANOVA.tab,
+    col.names = c(
+      "df",
+      "SS",
+      "$R^2$",
+      "F",
+      "P"
+      ),
+    align = "r",
+    digits = c(0, 1, 2, 2, 4)
+    ) |>
+  column_spec(1:5, width = "5em") |>
+  kable_classic(full = FALSE)
+```

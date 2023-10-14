@@ -1,0 +1,37 @@
+---
+title: "Rough Draft"
+author: "J. Ted Hillert"
+date: "`r Sys.Date()`"
+output:
+  bookdown::word_document2:
+    number_sections: false
+    toc: yes
+
+bibliography:
+- aRticles.bib
+   
+csl: ecology.csl
+
+---
+
+\newpage
+
+```{r setup, include=FALSE}
+
+knitr::opts_chunk$set(echo=FALSE,
+                      message=FALSE,
+                      warning=FALSE)
+
+
+library(kableExtra)
+library(latex2exp)
+library(pandoc)
+library(papaja)
+
+
+papaja::r_refs(file="roughdraft.bib")
+
+options(knitr.kable.NA="")
+
+
+```
